@@ -1,3 +1,4 @@
+'use client';
 import { Container, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../styles/theme';
@@ -12,7 +13,11 @@ const Layout = ({ children }) => {
       <Container
         component='main'
         maxWidth='lg'
-        sx={{ minHeight: '90vh', overflow: 'hidden' }}
+        sx={{
+          minHeight: '100vh',
+          minWidth: '100vw',
+          overflow: 'hidden',
+        }}
       >
         {children}
       </Container>

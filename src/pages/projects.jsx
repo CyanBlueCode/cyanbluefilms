@@ -1,8 +1,8 @@
 import ImageButton from '../components/ui/ImageButton';
 
 const categories = [
-  { name: 'VIDEO', image: '/images/video-bg.jpg', href: '/video' },
-  { name: 'PHOTO', image: '/images/photo-bg.jpg', href: '/photo' }
+  { name: 'FILM', image: '/images/film.jpg', href: '/film' },
+  { name: 'PHOTO', image: '/images/photo.jpg', href: '/photo' }
 ];
 
 const Projects = () =>

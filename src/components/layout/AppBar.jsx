@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 import {
   AppBar,
@@ -48,7 +49,7 @@ const CustomAppBar = () => {
       name: 'Projects',
       href: '/projects',
       subItems: [
-        { name: 'Video', href: '/video' },
+        { name: 'Film', href: '/film' },
         { name: 'Photo', href: '/photo' },
       ],
     },
@@ -64,7 +65,9 @@ const CustomAppBar = () => {
     setProjectsMenuAnchor(null);
   };
 
-  const dynamicTextColor = pathname === '/' ? 'white' : 'black';
+  const dynamicTextColor = ['/', '/film'].includes(pathname)
+    ? 'white'
+    : 'black';
 
   return (
     <HideOnScroll>
@@ -122,9 +125,13 @@ const CustomAppBar = () => {
                           minWidth: 75,
                           display: 'flex',
                           justifyContent: 'center',
+                          '&:hover': {
+                            // FIXME temp color
+                            backgroundColor: '#19C2FF',
+                          },
                         }}
                       >
-                        <Typography variant='caption'>
+                        <Typography variant='caption' sx={{ fontWeight: 1000 }}>
                           {subItem.name}
                         </Typography>
                       </MenuItem>
@@ -145,13 +152,13 @@ const CustomAppBar = () => {
 
           {/* Mobile Menu Button */}
           <IconButton
-            color='inherit'
+            color={dynamicTextColor}
             aria-label='open menu'
             edge='end'
             onClick={(e) => setMobileMenuAnchor(e.currentTarget)}
             sx={{ display: { md: 'none' } }}
           >
-            <MenuIcon />
+            <MenuIcon style={{ color: dynamicTextColor }} />
           </IconButton>
 
           {/* Mobile Menu */}
@@ -181,7 +188,7 @@ const CustomAppBar = () => {
                     fontWeight: 'bold',
                     '&:hover': {
                       // FIXME temp color
-                      backgroundColor: 'lightblue',
+                      backgroundColor: '#19C2FF',
                     },
                   }}
                   onClick={() => setMobileMenuAnchor(null)}
@@ -197,12 +204,12 @@ const CustomAppBar = () => {
                     sx={{
                       width: '100%',
                       justifyContent: 'center',
-                      color: 'gray',
-                      fontWeight: 'normal',
-                      fontSize: '0.95rem',
+                      color: '#828282',
+                      fontWeight: 'bold',
+                      fontSize: '0.9rem',
                       '&:hover': {
                         // FIXME temp color
-                        backgroundColor: 'lightblue',
+                        backgroundColor: '#19C2FF',
                       },
                     }}
                     onClick={() => setMobileMenuAnchor(null)}
