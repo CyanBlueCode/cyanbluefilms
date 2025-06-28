@@ -2,7 +2,7 @@ import { Box, Typography, Container } from '@mui/material';
 
 const About =() => {
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container maxWidth="md" sx={{ py: 10 }}>
       <Typography variant="h2" gutterBottom>
         Our Story
       </Typography>
@@ -19,7 +19,7 @@ const About =() => {
       
       <Typography variant="body1" sx={{ mb: 2 }}>
         Cyan Blue Films is a Los Angeles-based production company specializing in cinematic 
-        storytelling through photography and videography. Founded in 2015 by award-winning 
+        storytelling through photography and artistic film. Founded in 2024 by award-winning 
         filmmakers, we bring a unique artistic vision to every project.
       </Typography>
       

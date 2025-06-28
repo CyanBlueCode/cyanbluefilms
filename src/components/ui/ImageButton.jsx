@@ -27,7 +27,7 @@ const ImageButton = ({
         '&:hover': {
           transform: 'scale(1.03)',
           '& .overlay': {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
           }
         }
       }}
@@ -38,7 +38,7 @@ const ImageButton = ({
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

@@ -11,13 +11,14 @@ const Footer = () => {
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
       }}
     >
-      <Typography variant='body2' color='text.secondary'>
+      <Typography variant='caption' color='white' fontWeight={600}>
         © {new Date().getFullYear()} Cyan Blue Films LLC. All rights reserved.
       </Typography>
-      <Typography variant='body2' color='text.secondary'>
+      <Typography variant='caption' color='white' fontWeight={600}>
         From California with Love ♥
       </Typography>
     </Box>
