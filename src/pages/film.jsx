@@ -11,13 +11,18 @@ const filmsList = [
     id: 'PreLXNPv_vA',
     title: 'Snack Smarter',
     description:
-      "Commercial project for Earthside Farms' new healthy mango snacks",
+      "Commercial project for a healthy snack company's new mango snacks",
   },
   {
     id: 'iSLqjiPa94Y',
     title: 'Ultralight',
     description:
-      "Commercial project for AdTec Footwear's Ultralight line of work boots",
+      "Commercial project for footwear brand's new line of work boots",
+  },
+  {
+    id: 'a6ryyXxvTyY',
+    title: 'Neon',
+    description: 'Cinematic fashion shoot teaser for a modeling agency',
   },
 ];
 
@@ -33,7 +38,7 @@ const Film = () => (
       backgroundImage: 'url(/images/film-bg.png)',
       // backgroundSize: 'contain',
       backgroundSize: 'cover',
-      backgroundPosition: 'center'
+      backgroundPosition: 'center',
     }}
   >
     {filmsList.map((film, index) => (
@@ -60,9 +65,9 @@ const Film = () => (
             title={film.title}
             style={{
               width: '50rem',
-              maxWidth: '80%',
+              maxWidth: '90%',
               height: '28.125rem',
-              maxHeight: '100%',
+              maxHeight: '100%', // FIXME not respected on mobile
               border: 'none',
             }}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
