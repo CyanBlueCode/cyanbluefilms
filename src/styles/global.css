@@ -34,3 +34,8 @@ a {
 html {
   scrollbar-width: none;
 }
+
+/* Part of layout mobile viewport height fix */
+:root {
+  --vh: 1vh;
+}
