@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Typography, Box, Button, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import Gallery from './Gallery';
 import GalleryPlaceholder from './Placeholder';
 import { getThumbnailUrl, getOptimizedImageUrl } from '@/utils/imagekit'; // Use client-side utilities

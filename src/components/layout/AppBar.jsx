@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const HideOnScroll = ({ children }) => {
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -84,7 +85,7 @@ const CustomAppBar = () => {
               fontWeight: 1000,
             }}
           >
-            <a href='/'>CYAN BLUE FILMS</a>
+            <Link href='/'>CYAN BLUE FILMS</Link>
           </Typography>
           {/* Desktop Navigation */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
