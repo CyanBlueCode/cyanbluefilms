@@ -5,20 +5,39 @@
  * @returns {string} Optimized image URL
  */
 
+// export const generateImageKitUrl = (filePath, options = {}) => {
+//   const baseUrl = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT;
+//   const transformations = [];
+
+//   if (options.width) transformations.push(`w-${options.width}`);
+//   if (options.height) transformations.push(`h-${options.height}`);
+//   if (options.crop) transformations.push(`c-${options.crop}`);
+//   if (options.quality) transformations.push(`q-${options.quality}`);
+//   if (options.format) transformations.push(`f-${options.format}`);
+//   transformations.push('pr-true');
+
+//   const trString = transformations.join(',');
+
+//   return `${baseUrl}${filePath}?tr=${trString}`;
+// };
+
 export const generateImageKitUrl = (filePath, options = {}) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT;
-  const transformations = [];
-
-  if (options.width) transformations.push(`w-${options.width}`);
-  if (options.height) transformations.push(`h-${options.height}`);
-  if (options.crop) transformations.push(`c-${options.crop}`);
-  if (options.quality) transformations.push(`q-${options.quality}`);
-  if (options.format) transformations.push(`f-${options.format}`);
-  transformations.push('pr-true');
-
-  const trString = transformations.join(',');
-
-  return `${baseUrl}${filePath}?tr=${trString}`;
+  const params = new URLSearchParams();
+  
+  // Add transformation parameters
+  if (options.width) params.append('w', options.width);
+  if (options.height) params.append('h', options.height);
+  if (options.quality) params.append('q', options.quality);
+  if (options.crop) params.append('c', options.crop);
+  if (options.format) params.append('f', options.format);
+  
+  // Add cache buster for production
+  if (process.env.NODE_ENV === 'production') {
+    params.append('v', process.env.BUILD_ID);
+  }
+  
+  return `${baseUrl}${filePath}?${params.toString()}`;
 };
 
 // NOTE image request size controls here

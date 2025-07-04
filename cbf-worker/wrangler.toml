@@ -1,0 +1,9 @@
+name = "cbf-worker"
+compatibility_date = "2023-07-10"
+main = "src/index.js"
+
+[vars]
+IMAGEKIT_URL_ENDPOINT = "https://ik.imagekit.io/cyanbluefilms"
+
+# Add secrets via wrangler secret put:
+# IMAGEKIT_PRIVATE_KEY

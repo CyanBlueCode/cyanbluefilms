@@ -5,23 +5,25 @@ import Gallery from './Gallery';
 import GalleryPlaceholder from './Placeholder';
 import { getThumbnailUrl, getOptimizedImageUrl } from '@/utils/imagekit'; // Use client-side utilities
 
-const ITEMS_PER_PAGE = 50;
+// const ITEMS_PER_PAGE = 50;
+const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL;
 
 const CategoryGallery = ({ categoryName }) => {
   const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    if (!categoryName) return;
+    if (!categoryName || !WORKER_URL) return;
 
     const fetchPhotos = async () => {
       try {
         setLoading(true);
 
+        // Fetch from Cloudflare Worker
         const response = await fetch(
-          `/api/folder-images?folder=/portfolio/${categoryName}`
+          `${WORKER_URL}/folder-images?folder=/portfolio/${categoryName}`
         );
 
         if (!response.ok) {
@@ -29,25 +31,16 @@ const CategoryGallery = ({ categoryName }) => {
           throw new Error(error.error || 'Failed to fetch images');
         }
 
-        const allImages = await response.json();
-        setTotalPages(Math.ceil(allImages.length / ITEMS_PER_PAGE));
-
-        // Get current page images
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        const currentImages = allImages.slice(
-          startIndex,
-          startIndex + ITEMS_PER_PAGE
-        );
+        const images = await response.json();
 
         // Map to the format expected by Gallery
-        const formattedPhotos = currentImages.map((img) => ({
+        const formattedPhotos = images.map((img) => ({
           id: img.id,
           title: img.name,
           filePath: img.filePath,
+          // Generate URLs using our utility
           thumbnailUrl: getThumbnailUrl(img.filePath),
           imageUrl: getOptimizedImageUrl(img.filePath),
-          width: img.width,
-          height: img.height,
         }));
 
         setPhotos(formattedPhotos);
@@ -59,7 +52,7 @@ const CategoryGallery = ({ categoryName }) => {
     };
 
     fetchPhotos();
-  }, [categoryName, currentPage]);
+  }, [categoryName]);
 
   return (
     <Box sx={{ pt: 15, pb: 4 }}>
@@ -80,7 +73,7 @@ const CategoryGallery = ({ categoryName }) => {
         <>
           <Gallery photos={photos} />
 
-          {totalPages > 1 && (
+          {/* {totalPages > 1 && (
             <Stack direction='row' spacing={2} justifyContent='center' mt={4}>
               <Button
                 variant='outlined'
@@ -102,7 +95,7 @@ const CategoryGallery = ({ categoryName }) => {
                 Next
               </Button>
             </Stack>
-          )}
+          )} */}
         </>
       ) : (
         <Typography variant='h5' textAlign='center'>
