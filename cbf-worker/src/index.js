@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+/* eslint-disable func-style */
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
  *
@@ -8,7 +10,6 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	async fetch(request, env) {
 		try {
@@ -33,48 +34,44 @@ export default {
 	},
 };
 
-// eslint-disable-next-line func-style
 async function handleFolderImages(request, env) {
 	const url = new URL(request.url);
 	const folder = url.searchParams.get('folder');
 
 	if (!folder) {
-		return new Response('Folder parameter is required', { status: 400 });
+		return new Response('Missing folder parameter', { status: 400 });
 	}
-
 	// Fetch from ImageKit API
-	const imageKitUrl = `https://api.imagekit.io/v1/files?path=${encodeURIComponent(folder)}`;
-
-	const response = await fetch(imageKitUrl, {
-		method: 'GET',
-		headers: {
-			Authorization: `Basic ${btoa(env.IMAGEKIT_PRIVATE_KEY + ':')}`,
-		},
-	});
-
-	if (!response.ok) {
-		const error = await response.text();
-		return new Response(`ImageKit API error: ${response.status} - ${error}`, {
-			status: response.status,
+	try {
+		const response = await fetch(`https://api.imagekit.io/v1/files?path=${encodeURIComponent(folder)}`, {
+			headers: {
+				Authorization: `Basic ${btoa(env.IMAGEKIT_PRIVATE_KEY + ':')}`,
+			},
 		});
+
+		if (!response.ok) {
+			const error = await response.text();
+			return new Response(`ImageKit error: ${error}`, { status: 500 });
+		}
+
+		const files = await response.json();
+		// Filter and format response
+		const images = files
+			.filter((file) => file.fileType === 'image')
+			.map((file) => ({
+				id: file.fileId,
+				name: file.name,
+				filePath: file.filePath,
+			}));
+
+		return new Response(JSON.stringify(images), {
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+			},
+		});
+	} catch (error) {
+		return new Response(error.stack, { status: 500 });
 	}
-
-	const data = await response.json();
-
-	// Filter and format response
-	const images = data
-		.filter((file) => file.fileType === 'image')
-		.map((file) => ({
-			id: file.fileId,
-			name: file.name,
-			filePath: file.filePath,
-		}));
-
-	return new Response(JSON.stringify(images), {
-		headers: {
-			'Content-Type': 'application/json',
-			'Access-Control-Allow-Origin': '*',
-			'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
-		},
-	});
 }
