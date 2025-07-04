@@ -47,9 +47,17 @@ jobs:
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
           NEXT_PUBLIC_WORKER_URL: ${{ secrets.WORKER_URL }}
 
+      - name: Prepare for GitHub Pages
+        run: |
+          # Add CNAME for custom domain
+          echo "cyanbluefilms.com" > out/CNAME
+          # Add .nojekyll to bypass Jekyll processing
+          touch out/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           keep_files: true
+          force_orphan: true
