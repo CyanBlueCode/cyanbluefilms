@@ -19,7 +19,7 @@ const Photo = () => {
     const urls = {};
     categories.forEach((category) => {
       urls[category.folder] = getCoverImageUrl(
-        `/portfolio/${category.folder}/cover.jpg`
+        `/portfolio/${category.folder}/cover-${category.folder}.jpg`
       );
     });
 
