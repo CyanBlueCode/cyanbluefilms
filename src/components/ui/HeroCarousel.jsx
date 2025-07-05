@@ -33,7 +33,13 @@ const HeroCarousel = ({ images, interval = 3600 }) => {
   }, [currentIndex, interval]);
 
   return (
-    <Box sx={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
       {images.map((img, idx) => (
         <Box
           key={idx}
