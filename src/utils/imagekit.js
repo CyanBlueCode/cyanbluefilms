@@ -4,44 +4,31 @@
  * @param {Object} options - Transformation options
  * @returns {string} Optimized image URL
  */
-
-// export const generateImageKitUrl = (filePath, options = {}) => {
-//   const baseUrl = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT;
-//   const transformations = [];
-
-//   if (options.width) transformations.push(`w-${options.width}`);
-//   if (options.height) transformations.push(`h-${options.height}`);
-//   if (options.crop) transformations.push(`c-${options.crop}`);
-//   if (options.quality) transformations.push(`q-${options.quality}`);
-//   if (options.format) transformations.push(`f-${options.format}`);
-//   transformations.push('pr-true');
-
-//   const trString = transformations.join(',');
-
-//   return `${baseUrl}${filePath}?tr=${trString}`;
-// };
-
 export const generateImageKitUrl = (filePath, options = {}) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT;
-  const params = new URLSearchParams();
-  
-  // Add transformation parameters
-  if (options.width) params.append('w', options.width);
-  if (options.height) params.append('h', options.height);
-  if (options.quality) params.append('q', options.quality);
-  if (options.crop) params.append('c', options.crop);
-  if (options.format) params.append('f', options.format);
-  
-  // Add cache buster for production
-  if (process.env.NODE_ENV === 'production') {
-    params.append('v', process.env.BUILD_ID);
-  }
-  
-  return `${baseUrl}${filePath}?${params.toString()}`;
-};
 
-// NOTE image request size controls here
-// constructed params should look like: ?tr=w-600,h-600,c-at_least,q-80,f-webp
+  // Build transformation string
+  const transformations = [];
+
+  if (options.width) transformations.push(`w-${options.width}`);
+  if (options.height) transformations.push(`h-${options.height}`);
+  if (options.crop) transformations.push(`c-${options.crop}`);
+  if (options.quality) transformations.push(`q-${options.quality}`);
+  if (options.format) transformations.push(`f-${options.format}`);
+
+  // Always add progressive loading
+  transformations.push('pr-true');
+
+  const trParam = transformations.join(',');
+
+  // Add cache buster for production
+  const cacheBuster =
+    process.env.NODE_ENV === 'production' ? `&v=${Date.now()}` : '';
+
+  return `${baseUrl}${filePath}${
+    trParam ? `?tr=${trParam}${cacheBuster}` : ''
+  }`;
+};
 
 /**
  * Generates a thumbnail URL for gallery display
@@ -50,10 +37,10 @@ export const generateImageKitUrl = (filePath, options = {}) => {
  */
 export const getThumbnailUrl = (filePath) =>
   generateImageKitUrl(filePath, {
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 800,
     crop: 'at_least',
-    quality: 80,
+    quality: 85,
     format: 'webp',
   });
 
@@ -78,6 +65,6 @@ export const getCoverImageUrl = (filePath) =>
     width: 800,
     height: 800,
     crop: 'at_least',
-    quality: 80,
+    quality: 85,
     format: 'webp',
   });

@@ -52,7 +52,7 @@ const Photo = () => {
           imageUrl={coverUrls[category.folder] || '/images/default-cover.jpg'}
           text={category.name}
           href={`/photo/${category.name.toLowerCase()}`}
-          width='100%'
+          width='90%'
         />
       ))}
     </Box>

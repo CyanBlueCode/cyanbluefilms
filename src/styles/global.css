@@ -39,3 +39,16 @@ html {
 :root {
   --vh: 1vh;
 }
+
+/* Typewriter */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  position: relative;
+  left: 2px;
+  display: inline-block;
+}

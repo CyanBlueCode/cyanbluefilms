@@ -11,7 +11,7 @@ const Projects = () =>
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-             alignItems: 'center'
+             alignItems: 'center',
           }}
         >
           {categories.map(({image, name, href}, index) => (
@@ -20,7 +20,7 @@ const Projects = () =>
               imageUrl={image}
               text={name}
               href={href}
-              width='100%'
+              width='90%'
             />
           ))}
         </div>

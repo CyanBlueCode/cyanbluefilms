@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import HeroCarousel from '../components/ui/HeroCarousel';
+import { Box } from '@mui/material';
 
 // NOTE add images in order by number; images must be named hero#.jpg
 const order = [1, 2, 5, 4, 3];
@@ -23,9 +24,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', height: '100%' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        height: { xs: '91vh', sm: '100%' },
+      }}
+    >
       <HeroCarousel images={heroImages} />
-    </div>
+    </Box>
   );
 };
 
