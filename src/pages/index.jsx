@@ -38,7 +38,7 @@ const Home = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        height: 'calc(var(--vh, 1vh) * 91)',
+        height: 'calc(var(--vh, 1vh) * 100)',
       }}
     >
       <HeroCarousel images={heroImages} />

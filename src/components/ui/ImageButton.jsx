@@ -19,10 +19,9 @@ const ImageButton = ({
       backgroundImage: `url(${imageUrl})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      borderRadius: 1,
+      borderRadius: 2,
       overflow: 'hidden',
       mb: { xs: 3, md: 4 }, // Responsive margin
-      mx: { xs: 1, md: 2 }, // FIXME not working on mobile?
       transition: 'transform 0.3s ease',
       '&:hover': {
         transform: 'scale(1.03)',
