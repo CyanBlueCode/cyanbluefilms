@@ -1,10 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Box, Typography, LinearProgress } from '@mui/material';
+import useTypewriter from '@/utils/useTypewriter';
 
 const HeroCarousel = ({ images, interval = 3600 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const subtitle = 'Cinematic Storytelling Through Visual Excellence';
+  const typedSubtitle = useTypewriter(subtitle, 60);
 
   // Rotate carousel images
   useEffect(() => {
@@ -51,6 +54,7 @@ const HeroCarousel = ({ images, interval = 3600 }) => {
         />
       ))}
 
+      {/* NOTE text titles below */}
       <Box
         sx={{
           position: 'absolute',
@@ -69,11 +73,33 @@ const HeroCarousel = ({ images, interval = 3600 }) => {
           p: 3,
         }}
       >
-        {/* <Typography variant='h1' sx={{ mb: 2 }}>
-          Cyan Blue Films
-        </Typography> */}
-        <Typography variant='h4'>
-          Cinematic Storytelling Through Visual Excellence
+        <Typography
+          variant='h4'
+          component='div'
+          className='typewriter cursor'
+          sx={{
+            fontFamily: 'monospace',
+            whiteSpace: 'normal',
+            maxWidth: {
+              xs: '95%', // mobile: almost full width
+              sm: '80%', // tablets: narrower
+              md: '70%', // desktop: narrower still
+            },
+            margin: '0 auto',
+            fontSize: {
+              xs: '1.5rem',
+              sm: '2rem',
+              md: '2.5rem',
+            },
+            overflow: 'hidden',
+            '&::after': {
+              content: '"|"',
+              ml: '2px',
+              animation: 'blink 1s step-end infinite',
+            },
+          }}
+        >
+          {typedSubtitle}
         </Typography>
         <LinearProgress
           variant='determinate'

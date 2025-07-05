@@ -105,10 +105,11 @@ const Gallery = ({ photos }) => {
           onClick={({ index }) => handleLightboxOpen(index)}
         />
       )}
-
+      {/* NOTE react-photo-album requires dimensions for layout calc */}
       {/* Hidden image preloader to get dimensions */}
       <div style={{ display: 'none' }}>
         {photos.map((photo, index) => (
+          // REVIEW could use a better implementation
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={index}

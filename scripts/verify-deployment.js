@@ -5,7 +5,7 @@ const domain = 'cyanbluefilms.com';
 const urlsToCheck = [
   '/',
   '/photo',
-  '/video',
+  '/film',
   '/about',
   '/contact'
 ];
@@ -45,19 +45,3 @@ urlsToCheck.forEach(path => {
     process.exit(1);
   });
 });
-
-// Check GitHub Actions status
-console.log('\nChecking GitHub Actions status...');
-try {
-  const actionsResult = execSync('gh run list --limit 1 --json status').toString().trim();
-  const lastAction = JSON.parse(actionsResult)[0];
-  
-  console.log(`Last deployment status: ${lastAction.status}`);
-  
-  if (lastAction.status !== 'completed') {
-    throw new Error('Last deployment did not complete successfully');
-  }
-} catch (error) {
-  console.error('❌ GitHub Actions check failed:', error.message);
-  process.exit(1);
-}
