@@ -46,8 +46,9 @@ const Film = () => (
         key={index}
         sx={{
           mb: 2,
-          pt: 10,
+          pt: 4,
           width: '100%',
+          height: '50%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -56,28 +57,38 @@ const Film = () => (
       >
         <Box
           sx={{
+            width: '100%', // full width of container
+            maxWidth: { xs: '100%', sm: '50rem' }, // limit only on larger screens
+            aspectRatio: '16 / 9',
             position: 'relative',
-            width: '100%',
+            overflow: 'hidden',
+            mx: 'auto',
           }}
         >
           <iframe
             src={`https://www.youtube.com/embed/${film.id}`}
             title={film.title}
             style={{
-              width: '50rem',
-              maxWidth: '90%',
-              height: '28.125rem',
-              maxHeight: '100%', // FIXME not respected on mobile
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              padding: '0.5rem',
+              top: 0,
+              left: 0,
               border: 'none',
             }}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
           />
         </Box>
-        <Typography variant='h4' gutterBottom sx={{ pt: 2, color: 'white' }}>
+        <Typography
+          variant='h5'
+          gutterBottom
+          sx={{ pt: 2, color: 'white', fontWeight: 600 }}
+        >
           {film.title}
         </Typography>
-        <Typography variant='body1' sx={{ color: 'white' }}>
+        <Typography variant='body1' sx={{ color: 'white', px: 2 }}>
           {film.description}
         </Typography>
       </Box>
