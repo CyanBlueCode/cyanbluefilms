@@ -84,8 +84,6 @@ async function handleFolderImages(request, env) {
 				createdAt: file.createdAt, // Keep for reference
 			}));
 
-			console.log('yeeet')
-
 		return new Response(JSON.stringify(images), {
 			headers: {
 				'Content-Type': 'application/json',

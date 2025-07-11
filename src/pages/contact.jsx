@@ -7,41 +7,96 @@ import {
   Box,
   Snackbar,
   Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from '@mui/material';
 
+const PROJECT_TYPES = [
+  'Commercial',
+  'Documentary',
+  'Narrative Film',
+  'Short Form Content',
+  'Brand Content',
+  'Collaboration',
+  'Other',
+];
+
 const Contact = () => {
+  // Update state to include new fields
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    projectType: '',
     message: '',
+    [process.env.NEXT_PUBLIC_HONEYPOT_FIELD || 'website_url']: '', // Honeypot
   });
+
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSnackbarMessage('Message sent successfully!');
-      setSnackbarSeverity('success');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSnackbarMessage('Message sent successfully!');
+        setSnackbarSeverity('success');
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          projectType: '',
+          message: '',
+          [process.env.NEXT_PUBLIC_HONEYPOT_FIELD || 'website_url']: '',
+        });
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      setSnackbarMessage(error.message || 'Error sending message');
+      setSnackbarSeverity('error');
+    } finally {
       setOpenSnackbar(true);
-      setFormData({ name: '', email: '', message: '' });
-    }, 1000);
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <Container maxWidth='sm' sx={{ py: 4 }}>
+    <Container maxWidth='sm' sx={{ py: 10 }}>
       <Typography variant='h2' gutterBottom>
-        Contact Us
+        Say Hello
       </Typography>
 
       <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <TextField
+          name={process.env.NEXT_PUBLIC_HONEYPOT_FIELD || 'website_url'}
+          value={
+            formData[process.env.NEXT_PUBLIC_HONEYPOT_FIELD || 'website_url']
+          }
+          onChange={handleChange}
+          sx={{ display: 'none' }} // Hide visually
+          aria-hidden='true'
+        />
+
         <TextField
           fullWidth
           label='Name'
@@ -65,6 +120,35 @@ const Contact = () => {
 
         <TextField
           fullWidth
+          label='Phone'
+          name='phone'
+          type='phone'
+          value={formData.phone}
+          onChange={handleChange}
+          margin='normal'
+        />
+
+        <FormControl fullWidth margin='normal' required>
+          <InputLabel>Project Type</InputLabel>
+          <Select
+            name='projectType'
+            value={formData.projectType}
+            onChange={handleChange}
+            label='Project Type'
+          >
+            <MenuItem value=''>
+              <em>Select project type</em>
+            </MenuItem>
+            {PROJECT_TYPES.map((type) => (
+              <MenuItem key={type} value={type}>
+                {type}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <TextField
+          fullWidth
           label='Message'
           name='message'
           value={formData.message}
@@ -72,7 +156,7 @@ const Contact = () => {
           margin='normal'
           required
           multiline
-          rows={4}
+          rows={5}
         />
 
         <Button
@@ -81,37 +165,43 @@ const Contact = () => {
           color='primary'
           sx={{ mt: 3 }}
           fullWidth
+          disabled={isSubmitting}
         >
-          Send Message
+          {isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>
       </Box>
 
+      {/* Studio map */}
       <Box sx={{ mt: 6, width: '100%' }}>
         <Typography variant='h5' gutterBottom>
           Our Studio
         </Typography>
-        <Box
-          sx={{
-            width: '100%',
-            height: 300,
-            backgroundColor: '#e0e0e0',
-            borderRadius: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography>Google Map Embed Here</Typography>
+        <Box sx={{ mt: 3 }}>
+          <object
+            // NOTE: embedded map only zoomed in at correct level on initial load; known Chrome cache issue. difficult problem.
+            data='https://www.openstreetmap.org/export/embed.html?bbox=-118.42781066894533%2C33.95019369509206%2C-118.0913543701172%2C34.1352505344048&amp;layer=mapnik&amp;marker=34.042772590641256%2C-118.25958251953125'
+            width='100%'
+            height='300'
+            style={{ border: '1px solid #ccc', borderRadius: 4 }}
+          />
+          {/* <Typography variant='body2' sx={{ mt: 1 }}>
+            <a
+              // G-Maps nav to link
+              href='https://www.google.com/maps/dir/?api=1&destination=409+W+Olympic+Blvd,+Los+Angeles,+CA+90015'
+              target='_blank'
+              rel='noreferrer'
+            >
+              409 W. Olympic Blvd. Los Angeles, CA 90015
+            </a>
+          </Typography> */}
         </Box>
-        <Typography variant='body1' sx={{ mt: 2 }}>
-          123 Cinema Street, Los Angeles, CA 90028
-        </Typography>
       </Box>
 
       <Snackbar
         open={openSnackbar}
         autoHideDuration={6000}
         onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={() => setOpenSnackbar(false)}
@@ -123,188 +213,6 @@ const Contact = () => {
       </Snackbar>
     </Container>
   );
-}
+};
 
 export default Contact;
-
-// TODO https://www.emailjs.com/ version; update & uncomment after account sign up & credentials
-// import { useState } from 'react';
-// import emailjs from 'emailjs-com';
-// import {
-//   Container,
-//   TextField,
-//   Button,
-//   Typography,
-//   Box,
-//   Snackbar,
-//   Alert
-// } from '@mui/material';
-
-// const Contact = () => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     message: ''
-//   });
-//   const [errors, setErrors] = useState({});
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [openSnackbar, setOpenSnackbar] = useState(false);
-//   const [snackbarMessage, setSnackbarMessage] = useState('');
-//   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-
-//   const validate = () => {
-//     const newErrors = {};
-//     if (!formData.name.trim()) newErrors.name = 'Name is required';
-//     if (!formData.email.trim()) {
-//       newErrors.email = 'Email is required';
-//     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-//       newErrors.email = 'Email is invalid';
-//     }
-//     if (!formData.message.trim()) newErrors.message = 'Message is required';
-//     return newErrors;
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({ ...prev, [name]: value }));
-
-//     // Clear error when user types
-//     if (errors[name]) {
-//       setErrors(prev => ({ ...prev, [name]: null }));
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const validationErrors = validate();
-
-//     if (Object.keys(validationErrors).length > 0) {
-//       setErrors(validationErrors);
-//       return;
-//     }
-
-//     setIsSubmitting(true);
-
-//     try {
-//       // Replace with your EmailJS service details
-//       await emailjs.send(
-//         'your_service_id',
-//         'your_template_id',
-//         {
-//           from_name: formData.name,
-//           reply_to: formData.email,
-//           message: formData.message,
-//           to_email: 'hello@cyanbluefilms.com'
-//         },
-//         'your_user_id'
-//       );
-
-//       setSnackbarMessage('Message sent successfully!');
-//       setSnackbarSeverity('success');
-//       setFormData({ name: '', email: '', message: '' });
-//     } catch (error) {
-//       console.error('Failed to send email:', error);
-//       setSnackbarMessage('Failed to send message. Please try again later.');
-//       setSnackbarSeverity('error');
-//     } finally {
-//       setIsSubmitting(false);
-//       setOpenSnackbar(true);
-//     }
-//   };
-
-//   return (
-//     <Container maxWidth="sm" sx={{ py: 4 }}>
-//       <Typography variant="h2" gutterBottom>
-//         Contact Us
-//       </Typography>
-
-//       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-//         <TextField
-//           fullWidth
-//           label="Name"
-//           name="name"
-//           value={formData.name}
-//           onChange={handleChange}
-//           margin="normal"
-//           required
-//           error={!!errors.name}
-//           helperText={errors.name}
-//         />
-
-//         <TextField
-//           fullWidth
-//           label="Email"
-//           name="email"
-//           type="email"
-//           value={formData.email}
-//           onChange={handleChange}
-//           margin="normal"
-//           required
-//           error={!!errors.email}
-//           helperText={errors.email}
-//         />
-
-//         <TextField
-//           fullWidth
-//           label="Message"
-//           name="message"
-//           value={formData.message}
-//           onChange={handleChange}
-//           margin="normal"
-//           required
-//           multiline
-//           rows={4}
-//           error={!!errors.message}
-//           helperText={errors.message}
-//         />
-
-//         <Button
-//           type="submit"
-//           variant="contained"
-//           color="primary"
-//           sx={{ mt: 3 }}
-//           fullWidth
-//           disabled={isSubmitting}
-//         >
-//           {isSubmitting ? 'Sending...' : 'Send Message'}
-//         </Button>
-//       </Box>
-
-//       <Box sx={{ mt: 6, width: '100%' }}>
-//         <Typography variant="h5" gutterBottom>
-//           Our Studio
-//         </Typography>
-//         <Box sx={{
-//           width: '100%',
-//           height: 300,
-//           backgroundColor: '#e0e0e0',
-//           borderRadius: 1,
-//           display: 'flex',
-//           alignItems: 'center',
-//           justifyContent: 'center'
-//         }}>
-//           <Typography>Google Map Embed Here</Typography>
-//         </Box>
-//         <Typography variant="body1" sx={{ mt: 2 }}>
-//           123 Cinema Street, Los Angeles, CA 90028
-//         </Typography>
-//       </Box>
-
-//       <Snackbar
-//         open={openSnackbar}
-//         autoHideDuration={6000}
-//         onClose={() => setOpenSnackbar(false)}
-//       >
-//         <Alert
-//           onClose={() => setOpenSnackbar(false)}
-//           severity={snackbarSeverity}
-//           sx={{ width: '100%' }}
-//         >
-//           {snackbarMessage}
-//         </Alert>
-//       </Snackbar>
-//     </Container>
-//   );
-// };
-
-// export default Contact;
