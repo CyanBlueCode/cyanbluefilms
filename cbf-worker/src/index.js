@@ -61,22 +61,7 @@ async function handleFolderImages(request, env) {
 		// Filter out cover images and sort by filename
 		const images = files
 			.filter((file) => file.fileType === 'image' && !file.name.toLowerCase().includes('cover'))
-			.sort((a, b) => {
-				// Extract numeric parts from filenames for natural sorting
-				const numA = parseInt(a.name.match(/\d+/)?.[0]) || 0;
-				const numB = parseInt(b.name.match(/\d+/)?.[0]) || 0;
-
-				// First try numeric sort
-				if (!isNaN(numA) && !isNaN(numB)) {
-					return numA - numB;
-				}
-
-				// Fallback to string comparison
-				return a.name.localeCompare(b.name, undefined, {
-					numeric: true,
-					sensitivity: 'base',
-				});
-			})
+			.sort((a, b) => a.name.localeCompare(b.name))
 			.map((file) => ({
 				id: file.fileId,
 				name: file.name,
@@ -116,14 +101,14 @@ async function handleFolderImages(request, env) {
 //         return handleFolderImages(request, env);
 //       }
 
-//       return new Response("Not found", { 
+//       return new Response("Not found", {
 //         status: 404,
-//         headers: corsHeaders 
+//         headers: corsHeaders
 //       });
 //     } catch (error) {
-//       return new Response(error.stack || error.toString(), { 
+//       return new Response(error.stack || error.toString(), {
 //         status: 500,
-//         headers: corsHeaders 
+//         headers: corsHeaders
 //       });
 //     }
 //   },
@@ -151,12 +136,12 @@ async function handleFolderImages(request, env) {
 //   const folder = url.searchParams.get("folder");
 
 //   if (!folder) {
-//     return new Response("Missing folder parameter", { 
+//     return new Response("Missing folder parameter", {
 //       status: 400,
-//       headers: corsHeaders 
+//       headers: corsHeaders
 //     });
 //   }
-  
+
 //   try {
 //     const response = await fetch(`https://api.imagekit.io/v1/files?path=${encodeURIComponent(folder)}`, {
 //       headers: {
@@ -166,18 +151,18 @@ async function handleFolderImages(request, env) {
 
 //     if (!response.ok) {
 //       const error = await response.text();
-//       return new Response(`ImageKit error: ${error}`, { 
+//       return new Response(`ImageKit error: ${error}`, {
 //         status: 500,
-//         headers: corsHeaders 
+//         headers: corsHeaders
 //       });
 //     }
-    
+
 //     const files = await response.json();
-    
+
 //     // Filter and sort images
 //     const images = files
 //       .filter((file) => file.fileType === "image" && !file.name.toLowerCase().includes("cover"))
-//       .sort((a, b) => 
+//       .sort((a, b) =>
 //         // Natural sort by filename
 //          a.name.localeCompare(b.name, undefined, {
 //           numeric: true,
@@ -198,9 +183,9 @@ async function handleFolderImages(request, env) {
 //       },
 //     });
 //   } catch (error) {
-//     return new Response(error.stack, { 
+//     return new Response(error.stack, {
 //       status: 500,
-//       headers: corsHeaders 
+//       headers: corsHeaders
 //     });
 //   }
 // }
