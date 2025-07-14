@@ -13,3 +13,7 @@ IMAGEKIT_URL_ENDPOINT = "https://ik.imagekit.io/cyanbluefilms"
 ip = "localhost"
 port = 8787
 local_protocol = "http"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
