@@ -10,9 +10,7 @@
     "build": "next build",
     "predeploy": "npm run build",
     "postinstall": "npm run build",
-    "deploy:worker": "wrangler deploy --config cbf-worker/wrangler.toml",
-    "deploy:frontend": "npm run build && gh-pages -d out",
-    "deploy": "npm run deploy:worker && npm run deploy:frontend"
+    "deploy:worker": "wrangler deploy --config cbf-worker/wrangler.toml"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
