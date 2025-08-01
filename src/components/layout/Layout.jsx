@@ -5,6 +5,7 @@ import theme from '../../styles/theme';
 import CustomAppBar from './AppBar';
 import Footer from './Footer';
 import { useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 
 const Layout = ({ children }) => {
   const [windowHeight, setWindowHeight] = useState('100vh');
@@ -49,6 +50,7 @@ const Layout = ({ children }) => {
           }}
         >
           {children}
+          <Analytics />
         </Container>
         <Footer />
       </Box>
