@@ -8,6 +8,9 @@ export default createTheme({
     secondary: {
       main: '#e65100', // Amber
     },
+    cyanBlue: {
+      main: '#19C2FF',
+    },
     background: {
       default: '#f5f5f5',
     },
