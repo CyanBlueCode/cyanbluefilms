@@ -9,7 +9,7 @@ const gym01 = () => (
       title: [
         'Stand Out With',
         'High Quality',
-        'Marketing Content',
+        'Marketing Content', // TODO A/B test this with 'Marketing Videos'
         'For Your Fight Gym',
       ],
       subtitle: [
@@ -21,7 +21,7 @@ const gym01 = () => (
     }}
     videoSection={{
       title: 'Main Video Sample',
-      subtitle: 'This is a sample of the main full-length deliverable video.',
+      subtitle: 'This is a video. Wow.',
       thumbnail: '/images/film.jpg',
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
     }}
@@ -32,7 +32,7 @@ const gym01 = () => (
         {
           title: 'Made By Fighters',
           description:
-            'Work with filmmakers who train in combat sports. We understand the intricacies of striking and your needs.',
+            'Work with filmmakers who train in combat sports. We understand the intricacies of striking disciplines and your specific marketing needs.',
           icon: SportsMma,
         },
         {
@@ -44,7 +44,7 @@ const gym01 = () => (
         {
           title: 'Cinematic Quality',
           description:
-            'Shot with pro cinema cameras and lighting setups, not photo cameras.',
+            'Shot with pro cinema cameras, lenses, and lighting setups, not photo cameras.',
           icon: Videocam,
         },
       ],
@@ -80,7 +80,7 @@ const gym01 = () => (
         },
         {
           avatar: '/images/landing-gym01/gym01-testimonial-avatar1.jpg',
-          quote: 'The videos gave me an erected that lasted more than 4 hrs.',
+          quote: 'The videos gave me an erection that lasted more than 4 hrs.',
         },
       ],
     }}
