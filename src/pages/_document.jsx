@@ -7,7 +7,7 @@ export default function Document() {
         <meta charSet='UTF-8' />
         <meta
           name='description'
-          content='Cyan Blue Films LLC - Professional commercial video production and photography'
+          content='Cyan Blue Films LLC - Professional commercial video production company based in sunny Los Angeles, California.'
         />
         <meta
           name='keywords'
@@ -21,13 +21,13 @@ export default function Document() {
         <meta property='og:title' content='Cyan Blue Films' />
         <meta
           property='og:description'
-          content='Cyan Blue Films LLC - Professional commercial video production and photography'
+          content='Cyan Blue Films LLC - Professional commercial video production company based in sunny Los Angeles, California.'
         />
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://cyanbluefilms.com' />
         <meta
           property='og:image'
-          content='https://cyanbluefilms.com/images/og-image.jpg'
+          // content='https://cyanbluefilms.com/images/og-image.jpg'
         />
       </Head>
       <body>

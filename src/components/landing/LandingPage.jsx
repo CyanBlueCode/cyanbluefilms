@@ -288,7 +288,7 @@ const LandingPage = ({
                   theme='dark'
                   buttonConfig={{
                     text: 'Book a FREE consultation today',
-                    color: 'primary',
+                    color: 'cyanBlue.main',
                   }}
                 />
 

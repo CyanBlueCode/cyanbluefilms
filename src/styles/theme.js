@@ -9,7 +9,7 @@ export default createTheme({
       main: '#e65100', // Amber
     },
     cyanBlue: {
-      main: '#19C2FF',
+      main: '#00B7EB',
     },
     background: {
       default: '#f5f5f5',

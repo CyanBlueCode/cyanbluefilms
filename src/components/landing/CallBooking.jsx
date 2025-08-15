@@ -9,7 +9,7 @@ const CallBooking = ({ theme, buttonConfig }) => {
       cal('ui', {
         // theme: buttonConfig?.theme,
         cssVarsPerTheme: {
-          light: { 'cal-brand': buttonConfig?.color || '#19C2FF' },
+          light: { 'cal-brand': buttonConfig?.color || '#00B7EB' },
         },
         hideEventTypeDetails: false,
         layout: 'month_view',

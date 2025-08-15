@@ -133,7 +133,7 @@ const CustomAppBar = () => {
                             justifyContent: 'center',
                             '&:hover': {
                               // FIXME temp color
-                              backgroundColor: '#19C2FF',
+                              backgroundColor: '#00B7EB',
                             },
                           }}
                         >
@@ -200,7 +200,7 @@ const CustomAppBar = () => {
                         fontWeight: 'bold',
                         '&:hover': {
                           // FIXME temp color
-                          backgroundColor: '#19C2FF',
+                          backgroundColor: '#00B7EB',
                         },
                       }}
                       onClick={() => setMobileMenuAnchor(null)}
@@ -221,7 +221,7 @@ const CustomAppBar = () => {
                           fontSize: '0.9rem',
                           '&:hover': {
                             // FIXME temp color
-                            backgroundColor: '#19C2FF',
+                            backgroundColor: '#00B7EB',
                           },
                         }}
                         onClick={() => setMobileMenuAnchor(null)}
