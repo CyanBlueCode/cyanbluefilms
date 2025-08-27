@@ -1,33 +1,23 @@
 'use client';
+import { useContext, useEffect, useState } from 'react';
 import { Container, CssBaseline, Box, Alert, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../styles/theme';
 import CustomAppBar from './AppBar';
 import Footer from './Footer';
-import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/next';
+import { showConstructionBannerContext } from '../../context/GlobalContext';
 
 const Layout = ({ children }) => {
   const [windowHeight, setWindowHeight] = useState('100vh');
 
   // ========== CONSTRUCTION BANNER - DELETE THIS ENTIRE SECTION WHEN SITE IS COMPLETE ==========
-  const SHOW_CONSTRUCTION_BANNER = true;
-  const [showBanner, setShowBanner] = useState(false);
+  const SHOW_CONSTRUCTION_BANNER_DEV = true;
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (SHOW_CONSTRUCTION_BANNER && !sessionStorage.getItem('bannerDismissed')) {
-        setShowBanner(true);
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleCloseBanner = () => {
-    sessionStorage.setItem('bannerDismissed', 'true');
-    setShowBanner(false);
-  };
+  const { showConstructionBanner, closeConstructionBanner } = useContext(
+    showConstructionBannerContext
+  );
 
   const ConstructionBanner = () => (
     <Alert
@@ -49,7 +39,7 @@ const Layout = ({ children }) => {
       action={
         <IconButton
           size='small'
-          onClick={handleCloseBanner}
+          onClick={closeConstructionBanner}
           sx={{ color: 'white' }}
         >
           <CloseIcon fontSize='small' />
@@ -62,8 +52,8 @@ const Layout = ({ children }) => {
       <br />
       Our site is currently undergoing a redesign.
       <br />
-      All content you see are currently placeholders, but feel free to X
-      this message and look around.
+      All content you see are currently placeholders, but feel free to X this
+      message and look around.
     </Alert>
   );
   // ========== END CONSTRUCTION BANNER SECTION - DELETE ABOVE ==========
@@ -85,7 +75,9 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {showBanner && <ConstructionBanner />}
+      {showConstructionBanner && SHOW_CONSTRUCTION_BANNER_DEV && (
+        <ConstructionBanner />
+      )}
       <Box
         sx={{
           display: 'flex',

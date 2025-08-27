@@ -42,7 +42,8 @@ const CustomAppBar = () => {
   const [projectsMenuAnchor, setProjectsMenuAnchor] = useState(null);
   const isMobileMenuOpen = Boolean(mobileMenuAnchor);
   const isProjectsMenuOpen = Boolean(projectsMenuAnchor);
-  const { pathname } = useRouter();
+  const router = useRouter();
+  const { pathname } = router;
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -103,7 +104,7 @@ const CustomAppBar = () => {
                     sx={{ position: 'relative' }}
                   >
                     <Button
-                      href={item.href}
+                      onClick={() => router.push(item.href)}
                       sx={{ color: dynamicTextColor, textTransform: 'none' }}
                     >
                       {item.name}
@@ -124,9 +125,10 @@ const CustomAppBar = () => {
                       {item.subItems.map((subItem) => (
                         <MenuItem
                           key={subItem.name}
-                          href={subItem.href}
-                          component='a'
-                          onClick={handleProjectsClose}
+                          onClick={() => {
+                            router.push(subItem.href);
+                            handleProjectsClose();
+                          }}
                           sx={{
                             minWidth: 75,
                             display: 'flex',
@@ -150,7 +152,7 @@ const CustomAppBar = () => {
                 ) : (
                   <Button
                     key={item.name}
-                    href={item.href}
+                    onClick={() => router.push(item.href)}
                     sx={{ color: dynamicTextColor, textTransform: 'none' }}
                   >
                     {item.name}
@@ -192,8 +194,10 @@ const CustomAppBar = () => {
                 {navItems.map((item) => (
                   <Box key={item.name} sx={{ width: '100%' }}>
                     <MenuItem
-                      component='a'
-                      href={item.href}
+                      onClick={() => {
+                        router.push(item.href);
+                        setMobileMenuAnchor(null);
+                      }}
                       sx={{
                         width: '100%',
                         justifyContent: 'center',
@@ -203,7 +207,6 @@ const CustomAppBar = () => {
                           backgroundColor: '#00B7EB',
                         },
                       }}
-                      onClick={() => setMobileMenuAnchor(null)}
                     >
                       {item.name}
                     </MenuItem>
@@ -211,8 +214,10 @@ const CustomAppBar = () => {
                     {item.subItems?.map((sub) => (
                       <MenuItem
                         key={sub.name}
-                        component='a'
-                        href={sub.href}
+                        onClick={() => {
+                          router.push(sub.href);
+                          setMobileMenuAnchor(null);
+                        }}
                         sx={{
                           width: '100%',
                           justifyContent: 'center',
@@ -224,7 +229,6 @@ const CustomAppBar = () => {
                             backgroundColor: '#00B7EB',
                           },
                         }}
-                        onClick={() => setMobileMenuAnchor(null)}
                       >
                         {sub.name}
                       </MenuItem>

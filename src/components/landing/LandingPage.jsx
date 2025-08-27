@@ -491,7 +491,6 @@ const LandingPage = ({
           </Container>
         </Box>
       )}
-      {console.log(' =>', contactSection?.backgroundImage)}
 
       {/* CONTACT / BOOK A CALL SECTION */}
       <Box

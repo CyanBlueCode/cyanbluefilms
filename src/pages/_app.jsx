@@ -1,10 +1,18 @@
 import Layout from '../components/layout/Layout';
 import '../styles/global.css';
+import {
+  GlobalContextProvider,
+  ShowConstructionBannerContextProvider,
+} from '../context/GlobalContext';
 
 const App = ({ Component, pageProps }) => (
-  <Layout>
-    <Component {...pageProps} />
-  </Layout>
+  <GlobalContextProvider>
+    <ShowConstructionBannerContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ShowConstructionBannerContextProvider>
+  </GlobalContextProvider>
 );
 
 export default App;
