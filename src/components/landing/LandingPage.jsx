@@ -19,8 +19,21 @@ import {
   Close,
   ExpandMore,
 } from '@mui/icons-material';
-import ContactCard from '@/components/ContactCard';
+import ContactSection from '@/components/ContactSection';
 import CallBooking from '@/components/landing/CallBooking';
+import CircularInfographic from '@/components/landing/CircularInfographic';
+import {
+  SportsMma,
+  SportsKabaddi,
+  Videocam,
+  Instagram,
+  YouTube,
+  Facebook,
+  Devices,
+  Map,
+  LocalAtm,
+} from '@mui/icons-material';
+// import TikTok from '../../public/images/tiktok-logo.svg';
 
 const accentColor = 'cyanBlue.main';
 
@@ -116,19 +129,21 @@ const renderStackedTextArray = (text) =>
       ))
     : text;
 
-const SectionHeader = ({
+export const SectionHeader = ({
   title,
   subtitle,
   titleVariant = 'h3',
   color = '#191919',
+  fontWeight = 600,
+  isUpperCase = true,
 }) => (
   <>
     <Typography
       variant={titleVariant}
       align='center'
       color={color}
-      textTransform='uppercase'
-      fontWeight={600}
+      textTransform={isUpperCase ? 'uppercase' : 'none'}
+      fontWeight={fontWeight}
       gutterBottom
     >
       {title}
@@ -157,6 +172,9 @@ const LandingPage = ({
   contactSection,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const packageIconStyles = {
+    sx: { color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } },
+  };
 
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
@@ -426,7 +444,7 @@ const LandingPage = ({
                 mx: 'auto',
               }}
             >
-              <Image
+              {/* <Image
                 src={packageHighlightsSection?.packageGraphic}
                 alt='Design Graphic'
                 // NOTE hack to force auto height/width for next/image
@@ -434,6 +452,43 @@ const LandingPage = ({
                 height={0}
                 sizes={1200}
                 style={{ width: '100%', height: 'auto' }}
+              /> */}
+              {/* ANCHOR HERE!!! */}
+              <CircularInfographic
+                center={
+                  <Videocam
+                    sx={{
+                      color: 'white',
+                      fontSize: { xs: 40, md: 60, lg: 100 },
+                    }}
+                  />
+                }
+                items={[
+                  {
+                    icon: <Instagram {...packageIconStyles} />,
+                    msg: 'Ready to go short-form posts for Instagram, TikTok, and other social media sites',
+                  },
+                  {
+                    icon: <Facebook {...packageIconStyles} />,
+                    msg: 'Facebook',
+                  },
+                  {
+                    icon: <YouTube {...packageIconStyles} />,
+                    msg: 'Show off your gym on YouTube, or embed the videos directly on your website',
+                  },
+                  {
+                    icon: <Devices {...packageIconStyles} />,
+                    msg: 'Get high-quality content for all device formats from phone screens to laptops to TVs',
+                  },
+                  {
+                    icon: <Map {...packageIconStyles} />,
+                    msg: 'Boost your presence and credibility on Google Maps/Yelp',
+                  },
+                  {
+                    icon: <LocalAtm {...packageIconStyles} />,
+                    msg: 'Includes multiple cuts perfect for paid ads on all platforms + A/B testing',
+                  },
+                ]}
               />
             </Box>
             <Grid
@@ -543,36 +598,7 @@ const LandingPage = ({
       )}
 
       {/* CONTACT / BOOK A CALL SECTION */}
-      <Box
-        sx={{
-          width: '100vw',
-          py: 8,
-          backgroundImage: contactSection?.backgroundImage
-            ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${contactSection.backgroundImage})`
-            : 'none',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <Container>
-          <SectionHeader
-            title='Upgrade Your Marketing Today'
-            // titleVariant='h4'
-          />
-          <Box px={{ xs: 0, sm: 7 }} pb={8}>
-            <ContactCard
-              title={{
-                title: 'Let us know how we can help',
-                fontVariant: 'h5',
-              }}
-              // hideProjectType
-              // buttonColor={accentColor}
-            />
-          </Box>
-          <SectionHeader title='Book a call' titleVariant='h4' />
-          <CallBooking theme='light' />
-        </Container>
-      </Box>
+      <ContactSection backgroundImage={contactSection?.backgroundImage} />
     </Box>
   );
 };

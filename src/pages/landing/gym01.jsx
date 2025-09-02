@@ -32,7 +32,7 @@ const gym01 = () => (
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
     }}
     benefitsSection={{
-      title: 'Why Choose Us',
+      title: <>Why Choose&nbsp;Us</>,
       subtitle:
         "We don't just make videos, we create high-value tailored marketing assets that drive new members and set your fight gym apart",
       cards: [
@@ -80,7 +80,7 @@ const gym01 = () => (
       ],
     }}
     packageHighlightsSection={{
-      title: 'Your Multi-Platform Video Package',
+      title: 'Multi-Platform Video Package',
       subtitle:
         'Get a versatile main hero video and multiple platform-ready assets all in a single shoot day',
       packageGraphic: '/images/hero2.jpg',
@@ -121,11 +121,11 @@ const gym01 = () => (
           question: 'Will you run the marketing for us too?',
           answer: (
             <>
-              Nope — we create the content, not the marketing. To actually get
+              Nope. We create the content, not the marketing. To actually get
               new members or exposure, you&apos;ll need to use what we create in
-              your own campaigns, socials, or website. We&apos;re the team that
-              delivers pro-level videos and photos that sell your gym for you,
-              you just need to put it out there.
+              your own campaigns, socials, ads, or website. We&apos;re your
+              partner that delivers pro-level videos and photos that sell your
+              gym for you, you just need to put it out there.
             </>
           ),
         },
