@@ -9,8 +9,16 @@ import {
   Button,
   Modal,
   Avatar,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
-import { KeyboardArrowDown, PlayArrow, Close } from '@mui/icons-material';
+import {
+  KeyboardArrowDown,
+  PlayArrow,
+  Close,
+  ExpandMore,
+} from '@mui/icons-material';
 import ContactCard from '@/components/ContactCard';
 import CallBooking from '@/components/landing/CallBooking';
 
@@ -132,6 +140,7 @@ const SectionHeader = ({
       px={2}
       fontWeight={400}
       color={color}
+      sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' } }}
     >
       {subtitle}
     </Typography>
@@ -144,6 +153,7 @@ const LandingPage = ({
   videoSection,
   packageHighlightsSection,
   testimonialsSection,
+  faqSection,
   contactSection,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -287,7 +297,7 @@ const LandingPage = ({
                 <CallBooking
                   theme='dark'
                   buttonConfig={{
-                    text: 'Book a FREE consultation today',
+                    text: 'Book a FREE consultation',
                     color: 'cyanBlue.main',
                   }}
                 />
@@ -348,7 +358,7 @@ const LandingPage = ({
               width={{ xs: '90vw', sm: '60vw' }}
             >
               {benefitsSection?.cards?.map((card, i) => (
-                <ResponsiveCard key={i} {...card} />
+                <ResponsiveCard key={i} {...card} height={360} />
               ))}
             </Grid>
           </Container>
@@ -441,8 +451,14 @@ const LandingPage = ({
                     {video?.description}
                   </Typography>
                   <iframe
-                    width='100%'
-                    height='240'
+                    style={{
+                      minWidth: 350,
+                      height: 'auto',
+                      aspectRatio: '16/9',
+                    }}
+                    // width='100%'
+                    // height='240'
+
                     src={
                       video.videoUrl ||
                       'https://www.youtube.com/embed/dQw4w9WgXcQ'
@@ -492,6 +508,40 @@ const LandingPage = ({
         </Box>
       )}
 
+      {/* FAQ SECTION */}
+      {faqSection && (
+        <Box sx={{ width: '100vw', backgroundColor: '#f5f5f5', pt: 8 }}>
+          <Container>
+            <SectionHeader
+              title='FAQs'
+              subtitle='Find answers to common questions about our services'
+            />
+            <Box px={{ xs: 0, sm: 7 }}>
+              {faqSection.map((faq, i) => (
+                <Accordion
+                  key={i}
+                  sx={{
+                    mb: 1,
+                    borderRadius: '8px !important',
+                    boxShadow: 'none',
+                    '&:before': { display: 'none' },
+                  }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMore />}>
+                    <Typography variant='body1' fontWeight={500}>
+                      {faq.question}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ textAlign: 'start' }}>
+                    <Typography>{faq.answer}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </Box>
+          </Container>
+        </Box>
+      )}
+
       {/* CONTACT / BOOK A CALL SECTION */}
       <Box
         sx={{
@@ -505,17 +555,11 @@ const LandingPage = ({
         }}
       >
         <Container>
-          <Typography
-            variant='h4'
-            align='center'
-            // color='#f5f5f5'
-            pt={5}
-            pb={3}
-            gutterBottom
-          >
-            Upgrade Your Marketing Today
-          </Typography>
-          <Box px={{ xs: 0, sm: 7 }}>
+          <SectionHeader
+            title='Upgrade Your Marketing Today'
+            // titleVariant='h4'
+          />
+          <Box px={{ xs: 0, sm: 7 }} pb={8}>
             <ContactCard
               title={{
                 title: 'Let us know how we can help',
@@ -525,16 +569,7 @@ const LandingPage = ({
               // buttonColor={accentColor}
             />
           </Box>
-          <Typography
-            variant='h4'
-            align='center'
-            // color='#f5f5f5'
-            pt={5}
-            pb={3}
-            gutterBottom
-          >
-            Book a Call
-          </Typography>
+          <SectionHeader title='Book a call' titleVariant='h4' />
           <CallBooking theme='light' />
         </Container>
       </Box>

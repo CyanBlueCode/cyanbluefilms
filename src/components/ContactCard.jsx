@@ -83,7 +83,15 @@ const ContactCard = ({
   };
 
   return (
-    <Card sx={{ backgroundColor: 'white', borderRadius: '8px', p: 3 }}>
+    <Card
+      sx={{
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        p: 3,
+        boxShadow: 'none',
+        '&:before': { display: 'none' },
+      }}
+    >
       <Typography variant={title?.fontVariant} gutterBottom>
         {title?.title}
       </Typography>
