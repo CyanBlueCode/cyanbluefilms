@@ -21,6 +21,19 @@ import {
 } from '@mui/icons-material';
 import ContactCard from '@/components/ContactCard';
 import CallBooking from '@/components/landing/CallBooking';
+import CircularInfographic from '@/components/landing/CircularInfographic';
+import {
+  SportsMma,
+  SportsKabaddi,
+  Videocam,
+  Instagram,
+  YouTube,
+  Facebook,
+  Devices,
+  Map,
+  LocalAtm
+} from '@mui/icons-material';
+// import TikTok from '../../public/images/tiktok-logo.svg';
 
 const accentColor = 'cyanBlue.main';
 
@@ -157,6 +170,9 @@ const LandingPage = ({
   contactSection,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const packageIconStyles = {
+    sx: { color: 'white', fontSize: { xs: 40, md: 60, lg: 80 } },
+  };
 
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
@@ -426,7 +442,7 @@ const LandingPage = ({
                 mx: 'auto',
               }}
             >
-              <Image
+              {/* <Image
                 src={packageHighlightsSection?.packageGraphic}
                 alt='Design Graphic'
                 // NOTE hack to force auto height/width for next/image
@@ -434,6 +450,25 @@ const LandingPage = ({
                 height={0}
                 sizes={1200}
                 style={{ width: '100%', height: 'auto' }}
+              /> */}
+              {/* ANCHOR HERE!!! */}
+              <CircularInfographic
+                center={
+                  <Videocam
+                    sx={{
+                      color: 'white',
+                      fontSize: { xs: 40, md: 60, lg: 100 },
+                    }}
+                  />
+                }
+                items={[
+                  { icon: <Instagram {...packageIconStyles} />, msg: 'Ready to go short-form posts for Instagram, TikTok, and other social media sites' },
+                  { icon: <Facebook {...packageIconStyles} />, msg: 'Facebook' },
+                  { icon: <YouTube {...packageIconStyles} />, msg: 'Show off your gym on YouTube, or embed the videos directly on your website' },
+                  { icon: <Devices {...packageIconStyles} />, msg: 'Get high-quality content for all device formats from phone screens to laptops to TVs' },
+                  { icon: <Map {...packageIconStyles} />, msg: 'Boost your presence and credibility on Google Maps/Yelp' },
+                  { icon: <LocalAtm {...packageIconStyles} />, msg: 'Includes multiple cuts perfect for paid ads on all platforms + A/B testing' },
+                ]}
               />
             </Box>
             <Grid
