@@ -26,6 +26,8 @@ import {
   SportsMma,
   SportsKabaddi,
   Videocam,
+  MovieFilter,
+  Movie,
   Instagram,
   YouTube,
   Facebook,
@@ -34,8 +36,22 @@ import {
   LocalAtm,
 } from '@mui/icons-material';
 // import TikTok from '../../public/images/tiktok-logo.svg';
+import useTypewriter from '@/utils/useTypewriter';
 
 const accentColor = 'cyanBlue.main';
+
+// Color theme variables
+const getColors = (isDarkBackground, isLightText) => ({
+  // Background colors
+  primaryBg: isDarkBackground ? '#000' : '#ffffff',
+  secondaryBg: isDarkBackground ? '#333333' : '#f5f5f5',
+  tertiaryBg: isDarkBackground ? '#000' : '#eaeaea',
+  
+  // Text colors
+  titleText: isLightText ? '#ffffff' : '#191919',
+  subtitleText: isLightText ? '#f5f5f5' : '#191919',
+  bodyText: isLightText ? '#e0e0e0' : '#333333',
+});
 
 const VideoModal = ({ videoUrl, open, onClose }) => (
   <Modal
@@ -89,7 +105,7 @@ const VideoModal = ({ videoUrl, open, onClose }) => (
   </Modal>
 );
 
-const ResponsiveCard = ({ title, description, icon, height = 300 }) => (
+const ResponsiveCard = ({ title, description, icon, height = 300, colors }) => (
   <Box
     sx={{
       width: { xs: '90vw', sm: '280px' },
@@ -100,8 +116,8 @@ const ResponsiveCard = ({ title, description, icon, height = 300 }) => (
       p: 3,
       m: 1,
       textAlign: 'center',
-      backgroundColor: '#222',
-      color: '#fff',
+      backgroundColor: colors?.secondaryBg || '#222',
+      color: colors?.titleText || '#fff',
       borderRadius: 2,
     }}
   >
@@ -133,7 +149,7 @@ export const SectionHeader = ({
   title,
   subtitle,
   titleVariant = 'h3',
-  color = '#191919',
+  colors,
   fontWeight = 600,
   isUpperCase = true,
 }) => (
@@ -141,7 +157,7 @@ export const SectionHeader = ({
     <Typography
       variant={titleVariant}
       align='center'
-      color={color}
+      color={colors?.titleText || '#191919'}
       textTransform={isUpperCase ? 'uppercase' : 'none'}
       fontWeight={fontWeight}
       gutterBottom
@@ -154,7 +170,7 @@ export const SectionHeader = ({
       pb={5}
       px={2}
       fontWeight={400}
-      color={color}
+      color={colors?.subtitleText || '#191919'}
       sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' } }}
     >
       {subtitle}
@@ -170,8 +186,11 @@ const LandingPage = ({
   testimonialsSection,
   faqSection,
   contactSection,
+  isDarkBackground = false,
+  isLightText = false,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const colors = getColors(isDarkBackground, isLightText);
   const packageIconStyles = {
     sx: { color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } },
   };
@@ -188,7 +207,8 @@ const LandingPage = ({
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroSection?.imageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            py: 10,
+            pt: 10,
+            pb: 20,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -270,7 +290,7 @@ const LandingPage = ({
                   sx={{
                     position: 'relative',
                     width: '100%',
-                    maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' },
+                    maxWidth: { xs: '70vw', sm: '60vw', md: '50vw' },
                     aspectRatio: '16/9',
                     mx: 'auto',
                     mb: 5,
@@ -364,11 +384,12 @@ const LandingPage = ({
 
       {/* BENEFITS SECTION */}
       {benefitsSection && (
-        <Box sx={{ width: '100vw', backgroundColor: '#f5f5f5', py: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, py: 8 }}>
           <Container>
             <SectionHeader
               title={benefitsSection?.title}
               subtitle={benefitsSection?.subtitle}
+              colors={colors}
             />
             <Grid
               container
@@ -376,7 +397,7 @@ const LandingPage = ({
               width={{ xs: '90vw', sm: '60vw' }}
             >
               {benefitsSection?.cards?.map((card, i) => (
-                <ResponsiveCard key={i} {...card} height={360} />
+                <ResponsiveCard key={i} {...card} height={360} colors={colors} />
               ))}
             </Grid>
           </Container>
@@ -388,7 +409,7 @@ const LandingPage = ({
         <Box
           sx={{
             width: '100vw',
-            backgroundColor: '#eaeaea',
+            backgroundColor: colors.tertiaryBg,
             py: 10,
             display: 'flex',
             flexDirection: 'column',
@@ -399,6 +420,7 @@ const LandingPage = ({
           <SectionHeader
             title={videoSection?.title}
             subtitle={videoSection?.subtitle}
+            colors={colors}
           />
 
           {/* MAIN FEATURE VIDEO */}
@@ -429,11 +451,12 @@ const LandingPage = ({
 
       {/* PACKAGE HIGHLIGHTS SECTION */}
       {packageHighlightsSection && (
-        <Box sx={{ width: '100vw', backgroundColor: '#fff', py: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, py: 8 }}>
           <Container>
             <SectionHeader
               title={packageHighlightsSection?.title}
               subtitle={packageHighlightsSection?.subtitle}
+              colors={colors}
             />
             <Box
               sx={{
@@ -455,8 +478,9 @@ const LandingPage = ({
               /> */}
               {/* ANCHOR HERE!!! */}
               <CircularInfographic
+                colors={colors}
                 center={
-                  <Videocam
+                  <MovieFilter
                     sx={{
                       color: 'white',
                       fontSize: { xs: 40, md: 60, lg: 100 },
@@ -499,10 +523,10 @@ const LandingPage = ({
             >
               {packageHighlightsSection?.videos?.map((video, i) => (
                 <Grid item key={i} xs={12} sm={6} md={4}>
-                  <Typography variant='h5' align='center' gutterBottom>
+                  <Typography variant='h5' align='center' gutterBottom color={colors.titleText}>
                     {video?.title}
                   </Typography>
-                  <Typography variant='h6' align='center' gutterBottom>
+                  <Typography variant='h6' align='center' gutterBottom color={colors.subtitleText}>
                     {video?.description}
                   </Typography>
                   <iframe
@@ -543,7 +567,7 @@ const LandingPage = ({
           <Container>
             <SectionHeader
               title='Client Testimonials'
-              color='#f5f5f5'
+              colors={{ titleText: '#f5f5f5', subtitleText: '#f5f5f5' }}
               // titleVariant='h4'
             />
             <Grid container spacing={2} justifyContent='center'>
@@ -555,6 +579,7 @@ const LandingPage = ({
                     title={t?.name}
                     description={t?.quote}
                     height='fit-content'
+                    colors={{ secondaryBg: '#222', titleText: '#fff' }}
                   />
                 </Box>
               ))}
@@ -565,11 +590,12 @@ const LandingPage = ({
 
       {/* FAQ SECTION */}
       {faqSection && (
-        <Box sx={{ width: '100vw', backgroundColor: '#f5f5f5', pt: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 8 }}>
           <Container>
             <SectionHeader
               title='FAQs'
               subtitle='Find answers to common questions about our services'
+              colors={colors}
             />
             <Box px={{ xs: 0, sm: 7 }}>
               {faqSection.map((faq, i) => (
@@ -579,16 +605,17 @@ const LandingPage = ({
                     mb: 1,
                     borderRadius: '8px !important',
                     boxShadow: 'none',
+                    backgroundColor: colors.secondaryBg,
                     '&:before': { display: 'none' },
                   }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography variant='body1' fontWeight={500}>
+                  <AccordionSummary expandIcon={<ExpandMore sx={{ color: colors.titleText }} />}>
+                    <Typography variant='body1' fontWeight={500} color={colors.titleText}>
                       {faq.question}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails sx={{ textAlign: 'start' }}>
-                    <Typography>{faq.answer}</Typography>
+                    <Typography color={colors.bodyText}>{faq.answer}</Typography>
                   </AccordionDetails>
                 </Accordion>
               ))}
@@ -598,7 +625,7 @@ const LandingPage = ({
       )}
 
       {/* CONTACT / BOOK A CALL SECTION */}
-      <ContactSection backgroundImage={contactSection?.backgroundImage} />
+      <ContactSection backgroundImage={contactSection?.backgroundImage} colors={colors} />
     </Box>
   );
 };

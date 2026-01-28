@@ -7,9 +7,9 @@ const CallBooking = ({ theme, buttonConfig }) => {
     (async function () {
       const cal = await getCalApi({ namespace: 'call' });
       cal('ui', {
-        // theme: buttonConfig?.theme,
         cssVarsPerTheme: {
           light: { 'cal-brand': buttonConfig?.color || '#00B7EB' },
+          dark: { 'cal-brand': buttonConfig?.color || '#00B7EB' },
         },
         hideEventTypeDetails: false,
         layout: 'month_view',
@@ -20,15 +20,19 @@ const CallBooking = ({ theme, buttonConfig }) => {
 
   return buttonConfig ? (
     <Button
-      variant='contained'
-      color='primary'
+      variant='outlined'
       sx={{
         height: '100px',
         width: '250px',
         borderRadius: '8px',
         fontSize: '1.5rem',
+        backgroundColor: 'transparent',
+        borderWidth: '3px',
+        borderColor: '#eaeaea',
         boxShadow: 'none',
         '&:hover': {
+          backgroundColor: 'transparent',
+          borderColor: '#eaeaea',
           boxShadow: 'none',
         },
       }}
@@ -36,7 +40,7 @@ const CallBooking = ({ theme, buttonConfig }) => {
       data-cal-link='cyanblue/call'
       data-cal-config={`{"layout":"month_view","theme":"${theme}"}`}
     >
-      <Typography variant='h6' sx={{ color: 'white', fontWeight: 800 }}>
+      <Typography variant='h6' sx={{ color: '#eaeaea', fontWeight: 800 }}>
         {buttonConfig?.text}
       </Typography>
     </Button>

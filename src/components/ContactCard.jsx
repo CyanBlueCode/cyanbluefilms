@@ -27,7 +27,19 @@ const ContactCard = ({
   title = { title: 'Say Hello', fontVariant: 'h2' },
   hideProjectType = false,
   buttonColor = 'primary.main',
+  colors
 }) => {
+  const fieldSx = {
+    '& .MuiInputLabel-root': { color: colors?.bodyText },
+    '& .MuiOutlinedInput-root': {
+      color: colors?.bodyText,
+      '& fieldset': { borderColor: colors?.bodyText },
+      '&:hover fieldset': { borderColor: colors?.bodyText },
+      '&.Mui-focused fieldset': { borderColor: colors?.bodyText },
+    },
+    '& .MuiInputLabel-root.Mui-focused': { color: colors?.bodyText },
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -85,14 +97,14 @@ const ContactCard = ({
   return (
     <Card
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: colors?.primaryBg || 'white',
         borderRadius: '8px',
         p: 3,
         boxShadow: 'none',
         '&:before': { display: 'none' },
       }}
     >
-      <Typography variant={title?.fontVariant} gutterBottom>
+      <Typography variant={title?.fontVariant} gutterBottom color={colors?.titleText}>
         {title?.title}
       </Typography>
 
@@ -115,6 +127,7 @@ const ContactCard = ({
           onChange={handleChange}
           margin='normal'
           required
+          sx={fieldSx}
         />
 
         <TextField
@@ -126,6 +139,7 @@ const ContactCard = ({
           onChange={handleChange}
           margin='normal'
           required
+          sx={fieldSx}
         />
 
         <TextField
@@ -136,10 +150,11 @@ const ContactCard = ({
           value={formData.phone}
           onChange={handleChange}
           margin='normal'
+          sx={fieldSx}
         />
 
         {!hideProjectType && (
-          <FormControl fullWidth margin='normal' required>
+          <FormControl fullWidth margin='normal' required sx={fieldSx}>
             <InputLabel>Project Type</InputLabel>
             <Select
               name='projectType'
@@ -169,12 +184,25 @@ const ContactCard = ({
           required
           multiline
           rows={5}
+          sx={fieldSx}
         />
 
         <Button
           type='submit'
-          variant='contained'
-          sx={{ mt: 3, backgroundColor: buttonColor }}
+          variant='outlined'
+          sx={{
+            mt: 3,
+            backgroundColor: 'transparent',
+            borderWidth: '2px',
+            borderColor: colors?.bodyText || 'white',
+            borderRadius: '8px',
+            color: colors?.bodyText,
+            fontSize: '1.2rem',
+            '&:hover': {
+              backgroundColor: 'transparent',
+              borderColor: colors?.bodyText,
+            },
+          }}
           fullWidth
           disabled={isSubmitting}
         >

@@ -7,7 +7,7 @@ const ContactSection = ({
   title = 'Upgrade Your Marketing Today',
   titleVariant = 'h3',
   isUpperCase = true,
-  contactTitle = 'Let us know how we can help',
+  contactTitle,
   contactTitleVariant = 'h5',
   callBookingTitle = 'Book a call',
   callBookingTitleVariant = 'h4',
@@ -15,11 +15,13 @@ const ContactSection = ({
   showMap = false,
   containerMaxWidth = 'lg',
   containerSx = {},
+  colors,
 }) => (
   <Box
     sx={{
       width: '100vw',
       py: 8,
+      backgroundColor: colors?.primaryBg,
       backgroundImage: backgroundImage
         ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`
         : 'none',
@@ -32,6 +34,7 @@ const ContactSection = ({
         title={title}
         titleVariant={titleVariant}
         isUpperCase={isUpperCase}
+        colors={colors}
       />
       <Box pb={7}>
         <ContactCard
@@ -39,17 +42,19 @@ const ContactSection = ({
             title: contactTitle,
             fontVariant: contactTitleVariant,
           }}
+          colors={colors}
         />
       </Box>
       <SectionHeader
         title={callBookingTitle}
         titleVariant={callBookingTitleVariant}
         isUpperCase={isUpperCase}
+        colors={colors}
       />
-      <CallBooking theme='light' />
+      <CallBooking theme={colors?.titleText === '#ffffff' ? 'dark' : 'light'} />
       {showMap && (
         <Box sx={{ mt: 6, width: '100%' }}>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant='h5' gutterBottom color={colors?.titleText}>
             Our Studio
           </Typography>
           <Box sx={{ mt: 3 }}>

@@ -8,12 +8,13 @@ export const SectionHeader = ({
   color = '#191919',
   fontWeight = 600,
   isUpperCase = true,
+  colors,
 }) => (
   <>
     <Typography
       variant={titleVariant}
       align='center'
-      color={color}
+      color={colors?.titleText || color}
       textTransform={isUpperCase ? 'uppercase' : 'none'}
       fontWeight={fontWeight}
       gutterBottom
@@ -26,7 +27,7 @@ export const SectionHeader = ({
       pb={5}
       px={2}
       fontWeight={400}
-      color={color}
+      color={colors?.subtitleText || color}
       sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' } }}
     >
       {subtitle}

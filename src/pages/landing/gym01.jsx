@@ -29,7 +29,7 @@ const gym01 = () => (
       subtitle:
         'A glimpse at the high-quality tailored marketing hero videos we create for combat sports gyms like yours',
       thumbnail: '/images/film.jpg',
-      videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+      videoUrl: 'https://www.youtube.com/embed/J0IItrdHQ2s',
     }}
     benefitsSection={{
       title: <>Why Choose&nbsp;Us</>,

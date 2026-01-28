@@ -16,6 +16,7 @@ export default function CircularInfographicMinimal({
   center,
   centerSrc,
   items = [],
+  colors,
 }) {
   const count = Math.max(0, items.length);
   const [openTooltips, setOpenTooltips] = useState({});
@@ -25,6 +26,8 @@ export default function CircularInfographicMinimal({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const isMd = useMediaQuery(theme.breakpoints.between('sm', 'lg'));
   const size = isSm ? '20rem' : isMd ? '30rem' : '42rem';
+  const circleColor = '#00B7EB';
+  const tooltipBgColor = colors?.ternaryBg;
 
   const rOuter = 40; // distance from center for outer circles (percent)
 
@@ -64,7 +67,7 @@ export default function CircularInfographicMinimal({
           cy='50'
           r='20'
           fill='none'
-          stroke='#eaeaea'
+          stroke={colors?.secondaryBg || '#eaeaea'}
           strokeWidth='0.3'
         />
 
@@ -76,7 +79,7 @@ export default function CircularInfographicMinimal({
             y1='50'
             x2={p.xOuter}
             y2={p.yOuter}
-            stroke='#eaeaea'
+            stroke={colors?.secondaryBg || '#eaeaea'}
             strokeWidth='0.5'
             strokeLinecap='round'
           />
@@ -93,7 +96,7 @@ export default function CircularInfographicMinimal({
           width: '34%',
           height: '34%',
           borderRadius: '50%',
-          backgroundColor: 'primary.main',
+          backgroundColor: circleColor,
           zIndex: 3,
           display: 'flex',
           alignItems: 'center',
@@ -137,13 +140,13 @@ export default function CircularInfographicMinimal({
             slotProps={{
               tooltip: {
                 sx: {
-                  bgcolor: 'primary.main',
+                  bgcolor: tooltipBgColor,
                   color: 'white',
                   textAlign: 'center',
                   borderRadius: '8px',
                   boxShadow: '0 0 8px rgba(0, 0, 0, 0.3)',
                   '& .MuiTooltip-arrow': {
-                    color: 'primary.main',
+                    color: tooltipBgColor,
                   },
                 },
               },
@@ -184,7 +187,7 @@ export default function CircularInfographicMinimal({
                   width: '100%',
                   height: '100%',
                   borderRadius: '50%',
-                  backgroundColor: '#eaeaea',
+                  backgroundColor: colors?.secondaryBg || '#eaeaea',
                   zIndex: 1,
                 }}
               />
@@ -195,7 +198,7 @@ export default function CircularInfographicMinimal({
                   width: '80%',
                   height: '80%',
                   borderRadius: '50%',
-                  backgroundColor: 'primary.main',
+                  backgroundColor: circleColor,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
