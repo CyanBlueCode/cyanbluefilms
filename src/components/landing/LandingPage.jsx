@@ -30,7 +30,7 @@ import {
   Movie,
   Instagram,
   YouTube,
-  Facebook,
+  ConnectedTv,
   Devices,
   Map,
   LocalAtm,
@@ -46,7 +46,7 @@ const getColors = (isDarkBackground, isLightText) => ({
   primaryBg: isDarkBackground ? '#000' : '#ffffff',
   secondaryBg: isDarkBackground ? '#333333' : '#f5f5f5',
   tertiaryBg: isDarkBackground ? '#000' : '#eaeaea',
-  
+
   // Text colors
   titleText: isLightText ? '#ffffff' : '#191919',
   subtitleText: isLightText ? '#f5f5f5' : '#191919',
@@ -194,6 +194,12 @@ const LandingPage = ({
   const packageIconStyles = {
     sx: { color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } },
   };
+  const typedTitle = useTypewriter(
+    Array.isArray(heroSection?.title)
+      ? heroSection.title.join(' ')
+      : heroSection?.title || '',
+    50,
+  );
 
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
@@ -248,7 +254,7 @@ const LandingPage = ({
               </Box>
             </Box> */}
 
-            {/* Right: Title & CTA box */}
+            {/* Title & CTA box */}
             <Box
               sx={{
                 flex: 1,
@@ -257,79 +263,105 @@ const LandingPage = ({
                 justifyContent: 'space-between',
               }}
             >
-              <Box>
-                <Typography
-                  variant='h2'
-                  align='center'
-                  color='#fff'
-                  fontWeight={600}
-                  sx={{
-                    fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3.75rem' },
-                    pb: 3,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {renderStackedTextArray(heroSection?.title)}
-                </Typography>
-                {/* <Typography
-                  variant='body1'
-                  align='center'
-                  color='#f5f5f5'
-                  fontWeight={600}
-                  sx={{
-                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' },
-                    px: 3,
-                    pb: 5,
-                  }}
-                >
-                  {renderStackedTextArray(heroSection?.subtitle)}
-                </Typography> */}
-                {/* ANCHOR */}
-                {/* IMAGE VIDEO MODAL */}
-                <Box
-                  sx={{
-                    position: 'relative',
-                    width: '100%',
-                    maxWidth: { xs: '70vw', sm: '60vw', md: '50vw' },
-                    aspectRatio: '16/9',
-                    mx: 'auto',
-                    mb: 5,
-                  }}
-                >
-                  <Image
-                    src={videoSection?.thumbnail}
-                    alt='Main Video Thumb'
-                    fill
-                    style={{
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => setModalOpen(true)}
-                  />
-                  <Button
-                    onClick={() => setModalOpen(true)}
+              {/* Main Title */}
+              <Box mb={10}>
+                {heroSection?.useOriginalHero ? (
+                  <>
+                    <Typography
+                      variant='h2'
+                      align='center'
+                      color='#fff'
+                      fontWeight={600}
+                      sx={{
+                        fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3.75rem' },
+                        pb: 3,
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {renderStackedTextArray(heroSection?.title)}
+                    </Typography>
+                    {/* <Typography
+                      variant='body1'
+                      align='center'
+                      color='#f5f5f5'
+                      fontWeight={600}
+                      sx={{
+                        fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' },
+                        px: 3,
+                        pb: 5,
+                      }}
+                    >
+                      {renderStackedTextArray(heroSection?.subtitle)}
+                    </Typography> */}
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        width: '100%',
+                        maxWidth: { xs: '70vw', sm: '60vw', md: '50vw' },
+                        aspectRatio: '16/9',
+                        mx: 'auto',
+                        mb: 5,
+                      }}
+                    >
+                      <Image
+                        src={videoSection?.thumbnail}
+                        alt='Main Video Thumb'
+                        fill
+                        style={{
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => setModalOpen(true)}
+                      />
+                      <Button
+                        onClick={() => setModalOpen(true)}
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          bgcolor: accentColor,
+                          color: '#fff',
+                          fontSize: 24,
+                          borderRadius: '50%',
+                          width: 64,
+                          height: 64,
+                        }}
+                      >
+                        <PlayArrow fontSize='large' />
+                      </Button>
+                      <VideoModal
+                        open={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                        videoUrl={videoSection.videoUrl}
+                      />
+                    </Box>
+                  </>
+                ) : (
+                  <Typography
+                    variant='h5'
+                    align='center'
+                    color='#fff'
+                    fontWeight={300}
+                    className='typewriter cursor'
                     sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      bgcolor: accentColor,
-                      color: '#fff',
-                      fontSize: 24,
-                      borderRadius: '50%',
-                      width: 64,
-                      height: 64,
+                      pb: 3,
+                      textTransform: 'uppercase',
+                      fontFamily: 'monospace',
+                      // fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      whiteSpace: 'normal',
+                      overflow: 'hidden',
+                      '&::after': {
+                        content: '"|"',
+                        ml: '2px',
+                        animation: 'blink 1s step-end infinite',
+                      },
                     }}
                   >
-                    <PlayArrow fontSize='large' />
-                  </Button>
-                  <VideoModal
-                    open={modalOpen}
-                    onClose={() => setModalOpen(false)}
-                    videoUrl={videoSection.videoUrl}
-                  />
-                </Box>
+                    {typedTitle}
+                  </Typography>
+                )}
               </Box>
               <Box>
                 <CallBooking
@@ -397,7 +429,12 @@ const LandingPage = ({
               width={{ xs: '90vw', sm: '60vw' }}
             >
               {benefitsSection?.cards?.map((card, i) => (
-                <ResponsiveCard key={i} {...card} height={360} colors={colors} />
+                <ResponsiveCard
+                  key={i}
+                  {...card}
+                  height={360}
+                  colors={colors}
+                />
               ))}
             </Grid>
           </Container>
@@ -493,12 +530,12 @@ const LandingPage = ({
                     msg: 'Ready to go short-form posts for Instagram, TikTok, and other social media sites',
                   },
                   {
-                    icon: <Facebook {...packageIconStyles} />,
-                    msg: 'Facebook',
+                    icon: <ConnectedTv {...packageIconStyles} />,
+                    msg: 'Use as looping background video in-store or at conventions/events',
                   },
                   {
                     icon: <YouTube {...packageIconStyles} />,
-                    msg: 'Show off your gym on YouTube, or embed the videos directly on your website',
+                    msg: 'Run attention grabbing YouTube ads, or embed the videos directly on your website',
                   },
                   {
                     icon: <Devices {...packageIconStyles} />,
@@ -523,10 +560,20 @@ const LandingPage = ({
             >
               {packageHighlightsSection?.videos?.map((video, i) => (
                 <Grid item key={i} xs={12} sm={6} md={4}>
-                  <Typography variant='h5' align='center' gutterBottom color={colors.titleText}>
+                  <Typography
+                    variant='h5'
+                    align='center'
+                    gutterBottom
+                    color={colors.titleText}
+                  >
                     {video?.title}
                   </Typography>
-                  <Typography variant='h6' align='center' gutterBottom color={colors.subtitleText}>
+                  <Typography
+                    variant='h6'
+                    align='center'
+                    gutterBottom
+                    color={colors.subtitleText}
+                  >
                     {video?.description}
                   </Typography>
                   <iframe
@@ -609,13 +656,21 @@ const LandingPage = ({
                     '&:before': { display: 'none' },
                   }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMore sx={{ color: colors.titleText }} />}>
-                    <Typography variant='body1' fontWeight={500} color={colors.titleText}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMore sx={{ color: colors.titleText }} />}
+                  >
+                    <Typography
+                      variant='body1'
+                      fontWeight={500}
+                      color={colors.titleText}
+                    >
                       {faq.question}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails sx={{ textAlign: 'start' }}>
-                    <Typography color={colors.bodyText}>{faq.answer}</Typography>
+                    <Typography color={colors.bodyText}>
+                      {faq.answer}
+                    </Typography>
                   </AccordionDetails>
                 </Accordion>
               ))}
@@ -625,7 +680,10 @@ const LandingPage = ({
       )}
 
       {/* CONTACT / BOOK A CALL SECTION */}
-      <ContactSection backgroundImage={contactSection?.backgroundImage} colors={colors} />
+      <ContactSection
+        backgroundImage={contactSection?.backgroundImage}
+        colors={colors}
+      />
     </Box>
   );
 };

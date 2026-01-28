@@ -6,12 +6,6 @@ const gym01 = () => (
   <LandingPage
     heroSection={{
       title: [
-        'Stand Out With',
-        'High Quality',
-        'Marketing Content', // TODO A/B test this with 'Marketing Videos'
-        'For Your Fight Gym',
-      ],
-      title: [
         'Promote Your Gym',
         'With High-Quality',
         'Marketing Content',
@@ -23,6 +17,7 @@ const gym01 = () => (
       ],
       imageUrl: '/images/landing-gym01/cover.jpg',
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+      useOriginalHero: true,
     }}
     videoSection={{
       title: 'See Our Work in Action',

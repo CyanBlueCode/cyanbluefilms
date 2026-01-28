@@ -14,10 +14,11 @@ const gym02 = () => (
         'For Your Fight Gym',
       ],
       title: [
-        'Promote Your Gym',
-        'With High-Quality',
-        'Marketing Content',
-        'That Packs a Punch',
+        'Cinematic Fitness Brand Films That Pack a Punch'
+        // 'Promote Your Gym',
+        // 'With High-Quality',
+        // 'Marketing Content',
+        // 'That Packs a Punch',
       ],
       subtitle: [
         'Created by filmmakers who train in combat sports; we know your world.',
