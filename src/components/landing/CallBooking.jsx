@@ -22,9 +22,9 @@ const CallBooking = ({ theme, buttonConfig }) => {
     <Button
       variant='outlined'
       sx={{
-        height: '100px',
-        width: '250px',
-        borderRadius: '8px',
+        height: '65px',
+        width: '180px',
+        borderRadius: '5px',
         fontSize: '1.5rem',
         backgroundColor: 'transparent',
         borderWidth: '3px',

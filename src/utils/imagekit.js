@@ -31,6 +31,33 @@ export const generateImageKitUrl = (filePath, options = {}) => {
 };
 
 /**
+ * Generates an optimized video URL from ImageKit
+ * @param {Object} options - Video configuration options
+ * @returns {string} Optimized video URL
+ */
+export const generateVideoUrl = (options = {}) => {
+  const {
+    filePath,
+    vidWidth = '1920',
+    codec = 'h264',
+    audio = false,
+    forceRatio,
+    custom
+  } = options;
+
+  if (!filePath) return '';
+
+  const baseUrl = 'https://ik.imagekit.io/cyanbluefilms';
+  const transformations = [`w-${vidWidth}`, `vc-${codec}`];
+  
+  if (!audio) transformations.push('ac-none');
+  if (forceRatio) transformations.push(`ar-${forceRatio.replace(':', '-')}`);
+  if (custom) transformations.push(custom.replace(/^,/, ''));
+
+  return `${baseUrl}${filePath}?tr=${transformations.join(',')}`;
+};
+
+/**
  * Generates a thumbnail URL for gallery display
  * @param {string} filePath - Path to the image file
  * @returns {string} Thumbnail URL

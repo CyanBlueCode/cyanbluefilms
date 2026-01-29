@@ -24,8 +24,18 @@ const gym02 = () => (
         'Created by filmmakers who train in combat sports; we know your world.',
         'Capture everything you need in one shoot day: a main promo film + ready-to-post clips to attract new members and keep your current ones engaged.',
       ],
-      imageUrl: '/images/landing-gym01/cover.jpg',
-      videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+      // NOTE: for old image + embedded ideo banner
+      // imageUrl: '/images/landing-gym01/cover.jpg',
+      // videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+      backgroundVideo: {
+        filePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop.mov',
+        posterFramePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop_PosterFrame.jpg',
+        vidWidth: '1920',
+        codec: 'h264',
+        audio: false,
+        forceRatio: undefined, // e.g 16:9
+        custom: undefined, // e.g ',ar-16:9,f-mp4'
+      }
     }}
     videoSection={{
       title: 'Our Work in Action',

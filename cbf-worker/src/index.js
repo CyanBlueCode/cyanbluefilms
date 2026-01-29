@@ -28,6 +28,9 @@ export default {
 			if (path === '/folder-images') {
 				return handleFolderImages(request, env);
 			}
+			if (path === '/video-url') {
+				return handleVideoUrl(request, env);
+			}
 
 			return new Response('Not found', { status: 404 });
 		} catch (error) {
@@ -74,6 +77,41 @@ async function handleFolderImages(request, env) {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': '*',
 				'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+			},
+		});
+	} catch (error) {
+		return new Response(error.stack, { status: 500 });
+	}
+}
+
+async function handleVideoUrl(request, env) {
+	const url = new URL(request.url);
+	const filePath = url.searchParams.get('filePath');
+	const vidWidth = url.searchParams.get('vidWidth') || '1920';
+	const codec = url.searchParams.get('codec') || 'h264';
+	const audio = url.searchParams.get('audio') === 'true' ? '' : ',ac-none';
+	const forceRatio = url.searchParams.get('forceRatio');
+	const custom = url.searchParams.get('custom') || '';
+
+	if (!filePath) {
+		return new Response('Missing filePath parameter', { status: 400 });
+	}
+
+	try {
+		const baseUrl = 'https://ik.imagekit.io/cyanbluefilms';
+		let transformations = [`w-${vidWidth}`, `vc-${codec}`];
+		
+		if (audio) transformations.push(audio.replace(',', ''));
+		if (forceRatio) transformations.push(`ar-${forceRatio.replace(':', '-')}`);
+		if (custom) transformations.push(custom.replace(/^,/, ''));
+
+		const videoUrl = `${baseUrl}${filePath}?tr=${transformations.join(',')}`;
+
+		return new Response(JSON.stringify({ videoUrl }), {
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Cache-Control': 'public, max-age=3600',
 			},
 		});
 	} catch (error) {

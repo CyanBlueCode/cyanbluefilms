@@ -36,6 +36,7 @@ import {
   LocalAtm,
 } from '@mui/icons-material';
 // import TikTok from '../../public/images/tiktok-logo.svg';
+import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
 
 const accentColor = 'cyanBlue.main';
@@ -201,6 +202,16 @@ const LandingPage = ({
     50,
   );
 
+  // Generate background video URL if provided
+  const backgroundVideoUrl = heroSection?.backgroundVideo
+    ? generateVideoUrl(heroSection.backgroundVideo)
+    : null;
+
+  // Generate poster frame URL if provided
+  const posterFrameUrl = heroSection?.backgroundVideo?.posterFramePath
+    ? `https://ik.imagekit.io/cyanbluefilms${heroSection.backgroundVideo.posterFramePath}`
+    : null;
+
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
       {/* HERO SECTION */}
@@ -210,7 +221,9 @@ const LandingPage = ({
             position: 'relative',
             width: '100vw',
             height: '100dvh',
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroSection?.imageUrl})`,
+            backgroundImage: !backgroundVideoUrl
+              ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroSection?.imageUrl})`
+              : 'none',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             pt: 10,
@@ -219,8 +232,44 @@ const LandingPage = ({
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
+            overflow: 'hidden',
           }}
         >
+          {/* Background Video */}
+          {backgroundVideoUrl && (
+            <>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload='metadata'
+                poster={posterFrameUrl}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  zIndex: -2,
+                }}
+              >
+                <source src={backgroundVideoUrl} type='video/mp4' />
+              </video>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  zIndex: -1,
+                }}
+              />
+            </>
+          )}
           <Container
             sx={{
               display: 'flex',
@@ -260,11 +309,12 @@ const LandingPage = ({
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between',
+                mt: {xs: '100%', sm: '100%', md: '70%', lg: '50%'},
               }}
             >
               {/* Main Title */}
-              <Box mb={10}>
+              {/* <Box mb={10}> */}
+              <Box mb={4}>
                 {heroSection?.useOriginalHero ? (
                   <>
                     <Typography
@@ -367,7 +417,7 @@ const LandingPage = ({
                 <CallBooking
                   theme='dark'
                   buttonConfig={{
-                    text: 'Book a FREE consultation',
+                    text: 'Book a call',
                     color: 'cyanBlue.main',
                   }}
                 />
