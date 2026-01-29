@@ -8,7 +8,8 @@ import {
 const App = ({ Component, pageProps }) => (
   <GlobalContextProvider>
     <ShowConstructionBannerContextProvider>
-      <Layout>
+      {/* // REVIEW temp construction banner code */}
+      <Layout hideConstructionBanner={pageProps.hideConstructionBanner}>
         <Component {...pageProps} />
       </Layout>
     </ShowConstructionBannerContextProvider>

@@ -14,7 +14,7 @@ const gym02 = () => (
         'For Your Fight Gym',
       ],
       title: [
-        'Cinematic Fitness Brand Films That Pack a Punch'
+        'We Make Cinematic Fitness Brand Films That Pack a Punch'
         // 'Promote Your Gym',
         // 'With High-Quality',
         // 'Marketing Content',
@@ -227,5 +227,14 @@ const gym02 = () => (
     ]}
   />
 );
+
+// REVIEW temp construction banner code
+export async function getStaticProps() {
+  return {
+    props: {
+      hideConstructionBanner: true,
+    },
+  };
+}
 
 export default gym02;

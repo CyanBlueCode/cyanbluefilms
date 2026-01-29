@@ -9,7 +9,7 @@ import Footer from './Footer';
 import { Analytics } from '@vercel/analytics/next';
 import { showConstructionBannerContext } from '../../context/GlobalContext';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, hideConstructionBanner = false }) => { // REVIEW temp construction banner code
   const [windowHeight, setWindowHeight] = useState('100vh');
 
   // ========== CONSTRUCTION BANNER - DELETE THIS ENTIRE SECTION WHEN SITE IS COMPLETE ==========
@@ -75,7 +75,7 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {showConstructionBanner && SHOW_CONSTRUCTION_BANNER_DEV && (
+      {showConstructionBanner && SHOW_CONSTRUCTION_BANNER_DEV && !hideConstructionBanner && (
         <ConstructionBanner />
       )}
       <Box

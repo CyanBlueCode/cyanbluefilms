@@ -309,7 +309,7 @@ const LandingPage = ({
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                mt: {xs: '100%', sm: '100%', md: '70%', lg: '50%'},
+                mt: { xs: '100%', sm: '100%', md: '70%', lg: '50%' },
               }}
             >
               {/* Main Title */}
