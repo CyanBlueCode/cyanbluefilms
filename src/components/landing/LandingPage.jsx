@@ -199,7 +199,7 @@ const LandingPage = ({
     Array.isArray(heroSection?.title)
       ? heroSection.title.join(' ')
       : heroSection?.title || '',
-    50,
+    60,
   );
 
   // Generate background video URL if provided
@@ -279,30 +279,6 @@ const LandingPage = ({
               gap: 4,
             }}
           >
-            {/* Left: Video box */}
-            {/* <Box sx={{ flex: 1 }}>
-              <Box
-                sx={{
-                  flex: 1,
-                  backgroundColor: 'rgba(0,0,0,0.6)',
-                  borderRadius: 2,
-                  p: 2,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  aspectRatio: '16/9',
-                }}
-              >
-                <iframe
-                  width='100%'
-                  height='100%'
-                  src={heroSection.videoUrl}
-                  title='Hero Video'
-                  frameBorder='0'
-                  allowFullScreen
-                />
-              </Box>
-            </Box> */}
-
             {/* Title & CTA box */}
             <Box
               sx={{
@@ -315,6 +291,7 @@ const LandingPage = ({
               {/* Main Title */}
               {/* <Box mb={10}> */}
               <Box mb={4}>
+                {/* REVIEW original hero should be deprecated */}
                 {heroSection?.useOriginalHero ? (
                   <>
                     <Typography
@@ -389,27 +366,53 @@ const LandingPage = ({
                     </Box>
                   </>
                 ) : (
+                  // NOTE version w/o non-breaking cursor
+                  // <Typography
+                  //   variant='h5'
+                  //   align='center'
+                  //   color='#fff'
+                  //   fontWeight={300}
+                  //   className='typewriter cursor'
+                  //   sx={{
+                  //     pb: 3,
+                  //     textTransform: 'uppercase',
+                  //     fontFamily: 'monospace',
+                  //     whiteSpace: 'normal',
+                  //     overflow: 'hidden',
+                  //     '&::after': {
+                  //       content: '"|"',
+                  //       ml: '2px',
+                  //       animation: 'blink 1s step-end infinite',
+                  //     },
+                  //   }}
+                  // >
                   <Typography
                     variant='h5'
                     align='center'
                     color='#fff'
                     fontWeight={300}
-                    className='typewriter cursor'
                     sx={{
                       pb: 3,
                       textTransform: 'uppercase',
                       fontFamily: 'monospace',
-                      // fontFamily: '"Helvetica Neue", Arial, sans-serif',
                       whiteSpace: 'normal',
                       overflow: 'hidden',
-                      '&::after': {
-                        content: '"|"',
-                        ml: '2px',
-                        animation: 'blink 1s step-end infinite',
-                      },
                     }}
                   >
-                    {typedTitle}
+                    {/* NOTE forcing non-break between cursor & last word */}
+                    {typedTitle.split(' ').map((word, i, arr) => (
+                      <span key={i}>
+                        {word}
+                        {i === arr.length - 1 && (
+                          <span
+                            style={{ animation: 'blink 1s step-end infinite' }}
+                          >
+                            |
+                          </span>
+                        )}
+                        {i < arr.length - 1 && ' '}
+                      </span>
+                    ))}
                   </Typography>
                 )}
               </Box>

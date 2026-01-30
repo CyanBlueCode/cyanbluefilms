@@ -82,7 +82,6 @@ const HeroCarousel = ({ images, interval = 3600 }) => {
         <Typography
           variant='h4'
           component='div'
-          className='typewriter cursor'
           sx={{
             fontFamily: 'monospace',
             whiteSpace: 'normal',
@@ -98,14 +97,19 @@ const HeroCarousel = ({ images, interval = 3600 }) => {
               md: '2.5rem',
             },
             overflow: 'hidden',
-            '&::after': {
-              content: '"|"',
-              ml: '2px',
-              animation: 'blink 1s step-end infinite',
-            },
           }}
         >
-          {typedSubtitle}
+          {typedSubtitle.split(' ').map((word, i, arr) => (
+            <span key={i}>
+              {word}
+              {i === arr.length - 1 && (
+                <span style={{ animation: 'blink 1s step-end infinite' }}>
+                  |
+                </span>
+              )}
+              {i < arr.length - 1 && ' '}
+            </span>
+          ))}
         </Typography>
         <LinearProgress
           variant='determinate'

@@ -7,18 +7,14 @@ const gym02 = () => (
     isDarkBackground={true}
     isLightText={true}
     heroSection={{
+      // title: [
+      //   'Stand Out With',
+      //   'High Quality',
+      //   'Marketing Content', // TODO A/B test this with 'Marketing Videos'
+      //   'For Your Fight Gym',
+      // ],
       title: [
-        'Stand Out With',
-        'High Quality',
-        'Marketing Content', // TODO A/B test this with 'Marketing Videos'
-        'For Your Fight Gym',
-      ],
-      title: [
-        'We Make Cinematic Fitness Brand Films That Pack a Punch'
-        // 'Promote Your Gym',
-        // 'With High-Quality',
-        // 'Marketing Content',
-        // 'That Packs a Punch',
+        'Cinematic Fitness Brand Films That Pack a Punch'
       ],
       subtitle: [
         'Created by filmmakers who train in combat sports; we know your world.',
