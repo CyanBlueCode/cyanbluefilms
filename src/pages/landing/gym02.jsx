@@ -13,9 +13,7 @@ const gym02 = () => (
       //   'Marketing Content', // TODO A/B test this with 'Marketing Videos'
       //   'For Your Fight Gym',
       // ],
-      title: [
-        'Cinematic Fitness Brand Films That Pack a Punch'
-      ],
+      title: ['Cinematic Fitness Brand Films That Pack a Punch'],
       subtitle: [
         'Created by filmmakers who train in combat sports; we know your world.',
         'Capture everything you need in one shoot day: a main promo film + ready-to-post clips to attract new members and keep your current ones engaged.',
@@ -25,13 +23,14 @@ const gym02 = () => (
       // videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
       backgroundVideo: {
         filePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop.mov',
-        posterFramePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop_PosterFrame.jpg',
+        posterFramePath:
+          '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop_PosterFrame.jpg',
         vidWidth: '1920',
         codec: 'h264',
         audio: false,
         forceRatio: undefined, // e.g 16:9
         custom: undefined, // e.g ',ar-16:9,f-mp4'
-      }
+      },
     }}
     videoSection={{
       title: 'Our Work in Action',
@@ -62,6 +61,19 @@ const gym02 = () => (
           description:
             'Every shoot is optimized for multiple platforms and formats in a single package, so you get weeks of content that works everywhere from IG reels to your website hero video without extra hassle.',
           icon: Videocam,
+        },
+        {
+          title: 'Max Reach From One Shoot!!!',
+          description:
+            'test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test .',
+          icon: Videocam,
+        },
+        {
+          title: 'BACKGROUND IMAGE TEST',
+          description:
+            'background image test test test test test test test test test test test test test test test test test test test test test test test. not sure if I like this...',
+          icon: SportsKabaddi,
+          backgroundImage: '/images/landing-gym01/cover.jpg',
         },
       ],
     }}
@@ -106,11 +118,11 @@ const gym02 = () => (
         question: 'Will you run the marketing for us too?',
         answer: (
           <>
-            Nope. We create the content, not the marketing. To actually get
-            new members or exposure, you&apos;ll need to use what we create in
-            your own campaigns, socials, ads, or website. We&apos;re your
-            partner that delivers pro-level videos and photos that sell your
-            gym for you, you just need to put it out there.
+            Nope. We create the content, not the marketing. To actually get new
+            members or exposure, you&apos;ll need to use what we create in your
+            own campaigns, socials, ads, or website. We&apos;re your partner
+            that delivers pro-level videos and photos that sell your gym for
+            you, you just need to put it out there.
           </>
         ),
       },
@@ -122,8 +134,8 @@ const gym02 = () => (
             project — planning, filming, and editing — typically runs{' '}
             <strong>3-4 weeks</strong>. We spend time upfront with you to
             understand your goals so everything we create hits the mark.
-            You&apos;ll be involved in planning, but we handle all the
-            technical work.
+            You&apos;ll be involved in planning, but we handle all the technical
+            work.
           </>
         ),
       },
@@ -132,12 +144,11 @@ const gym02 = () => (
         answer: (
           <>
             Minimal disruption is our goal. Most shoots require{' '}
-            <strong>only 2-3 crew members for a single day</strong>. We can
-            get most of the content in one extended class of regular members,
-            or we can schedule the shoot during off-hours. Your gym keeps
-            running while we capture everything we need. This could even be a
-            fun experience for your existing students and boost member
-            retention.
+            <strong>only 2-3 crew members for a single day</strong>. We can get
+            most of the content in one extended class of regular members, or we
+            can schedule the shoot during off-hours. Your gym keeps running
+            while we capture everything we need. This could even be a fun
+            experience for your existing students and boost member retention.
           </>
         ),
       },
@@ -146,9 +157,7 @@ const gym02 = () => (
         answer: (
           <>
             We use actual{' '}
-            <strong>
-              cinema cameras, cine lenses, and pro lighting rigs
-            </strong>{' '}
+            <strong>cinema cameras, cine lenses, and pro lighting rigs</strong>{' '}
             some of the same equipment found on Hollywood sets. It does mean
             we&apos;ll need to setup lights and gear around the gym, but trust
             us, you&apos;ll be glad we did once you see the results.
@@ -171,9 +180,8 @@ const gym02 = () => (
         answer: (
           <>
             Every package includes <strong>10+ high-res 4K images</strong>{' '}
-            pulled from the shoot footage. Larger sets of dedicated
-            professional photos (30+ megapixels) are also available as an
-            upgrade.
+            pulled from the shoot footage. Larger sets of dedicated professional
+            photos (30+ megapixels) are also available as an upgrade.
           </>
         ),
       },
@@ -184,8 +192,9 @@ const gym02 = () => (
             You get:
             <br />- <strong>1 polished hero video</strong> (~1-3 minutes) for
             your website, YouTube, Yelp, Maps, in-gym display, etc
-            <br />-{' '}
-            <strong>3 social-ready & ad-ready edited sequences</strong>{' '}
+            <br />- <strong>
+              3 social-ready & ad-ready edited sequences
+            </strong>{' '}
             (~10-30 seconds each)
             <br />- <strong>10+ edited images from footage</strong>
             <br />
@@ -199,11 +208,11 @@ const gym02 = () => (
         question: 'How much does it cost?',
         answer: (
           <>
-            Pricing starts at around <strong>$2,750</strong>, depending on
-            your gym size, how ambitious the project is, and how much content
-            you want. To put it in perspective, that&apos;s roughly equivalent
-            to only <strong>one new member&apos;s annual membership</strong>,
-            but it&apos;s a one-time investment that continues to pay off as
+            Pricing starts at around <strong>$2,750</strong>, depending on your
+            gym size, how ambitious the project is, and how much content you
+            want. To put it in perspective, that&apos;s roughly equivalent to
+            only <strong>one new member&apos;s annual membership</strong>, but
+            it&apos;s a one-time investment that continues to pay off as
             potential new members see your gym.
           </>
         ),
@@ -212,11 +221,11 @@ const gym02 = () => (
         question: 'I need content regularly, can you help with that?',
         answer: (
           <>
-            Absolutely. Many gyms find it valuable to schedule ongoing shoots
-            or monthly content refreshes to keep their marketing fresh and
-            maintain momentum. We offer discounted retainers and can tailor a
-            plan that fits your goals, budget, and cadence without disrupting
-            your regular operations.
+            Absolutely. Many gyms find it valuable to schedule ongoing shoots or
+            monthly content refreshes to keep their marketing fresh and maintain
+            momentum. We offer discounted retainers and can tailor a plan that
+            fits your goals, budget, and cadence without disrupting your regular
+            operations.
           </>
         ),
       },

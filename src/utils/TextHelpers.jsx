@@ -9,6 +9,7 @@ export const SectionHeader = ({
   fontWeight = 600,
   isUpperCase = true,
   colors,
+  pb = 5
 }) => (
   <>
     <Typography
@@ -24,7 +25,7 @@ export const SectionHeader = ({
     <Typography
       variant='h6'
       align='center'
-      pb={5}
+      pb={pb}
       px={2}
       fontWeight={400}
       color={colors?.subtitleText || color}

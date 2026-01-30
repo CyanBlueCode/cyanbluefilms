@@ -20,7 +20,7 @@ const ContactSection = ({
   <Box
     sx={{
       width: '100vw',
-      py: 8,
+      pt: 8,
       backgroundColor: colors?.primaryBg,
       backgroundImage: backgroundImage
         ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`
@@ -35,6 +35,7 @@ const ContactSection = ({
         titleVariant={titleVariant}
         isUpperCase={isUpperCase}
         colors={colors}
+        pb={0}
       />
       <Box pb={7}>
         <ContactCard

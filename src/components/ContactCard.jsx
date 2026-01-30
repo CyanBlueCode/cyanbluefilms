@@ -194,7 +194,7 @@ const ContactCard = ({
             mt: 3,
             backgroundColor: 'transparent',
             borderWidth: '2px',
-            borderColor: colors?.bodyText || 'white',
+            borderColor: colors?.bodyText || '#e0e0e0',
             borderRadius: '8px',
             color: colors?.bodyText,
             fontSize: '1.2rem',

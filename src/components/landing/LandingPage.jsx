@@ -22,6 +22,7 @@ import {
 import ContactSection from '@/components/ContactSection';
 import CallBooking from '@/components/landing/CallBooking';
 import CircularInfographic from '@/components/landing/CircularInfographic';
+import AnimatedCardCarousel from '@/components/AnimatedCardCarousel';
 import {
   SportsMma,
   SportsKabaddi,
@@ -45,7 +46,7 @@ const accentColor = 'cyanBlue.main';
 const getColors = (isDarkBackground, isLightText) => ({
   // Background colors
   primaryBg: isDarkBackground ? '#000' : '#ffffff',
-  secondaryBg: isDarkBackground ? '#333333' : '#f5f5f5',
+  secondaryBg: isDarkBackground ? '#222222' : '#f5f5f5',
   tertiaryBg: isDarkBackground ? '#000' : '#eaeaea',
 
   // Text colors
@@ -104,36 +105,6 @@ const VideoModal = ({ videoUrl, open, onClose }) => (
       />
     </Box>
   </Modal>
-);
-
-const ResponsiveCard = ({ title, description, icon, height = 300, colors }) => (
-  <Box
-    sx={{
-      width: { xs: '90vw', sm: '280px' },
-      height,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      p: 3,
-      m: 1,
-      textAlign: 'center',
-      backgroundColor: colors?.secondaryBg || '#222',
-      color: colors?.titleText || '#fff',
-      borderRadius: 2,
-    }}
-  >
-    {typeof icon === 'string' ? (
-      <Avatar src={icon} sx={{ width: 80, height: 80 }} />
-    ) : (
-      <Box component={icon} sx={{ fontSize: 48, color: accentColor }} />
-    )}
-    <CardContent>
-      <Typography variant='h6' gutterBottom>
-        {title}
-      </Typography>
-      <Typography variant='body2'>{description}</Typography>
-    </CardContent>
-  </Box>
 );
 
 const renderStackedTextArray = (text) =>
@@ -424,15 +395,6 @@ const LandingPage = ({
                     color: 'cyanBlue.main',
                   }}
                 />
-
-                {/* <ContactCard
-                title={{
-                  title: 'Book a FREE consultation today',
-                  fontVariant: 'h5',
-                }}
-                hideProjectType
-                // buttonColor={accentColor}
-              /> */}
               </Box>
             </Box>
           </Container>
@@ -476,20 +438,11 @@ const LandingPage = ({
               subtitle={benefitsSection?.subtitle}
               colors={colors}
             />
-            <Grid
-              container
-              justifyContent='space-evenly'
-              width={{ xs: '90vw', sm: '60vw' }}
-            >
-              {benefitsSection?.cards?.map((card, i) => (
-                <ResponsiveCard
-                  key={i}
-                  {...card}
-                  height={360}
-                  colors={colors}
-                />
-              ))}
-            </Grid>
+            <AnimatedCardCarousel
+              items={benefitsSection?.cards || []}
+              colors={colors}
+              cardHeight={360}
+            />
           </Container>
         </Box>
       )}
@@ -500,7 +453,7 @@ const LandingPage = ({
           sx={{
             width: '100vw',
             backgroundColor: colors.tertiaryBg,
-            py: 10,
+            // py: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -566,7 +519,6 @@ const LandingPage = ({
                 sizes={1200}
                 style={{ width: '100%', height: 'auto' }}
               /> */}
-              {/* ANCHOR HERE!!! */}
               <CircularInfographic
                 colors={colors}
                 center={
@@ -673,14 +625,39 @@ const LandingPage = ({
             <Grid container spacing={2} justifyContent='center'>
               {testimonialsSection?.testimonials?.map((t, i) => (
                 <Box key={i} fontStyle='italic'>
-                  <ResponsiveCard
-                    key={t?.quote}
-                    icon={t?.avatar || t?.icon}
-                    title={t?.name}
-                    description={t?.quote}
-                    height='fit-content'
-                    colors={{ secondaryBg: '#222', titleText: '#fff' }}
-                  />
+                  <Box
+                    sx={{
+                      width: { xs: '90vw', sm: '280px' },
+                      height: 'fit-content',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      p: 3,
+                      m: 1,
+                      textAlign: 'center',
+                      backgroundColor: '#222',
+                      color: '#fff',
+                      borderRadius: 2,
+                    }}
+                  >
+                    {typeof (t?.avatar || t?.icon) === 'string' ? (
+                      <Avatar
+                        src={t?.avatar || t?.icon}
+                        sx={{ width: 80, height: 80 }}
+                      />
+                    ) : (
+                      <Box
+                        component={t?.avatar || t?.icon}
+                        sx={{ fontSize: 48, color: accentColor }}
+                      />
+                    )}
+                    <CardContent>
+                      <Typography variant='h6' gutterBottom>
+                        {t?.name}
+                      </Typography>
+                      <Typography variant='body2'>{t?.quote}</Typography>
+                    </CardContent>
+                  </Box>
                 </Box>
               ))}
             </Grid>

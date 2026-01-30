@@ -25,7 +25,7 @@ export default function CircularInfographicMinimal({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const isMd = useMediaQuery(theme.breakpoints.between('sm', 'lg'));
-  const size = isSm ? '20rem' : isMd ? '30rem' : '42rem';
+  const size = isSm ? '20rem' : isMd ? '30rem' : '35rem';
   const circleColor = '#00B7EB';
   const tooltipBgColor = colors?.ternaryBg;
 
