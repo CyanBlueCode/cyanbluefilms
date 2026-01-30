@@ -9,11 +9,11 @@ import {
 import Image from 'next/image';
 
 /**
- * - center: JSX element (icon/image) OR centerSrc: string (http url) to render an iframe
+ * - centerIcon: JSX element (icon/image) OR centerSrc: string (http url) to render an iframe
  * - items: array of objects with { icon?, imageSrc?, msg }
  */
 export default function CircularInfographicMinimal({
-  center,
+  centerIcon,
   centerSrc,
   items = [],
   colors,
@@ -26,7 +26,9 @@ export default function CircularInfographicMinimal({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const isMd = useMediaQuery(theme.breakpoints.between('sm', 'lg'));
   const size = isSm ? '20rem' : isMd ? '30rem' : '35rem';
-  const circleColor = '#00B7EB';
+  const circleColor = '#000';
+  const iconColor = '#00B7EB';
+  const centerIconColor = '#00B7EB';
   const tooltipBgColor = colors?.ternaryBg;
 
   const rOuter = 40; // distance from center for outer circles (percent)
@@ -97,6 +99,7 @@ export default function CircularInfographicMinimal({
           height: '34%',
           borderRadius: '50%',
           backgroundColor: circleColor,
+          border: `2px solid ${colors?.secondaryBg || '#eaeaea'}`,
           zIndex: 3,
           display: 'flex',
           alignItems: 'center',
@@ -112,7 +115,7 @@ export default function CircularInfographicMinimal({
             sandbox='allow-scripts allow-same-origin'
           />
         ) : (
-          center
+          React.cloneElement(centerIcon, { sx: { color: centerIconColor, width: '60%', height: '60%' } })
         )}
       </Box>
 
@@ -155,17 +158,21 @@ export default function CircularInfographicMinimal({
             <Box
               onTouchStart={(e) => {
                 e.stopPropagation();
-                setOpenTooltips(prev => {
+                setOpenTooltips((prev) => {
                   const isCurrentlyOpen = prev[idx];
                   return isCurrentlyOpen ? {} : { [idx]: true };
                 });
               }}
-              onMouseEnter={!isSm ? () =>
-                setOpenTooltips((prev) => ({ ...prev, [idx]: true }))
-              : undefined}
-              onMouseLeave={!isSm ? () =>
-                setOpenTooltips((prev) => ({ ...prev, [idx]: false }))
-              : undefined}
+              onMouseEnter={
+                !isSm
+                  ? () => setOpenTooltips((prev) => ({ ...prev, [idx]: true }))
+                  : undefined
+              }
+              onMouseLeave={
+                !isSm
+                  ? () => setOpenTooltips((prev) => ({ ...prev, [idx]: false }))
+                  : undefined
+              }
               sx={{
                 position: 'absolute',
                 left: `${p.xOuter}%`,
@@ -221,7 +228,7 @@ export default function CircularInfographicMinimal({
                     }}
                   />
                 ) : (
-                  item?.icon
+                  React.cloneElement(item?.icon, { sx: { color: iconColor, width: '60%', height: '60%' } })
                 )}
               </Box>
             </Box>

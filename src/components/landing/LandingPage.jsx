@@ -521,7 +521,7 @@ const LandingPage = ({
               /> */}
               <CircularInfographic
                 colors={colors}
-                center={
+                centerIcon={
                   <MovieFilter
                     sx={{
                       color: 'white',
