@@ -470,20 +470,19 @@ const LandingPage = ({
           <Box
             sx={{
               backgroundColor: 'rgb(0, 0, 0, 1)',
-              borderRadius: 1,
-              p: 1,
+              border: 'none',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               aspectRatio: '16/9',
-              width: { xs: '95dvw', sm: '70vw' },
-              mx: 'auto',
+              width: { xs: '100vw', sm: '70vw' },
+              // mx: 'auto',
             }}
           >
             <iframe
               width='100%'
               height='100%'
-              src={videoSection.videoUrl}
+              src={`${videoSection.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
               title='Hero Video'
               frameBorder='0'
               allowFullScreen
@@ -557,50 +556,42 @@ const LandingPage = ({
                 ]}
               />
             </Box>
-            <Grid
-              container
-              spacing={2}
-              maxWidth={1100}
-              justifyContent='space-around'
-            >
-              {packageHighlightsSection?.videos?.map((video, i) => (
-                <Grid item key={i} xs={12} sm={6} md={4}>
-                  <Typography
-                    variant='h5'
-                    align='center'
-                    gutterBottom
-                    color={colors.titleText}
-                  >
-                    {video?.title}
-                  </Typography>
-                  <Typography
-                    variant='h6'
-                    align='center'
-                    gutterBottom
-                    color={colors.subtitleText}
-                  >
-                    {video?.description}
-                  </Typography>
-                  <iframe
-                    style={{
-                      minWidth: 350,
-                      height: 'auto',
-                      aspectRatio: '16/9',
+            {/* SOCIAL VIDEO CARDS */}
+            <Box mt={4}>
+            {/* <SectionHeader
+              title={packageHighlightsSection?.title2}
+              subtitle={packageHighlightsSection?.subtitle2}
+              colors={colors}
+            /> */}
+              <AnimatedCardCarousel
+                items={packageHighlightsSection?.videos || []}
+                colors={colors}
+                cardHeight={400}
+                autoScrollInterval={0}
+                customCardRenderer={(video) => (
+                  <Box
+                    sx={{
+                      width: { xs: 300, sm: 350, md: 400 },
+                      height: { xs: 375, sm: 438, md: 500 },
+                      backgroundColor: colors?.secondaryBg || '#222',
+                      borderRadius: 2,
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                      overflow: 'hidden',
                     }}
-                    // width='100%'
-                    // height='240'
-
-                    src={
-                      video.videoUrl ||
-                      'https://www.youtube.com/embed/dQw4w9WgXcQ'
-                    }
-                    // title={`Social Cut ${i + 1}`}
-                    frameBorder='0'
-                    allowFullScreen
-                  />
-                </Grid>
-              ))}
-            </Grid>
+                  >
+                    <iframe
+                      width='100%'
+                      height='100%'
+                      src={`${video.videoUrl}`}
+                      // src={`${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
+                      title={video.title}
+                      frameBorder='0'
+                      allowFullScreen
+                    />
+                  </Box>
+                )}
+              />
+            </Box>
           </Container>
         </Box>
       )}
@@ -610,6 +601,7 @@ const LandingPage = ({
         <Box
           sx={{
             width: '100vw',
+            minHeight: '40vh',
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${testimonialsSection?.imageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',

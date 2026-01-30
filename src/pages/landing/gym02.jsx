@@ -42,7 +42,7 @@ const gym02 = () => (
     benefitsSection={{
       title: <>Why Choose&nbsp;Us</>,
       subtitle:
-        "We don't just make videos, we create high-value tailored marketing assets that drive new members and set your fight gym apart",
+        "We don't just make videos, we create high-value tailored marketing assets that drive new members and set your fitness brand apart",
       cards: [
         {
           title: 'Content That Converts',
@@ -81,27 +81,34 @@ const gym02 = () => (
       title: 'Multi-Platform Video Package',
       subtitle:
         'Get a versatile main hero video and multiple platform-ready assets all in a single shoot day',
+      title2: 'Social media cutdowns',
+      subtitle2: 'Cutdowns for social media',
       packageGraphic: '/images/hero2.jpg',
       videos: [
         {
-          title: 'Video 1',
-          description: 'Description for Video 1',
-          videoUrl: 'https://www.youtube.com/embed/iSLqjiPa94Y',
+          title: '01',
+          videoUrl: 'https://www.youtube.com/embed/foVmn0fHHEE',
         },
         {
-          title: 'Video 2',
-          description: 'Description for Video 2',
-          videoUrl: 'https://www.youtube.com/embed/deLt6pwflKU',
+          title: '02',
+          videoUrl: 'https://www.youtube.com/embed/lkZHurccE34',
         },
         {
-          title: 'Video 3',
-          description: 'Description for Video 3',
-          videoUrl: 'https://www.youtube.com/embed/6TWPuaUCoUY',
+          title: '03',
+          videoUrl: 'https://www.youtube.com/embed/RmjBQQOD0Do',
+        },
+        {
+          title: '04 Jose',
+          videoUrl: 'https://www.youtube.com/embed/Zx5SlTwb4is',
+        },
+        {
+          title: 'intro',
+          videoUrl: 'https://www.youtube.com/embed/j5XQj_Goq6I',
         },
       ],
     }}
     testimonialsSection={{
-      imageUrl: '/images/landing-gym01/cover2.jpg',
+      imageUrl: '/images/landing-gym01/cover.jpg',
       testimonials: [
         {
           avatar: '/images/landing-gym01/gym01-testimonial-avatar1.jpg',

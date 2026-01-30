@@ -29,6 +29,7 @@ const ContactCard = ({
   buttonColor = 'primary.main',
   colors
 }) => {
+  console.log('colors =>', colors);
   const fieldSx = {
     '& .MuiInputLabel-root': { color: colors?.bodyText },
     '& .MuiOutlinedInput-root': {
@@ -55,7 +56,15 @@ const ContactCard = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    if (name === 'phone') {
+      // Only allow numbers, spaces, parentheses, hyphens, and plus signs
+      const phoneValue = value.replace(/[^0-9\s()+-]/g, '');
+      setFormData({ ...formData, [name]: phoneValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -139,6 +148,9 @@ const ContactCard = ({
           onChange={handleChange}
           margin='normal'
           required
+          inputProps={{
+            pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'
+          }}
           sx={fieldSx}
         />
 
@@ -161,6 +173,20 @@ const ContactCard = ({
               value={formData.projectType}
               onChange={handleChange}
               label='Project Type'
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    backgroundColor: colors?.primaryBg,
+                    color: colors?.titleText,
+                    '& .MuiMenuItem-root': {
+                      color: colors?.titleText,
+                      '&:hover': {
+                        backgroundColor: colors?.secondaryBg,
+                      },
+                    },
+                  },
+                },
+              }}
             >
               <MenuItem value=''>
                 <em>Select project type</em>
