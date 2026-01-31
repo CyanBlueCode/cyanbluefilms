@@ -22,7 +22,8 @@ import {
 import ContactSection from '@/components/ContactSection';
 import CallBooking from '@/components/landing/CallBooking';
 import CircularInfographic from '@/components/landing/CircularInfographic';
-import AnimatedCardCarousel from '@/components/AnimatedCardCarousel';
+import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
+import ScrollingLogos from '@/components/ui/ScrollingLogos';
 import {
   SportsMma,
   SportsKabaddi,
@@ -155,7 +156,7 @@ const LandingPage = ({
   benefitsSection,
   videoSection,
   packageHighlightsSection,
-  testimonialsSection,
+  clientBrandsSection,
   faqSection,
   contactSection,
   isDarkBackground = false,
@@ -558,7 +559,7 @@ const LandingPage = ({
             </Box>
             {/* SOCIAL VIDEO CARDS */}
             <Box mt={4}>
-            {/* <SectionHeader
+              {/* <SectionHeader
               title={packageHighlightsSection?.title2}
               subtitle={packageHighlightsSection?.subtitle2}
               colors={colors}
@@ -582,8 +583,7 @@ const LandingPage = ({
                     <iframe
                       width='100%'
                       height='100%'
-                      src={`${video.videoUrl}`}
-                      // src={`${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
+                      src={`${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
                       title={video.title}
                       frameBorder='0'
                       allowFullScreen
@@ -596,63 +596,32 @@ const LandingPage = ({
         </Box>
       )}
 
-      {/* TESTIMONIALS SECTION */}
-      {testimonialsSection && (
+      {/* CLIENT BRANDS SECTION */}
+      {clientBrandsSection && (
         <Box
           sx={{
             width: '100vw',
-            minHeight: '40vh',
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${testimonialsSection?.imageUrl})`,
+            minHeight: '50vh',
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${clientBrandsSection?.backgroundImagePath})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             py: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
           }}
         >
           <Container>
             <SectionHeader
-              title='Client Testimonials'
-              colors={{ titleText: '#f5f5f5', subtitleText: '#f5f5f5' }}
-              // titleVariant='h4'
+              title={clientBrandsSection?.title}
+              subtitle={clientBrandsSection?.subtitle}
+              colors={colors}
             />
-            <Grid container spacing={2} justifyContent='center'>
-              {testimonialsSection?.testimonials?.map((t, i) => (
-                <Box key={i} fontStyle='italic'>
-                  <Box
-                    sx={{
-                      width: { xs: '90vw', sm: '280px' },
-                      height: 'fit-content',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      p: 3,
-                      m: 1,
-                      textAlign: 'center',
-                      backgroundColor: '#222',
-                      color: '#fff',
-                      borderRadius: 2,
-                    }}
-                  >
-                    {typeof (t?.avatar || t?.icon) === 'string' ? (
-                      <Avatar
-                        src={t?.avatar || t?.icon}
-                        sx={{ width: 80, height: 80 }}
-                      />
-                    ) : (
-                      <Box
-                        component={t?.avatar || t?.icon}
-                        sx={{ fontSize: 48, color: accentColor }}
-                      />
-                    )}
-                    <CardContent>
-                      <Typography variant='h6' gutterBottom>
-                        {t?.name}
-                      </Typography>
-                      <Typography variant='body2'>{t?.quote}</Typography>
-                    </CardContent>
-                  </Box>
-                </Box>
-              ))}
-            </Grid>
+            <ScrollingLogos
+              clientBrands={clientBrandsSection?.clientBrands}
+              animationDuration={clientBrandsSection?.animationDuration}
+              logoHeight={clientBrandsSection?.logoHeight}
+            />
           </Container>
         </Box>
       )}

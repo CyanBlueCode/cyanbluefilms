@@ -29,7 +29,6 @@ const ContactCard = ({
   buttonColor = 'primary.main',
   colors
 }) => {
-  console.log('colors =>', colors);
   const fieldSx = {
     '& .MuiInputLabel-root': { color: colors?.bodyText },
     '& .MuiOutlinedInput-root': {

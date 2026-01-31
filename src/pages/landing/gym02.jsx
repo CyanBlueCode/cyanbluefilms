@@ -107,17 +107,14 @@ const gym02 = () => (
         },
       ],
     }}
-    testimonialsSection={{
-      imageUrl: '/images/landing-gym01/cover.jpg',
-      testimonials: [
-        {
-          avatar: '/images/landing-gym01/gym01-testimonial-avatar1.jpg',
-          quote: "Best marketing content we've ever had.",
-        },
-        {
-          avatar: '/images/landing-gym01/gym01-testimonial-avatar1.jpg',
-          quote: 'The videos gave me an erection that lasted more than 4 hrs.',
-        },
+    clientBrandsSection={{
+      title: 'Trusted by Leading Brands',
+      // subtitle: 'We\'ve worked with industry leaders to create compelling content',
+      backgroundImagePath: '/images/landing-gym01/cover.jpg',
+      clientBrands: [
+        '/images/landing-gym01/brand-logos/logo-hbo.png',
+        '/images/landing-gym01/brand-logos/logo-zara.png',
+        '/images/landing-gym01/brand-logos/logo-warby-parker.png',
       ],
     }}
     faqSection={[
@@ -240,13 +237,10 @@ const gym02 = () => (
   />
 );
 
-// REVIEW temp construction banner code
-export async function getStaticProps() {
-  return {
-    props: {
-      hideConstructionBanner: true,
-    },
-  };
-}
+export const getStaticProps = async () => ({
+  props: {
+    hideConstructionBanner: true,
+  },
+});
 
 export default gym02;
