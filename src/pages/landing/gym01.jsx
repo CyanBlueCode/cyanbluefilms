@@ -19,7 +19,7 @@ const gym01 = () => (
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
       useOriginalHero: true,
     }}
-    videoSection={{
+    mainVideoSection={{
       title: 'See Our Work in Action',
       subtitle:
         'A glimpse at the high-quality tailored marketing hero videos we create for combat sports gyms like yours',

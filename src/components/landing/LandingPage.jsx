@@ -154,7 +154,8 @@ export const SectionHeader = ({
 const LandingPage = ({
   heroSection,
   benefitsSection,
-  videoSection,
+  mainVideoSection,
+  secondaryVideoSection,
   packageHighlightsSection,
   clientBrandsSection,
   faqSection,
@@ -183,6 +184,52 @@ const LandingPage = ({
   const posterFrameUrl = heroSection?.backgroundVideo?.posterFramePath
     ? `https://ik.imagekit.io/cyanbluefilms${heroSection.backgroundVideo.posterFramePath}`
     : null;
+
+  // Render video section function
+  const renderVideoSection = (section, backgroundColor = colors.tertiaryBg) => {
+    if (!section) return null;
+
+    return (
+      <Box
+        sx={{
+          width: '100vw',
+          backgroundColor,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: 4,
+        }}
+      >
+        <SectionHeader
+          title={section?.title}
+          subtitle={section?.subtitle}
+          colors={colors}
+        />
+
+        <Box
+          sx={{
+            backgroundColor: 'rgb(0, 0, 0, 1)',
+            border: 'none',
+            aspectRatio: '16/9',
+            width: { xs: '100vw', sm: '70vw' },
+            position: 'relative',
+            mt: 4
+          }}
+        >
+          <iframe
+            width='100%'
+            height='100%'
+            src={`${section.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1440`}
+            title={section.title || 'Video'}
+            frameBorder='0'
+            allowFullScreen
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          />
+        </Box>
+      </Box>
+    );
+  };
 
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
@@ -303,7 +350,7 @@ const LandingPage = ({
                       }}
                     >
                       <Image
-                        src={videoSection?.thumbnail}
+                        src={mainVideoSection?.thumbnail}
                         alt='Main Video Thumb'
                         fill
                         style={{
@@ -333,7 +380,7 @@ const LandingPage = ({
                       <VideoModal
                         open={modalOpen}
                         onClose={() => setModalOpen(false)}
-                        videoUrl={videoSection.videoUrl}
+                        videoUrl={mainVideoSection.videoUrl}
                       />
                     </Box>
                   </>
@@ -449,48 +496,7 @@ const LandingPage = ({
       )}
 
       {/* MAIN VIDEO DEMO SECTION */}
-      {videoSection && (
-        <Box
-          sx={{
-            width: '100vw',
-            backgroundColor: colors.tertiaryBg,
-            // py: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <SectionHeader
-            title={videoSection?.title}
-            subtitle={videoSection?.subtitle}
-            colors={colors}
-          />
-
-          {/* MAIN FEATURE VIDEO */}
-          <Box
-            sx={{
-              backgroundColor: 'rgb(0, 0, 0, 1)',
-              border: 'none',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              aspectRatio: '16/9',
-              width: { xs: '100vw', sm: '70vw' },
-              // mx: 'auto',
-            }}
-          >
-            <iframe
-              width='100%'
-              height='100%'
-              src={`${videoSection.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
-              title='Hero Video'
-              frameBorder='0'
-              allowFullScreen
-            />
-          </Box>
-        </Box>
-      )}
+      {renderVideoSection(mainVideoSection)}
 
       {/* PACKAGE HIGHLIGHTS SECTION */}
       {packageHighlightsSection && (
@@ -583,7 +589,11 @@ const LandingPage = ({
                     <iframe
                       width='100%'
                       height='100%'
-                      src={`${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
+                      src={
+                        video.videoUrl.includes('vimeo')
+                          ? `${video.videoUrl}?title=0&amp;byline=0&amp;portrait=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479`
+                          : `${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`
+                      }
                       title={video.title}
                       frameBorder='0'
                       allowFullScreen
@@ -605,7 +615,6 @@ const LandingPage = ({
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${clientBrandsSection?.backgroundImagePath})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            py: 8,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-around',
@@ -626,9 +635,14 @@ const LandingPage = ({
         </Box>
       )}
 
+      {/* LONG FORM WORK SECTION */}
+      <Box pt={4} backgroundColor={colors.primaryBg}>
+      {renderVideoSection(secondaryVideoSection, colors.primaryBg)}
+      </Box>
+
       {/* FAQ SECTION */}
       {faqSection && (
-        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 4 }}>
           <Container>
             <SectionHeader
               title='FAQs'

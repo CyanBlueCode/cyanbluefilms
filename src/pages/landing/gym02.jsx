@@ -32,7 +32,7 @@ const gym02 = () => (
         custom: undefined, // e.g ',ar-16:9,f-mp4'
       },
     }}
-    videoSection={{
+    mainVideoSection={{
       title: 'Our Work in Action',
       subtitle:
         'A glimpse at the high-quality tailored marketing hero videos we create for combat sports gyms like yours',
@@ -87,25 +87,35 @@ const gym02 = () => (
       videos: [
         {
           title: '01',
-          videoUrl: 'https://www.youtube.com/embed/foVmn0fHHEE',
+          videoUrl: 'https://player.vimeo.com/video/1160684839',
+          // videoUrl: 'https://www.youtube.com/embed/foVmn0fHHEE',
         },
         {
           title: '02',
-          videoUrl: 'https://www.youtube.com/embed/lkZHurccE34',
+          videoUrl: 'https://player.vimeo.com/video/1160684862'
+          // videoUrl: 'https://www.youtube.com/embed/lkZHurccE34',
         },
         {
           title: '03',
-          videoUrl: 'https://www.youtube.com/embed/RmjBQQOD0Do',
+          videoUrl: 'https://player.vimeo.com/video/1160684857'
+          // videoUrl: 'https://www.youtube.com/embed/RmjBQQOD0Do',
         },
         {
           title: '04 Jose',
-          videoUrl: 'https://www.youtube.com/embed/Zx5SlTwb4is',
+          videoUrl: 'https://player.vimeo.com/video/1160684849'
+          // videoUrl: 'https://www.youtube.com/embed/Zx5SlTwb4is',
         },
         {
           title: 'intro',
+          // videoUrl: 'https://player.vimeo.com/video/1160688220'
           videoUrl: 'https://www.youtube.com/embed/j5XQj_Goq6I',
         },
       ],
+    }}
+    secondaryVideoSection={{
+      title: 'Long Form Work',
+      subtitle: 'Truly elevate your brand with festival worthy branded & sponsored documentaries',
+      videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA'
     }}
     clientBrandsSection={{
       title: 'Trusted by Leading Brands',
@@ -115,6 +125,7 @@ const gym02 = () => (
         '/images/landing-gym01/brand-logos/logo-hbo.png',
         '/images/landing-gym01/brand-logos/logo-zara.png',
         '/images/landing-gym01/brand-logos/logo-warby-parker.png',
+        '/images/landing-gym01/brand-logos/logo-adtec.png',
       ],
     }}
     faqSection={[
