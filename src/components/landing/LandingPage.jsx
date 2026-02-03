@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {
   Box,
@@ -57,54 +57,73 @@ const getColors = (isDarkBackground, isLightText) => ({
 });
 
 // REVIEW video modal implementation from original hero banner
-const VideoModal = ({ videoUrl, open, onClose }) => (
-  <Modal
-    open={open}
-    onClose={onClose}
-    slotProps={{
-      backdrop: {
-        sx: { backgroundColor: 'rgba(0, 0, 0, 0.9)' },
-      },
-    }}
-  >
-    <Box
-      sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: { xs: '100dvw', sm: '80dvw' },
-        aspectRatio: '16/9',
-        bgcolor: 'black',
+const VideoModal = ({ videoUrl, open, onClose }) => {
+  const [iframeSrc, setIframeSrc] = useState('');
+
+  useEffect(() => {
+    if (open && videoUrl) {
+      // NOTE small delay to ensure modal is fully rendered before setting autoplay
+      const timer = setTimeout(() => {
+        setIframeSrc(`${videoUrl}?autoplay=1`);
+      }, 100);
+      return () => clearTimeout(timer);
+    } else {
+      setIframeSrc('');
+    }
+  }, [open, videoUrl]);
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        backdrop: {
+          sx: { backgroundColor: 'rgba(0, 0, 0, 0.9)' },
+        },
       }}
     >
-      <Button
-        onClick={onClose}
+      <Box
         sx={{
           position: 'absolute',
-          top: -50,
-          right: 8,
-          minWidth: 'auto',
-          width: 32,
-          height: 32,
-          color: 'white',
-          zIndex: 1,
-          '&:hover': { bgcolor: 'black' },
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: { xs: '100dvw', sm: '80dvw' },
+          aspectRatio: '16/9',
+          bgcolor: 'black',
         }}
       >
-        <Close fontSize='small' />
-      </Button>
-      <iframe
-        width='100%'
-        height='100%'
-        src={videoUrl}
-        title='Video'
-        frameBorder='0'
-        allowFullScreen
-      />
-    </Box>
-  </Modal>
-);
+        <Button
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            top: -50,
+            right: 8,
+            minWidth: 'auto',
+            width: 32,
+            height: 32,
+            color: 'white',
+            zIndex: 1,
+            '&:hover': { bgcolor: 'black' },
+          }}
+        >
+          <Close fontSize='small' />
+        </Button>
+        {iframeSrc && (
+          <iframe
+            width='100%'
+            height='100%'
+            src={iframeSrc}
+            title='Video'
+            frameBorder='0'
+            allowFullScreen
+            allow='autoplay'
+          />
+        )}
+      </Box>
+    </Modal>
+  );
+};
 
 export const SectionHeader = ({
   title,
