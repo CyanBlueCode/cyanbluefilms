@@ -1,5 +1,16 @@
 import React from 'react';
-import { SportsMma, SportsKabaddi, Videocam } from '@mui/icons-material';
+import { 
+  SportsMma, 
+  SportsKabaddi, 
+  Videocam, 
+  MovieFilter,
+  Instagram,
+  YouTube,
+  ConnectedTv,
+  Devices,
+  Map,
+  LocalAtm,
+} from '@mui/icons-material';
 import LandingPage from '@/components/landing/LandingPage';
 
 const gym02 = () => (
@@ -102,6 +113,45 @@ const gym02 = () => (
           videoUrl: 'https://www.youtube.com/embed/j5XQj_Goq6I',
         },
       ],
+      infographic: {
+        title: null,
+        subtitle: 'Imagine here is some artfully crafted copy describing this circle thing below wow',
+        centerIcon: (
+          <MovieFilter
+            sx={{
+              color: 'white',
+              fontSize: { xs: 40, md: 60, lg: 100 },
+            }}
+          />
+        ),
+        centerText: "This is our comprehensive video production package designed specifically for combat sports gyms. We understand the unique culture and energy of fight training because we're part of that world. Our approach combines cinematic storytelling with authentic fight culture to create content that resonates with both casual fitness seekers and serious fighters. Every shoot is strategically planned to maximize your content output - from a hero video for your website to social media clips that drive engagement and new member sign-ups.",
+        items: [
+          {
+            icon: <Instagram sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Ready to go short-form posts for Instagram, TikTok, and other social media sites',
+          },
+          {
+            icon: <ConnectedTv sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Use as looping background video in-store or at conventions/events',
+          },
+          {
+            icon: <YouTube sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Run attention grabbing YouTube ads, or embed the videos directly on your website',
+          },
+          {
+            icon: <Devices sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Get high-quality content for all device formats from phone screens to laptops to TVs',
+          },
+          {
+            icon: <Map sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Boost your presence and credibility on Google Maps/Yelp',
+          },
+          {
+            icon: <LocalAtm sx={{ color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } }} />,
+            msg: 'Includes multiple cuts perfect for paid ads on all platforms + A/B testing',
+          },
+        ],
+      },
     }}
     secondaryVideoSection={{
       title: 'Long Form Work',

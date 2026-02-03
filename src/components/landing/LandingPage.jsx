@@ -25,19 +25,6 @@ import CallBooking from '@/components/landing/CallBooking';
 import CircularInfographic from '@/components/landing/CircularInfographic';
 import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
 import ScrollingLogos from '@/components/ui/ScrollingLogos';
-import {
-  SportsMma,
-  SportsKabaddi,
-  Videocam,
-  MovieFilter,
-  Movie,
-  Instagram,
-  YouTube,
-  ConnectedTv,
-  Devices,
-  Map,
-  LocalAtm,
-} from '@mui/icons-material';
 // import TikTok from '../../public/images/tiktok-logo.svg';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
@@ -171,9 +158,6 @@ const LandingPage = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const colors = getColors(isDarkBackground, isLightText);
-  const packageIconStyles = {
-    sx: { color: 'white', fontSize: { xs: 35, sm: 50, md: 50, lg: 60 } },
-  };
   const typedTitle = useTypewriter(
     Array.isArray(heroSection?.title)
       ? heroSection.title.join(' ')
@@ -269,7 +253,7 @@ const LandingPage = ({
                   transform: 'translate(-50%, -50%)',
                   bgcolor: (theme) => alpha(theme.palette.cyanBlue.main, 0.75),
                   color: '#fff',
-                  fontSize: {xs: 18, sm: 20},
+                  fontSize: { xs: 18, sm: 20 },
                   borderRadius: '50%',
                   minWidth: { xs: 50, sm: 64 },
                   width: { xs: 50, sm: 64 },
@@ -545,67 +529,31 @@ const LandingPage = ({
               />
             </Box>
             {/* CIRCULAR INFOGRAPHIC */}
-            <SectionHeader
-              title={null}
-              subtitle='Imagine here is some artfully crafted copy describing this circle thing below wow'
-              colors={colors}
-            />
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                my: 2,
-                maxWidth: 1200,
-                mx: 'auto',
-              }}
-            >
-              {/* <Image
-                src={packageHighlightsSection?.packageGraphic}
-                alt='Design Graphic'
-                // NOTE hack to force auto height/width for next/image
-                width={0}
-                height={0}
-                sizes={1200}
-                style={{ width: '100%', height: 'auto' }}
-              /> */}
-              <CircularInfographic
-                colors={colors}
-                centerIcon={
-                  <MovieFilter
-                    sx={{
-                      color: 'white',
-                      fontSize: { xs: 40, md: 60, lg: 100 },
-                    }}
+            {packageHighlightsSection?.infographic && (
+              <>
+                <SectionHeader
+                  title={packageHighlightsSection.infographic.title}
+                  subtitle={packageHighlightsSection.infographic.subtitle}
+                  colors={colors}
+                />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    my: 2,
+                    maxWidth: 1200,
+                    mx: 'auto',
+                  }}
+                >
+                  <CircularInfographic
+                    colors={colors}
+                    centerIcon={packageHighlightsSection.infographic.centerIcon}
+                    centerText={packageHighlightsSection.infographic.centerText}
+                    items={packageHighlightsSection.infographic.items}
                   />
-                }
-                items={[
-                  {
-                    icon: <Instagram {...packageIconStyles} />,
-                    msg: 'Ready to go short-form posts for Instagram, TikTok, and other social media sites',
-                  },
-                  {
-                    icon: <ConnectedTv {...packageIconStyles} />,
-                    msg: 'Use as looping background video in-store or at conventions/events',
-                  },
-                  {
-                    icon: <YouTube {...packageIconStyles} />,
-                    msg: 'Run attention grabbing YouTube ads, or embed the videos directly on your website',
-                  },
-                  {
-                    icon: <Devices {...packageIconStyles} />,
-                    msg: 'Get high-quality content for all device formats from phone screens to laptops to TVs',
-                  },
-                  {
-                    icon: <Map {...packageIconStyles} />,
-                    msg: 'Boost your presence and credibility on Google Maps/Yelp',
-                  },
-                  {
-                    icon: <LocalAtm {...packageIconStyles} />,
-                    msg: 'Includes multiple cuts perfect for paid ads on all platforms + A/B testing',
-                  },
-                ]}
-              />
-            </Box>
+                </Box>
+              </>
+            )}
           </Container>
         </Box>
       )}

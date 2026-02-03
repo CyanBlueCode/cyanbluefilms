@@ -5,21 +5,27 @@ import {
   useMediaQuery,
   Tooltip,
   Typography,
+  Modal,
+  Button,
 } from '@mui/material';
+import { Close } from '@mui/icons-material';
 import Image from 'next/image';
 
 /**
  * - centerIcon: JSX element (icon/image) OR centerSrc: string (http url) to render an iframe
+ * - centerText: string for modal content when center icon is clicked
  * - items: array of objects with { icon?, imageSrc?, msg }
  */
 export default function CircularInfographicMinimal({
   centerIcon,
   centerSrc,
+  centerText,
   items = [],
   colors,
 }) {
   const count = Math.max(0, items.length);
   const [openTooltips, setOpenTooltips] = useState({});
+  const [textModalOpen, setTextModalOpen] = useState(false);
 
   // responsive sizing using MUI breakpoints
   const theme = useTheme();
@@ -90,6 +96,7 @@ export default function CircularInfographicMinimal({
 
       {/* Center large circle */}
       <Box
+        onClick={centerText ? () => setTextModalOpen(true) : undefined}
         sx={{
           position: 'absolute',
           left: '50%',
@@ -105,6 +112,7 @@ export default function CircularInfographicMinimal({
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
+          cursor: centerText ? 'pointer' : 'default',
         }}
       >
         {centerSrc ? (
@@ -115,9 +123,77 @@ export default function CircularInfographicMinimal({
             sandbox='allow-scripts allow-same-origin'
           />
         ) : (
-          React.cloneElement(centerIcon, { sx: { color: centerIconColor, width: '60%', height: '60%' } })
+          React.cloneElement(centerIcon, { 
+            sx: { color: centerIconColor, width: '60%', height: '60%' },
+            onClick: centerText ? () => setTextModalOpen(true) : undefined
+          })
         )}
       </Box>
+
+      {/* Text Modal */}
+      {centerText && (
+        <Modal
+          open={textModalOpen}
+          onClose={() => setTextModalOpen(false)}
+          slotProps={{
+            backdrop: {
+              sx: { backgroundColor: 'rgba(0, 0, 0, 0.9)' },
+            },
+          }}
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: { xs: '90vw', sm: '70vw', md: '60vw' },
+              maxHeight: '80vh',
+              overflow: 'auto',
+              p: 4,
+              pt: 8,
+              outline: 'none !important',
+              '&:focus': { outline: 'none !important' },
+              '&:focus-visible': { outline: 'none !important' },
+              '& *': {
+                outline: 'none !important',
+                '&:focus': { outline: 'none !important' },
+                '&:focus-visible': { outline: 'none !important' },
+              },
+            }}
+          >
+            <Button
+              onClick={() => setTextModalOpen(false)}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                minWidth: 'auto',
+                width: 32,
+                height: 32,
+                color: 'white',
+                zIndex: 1,
+                '&:hover': { bgcolor: 'black' },
+              }}
+            >
+              <Close fontSize='small' />
+            </Button>
+            <Typography
+              variant='body1'
+              sx={{
+                color: 'white',
+                textAlign: 'center',
+                lineHeight: 1.6,
+                outline: 'none !important',
+                '&:focus': { outline: 'none !important' },
+                '&:focus-visible': { outline: 'none !important' },
+              }}
+            >
+              {centerText}
+            </Typography>
+          </Box>
+        </Modal>
+      )}
 
       {/* Outer icon circles with solid grey back-circles */}
       {positions.map((p, idx) => {
