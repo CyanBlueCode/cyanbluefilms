@@ -7,20 +7,11 @@ const gym02 = () => (
     isDarkBackground={true}
     isLightText={true}
     heroSection={{
-      // title: [
-      //   'Stand Out With',
-      //   'High Quality',
-      //   'Marketing Content', // TODO A/B test this with 'Marketing Videos'
-      //   'For Your Fight Gym',
-      // ],
       title: ['Cinematic Fitness Brand Films That Pack a Punch'],
       subtitle: [
         'Created by filmmakers who train in combat sports; we know your world.',
         'Capture everything you need in one shoot day: a main promo film + ready-to-post clips to attract new members and keep your current ones engaged.',
       ],
-      // NOTE: for old image + embedded ideo banner
-      // imageUrl: '/images/landing-gym01/cover.jpg',
-      // videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
       backgroundVideo: {
         filePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop.mov',
         posterFramePath:
@@ -28,8 +19,8 @@ const gym02 = () => (
         vidWidth: '1920',
         codec: 'h264',
         audio: false,
-        forceRatio: undefined, // e.g 16:9
-        custom: undefined, // e.g ',ar-16:9,f-mp4'
+        forceRatio: undefined,
+        custom: undefined,
       },
     }}
     mainVideoSection={{
@@ -115,6 +106,7 @@ const gym02 = () => (
     secondaryVideoSection={{
       title: 'Long Form Work',
       subtitle: 'Truly elevate your brand with festival worthy branded & sponsored documentaries',
+      imageUrl: '/images/landing-gym01/TBAC.jpeg',
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA'
     }}
     clientBrandsSection={{

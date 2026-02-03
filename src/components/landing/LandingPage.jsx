@@ -56,6 +56,7 @@ const getColors = (isDarkBackground, isLightText) => ({
   bodyText: isLightText ? '#e0e0e0' : '#333333',
 });
 
+// REVIEW video modal implementation from original hero banner
 const VideoModal = ({ videoUrl, open, onClose }) => (
   <Modal
     open={open}
@@ -73,9 +74,6 @@ const VideoModal = ({ videoUrl, open, onClose }) => (
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: { xs: '100dvw', sm: '80dvw' },
-        // height: '50vh',
-        // maxWidth: '960px',
-        // maxHeight: '540px',
         aspectRatio: '16/9',
         bgcolor: 'black',
       }}
@@ -107,16 +105,6 @@ const VideoModal = ({ videoUrl, open, onClose }) => (
     </Box>
   </Modal>
 );
-
-const renderStackedTextArray = (text) =>
-  Array.isArray(text)
-    ? text.map((line, i) => (
-        <React.Fragment key={i}>
-          {line}
-          {i < text.length - 1 && <br />}
-        </React.Fragment>
-      ))
-    : text;
 
 export const SectionHeader = ({
   title,
@@ -212,20 +200,86 @@ const LandingPage = ({
             backgroundColor: 'rgb(0, 0, 0, 1)',
             border: 'none',
             aspectRatio: '16/9',
-            width: { xs: '100vw', sm: '70vw' },
+            width: { xs: '100vw', sm: '80vw' },
             position: 'relative',
-            mt: 4
+            mt: 4,
+            outline: 'none',
+            '&:focus': { outline: 'none' },
+            '&:focus-visible': { outline: 'none' },
           }}
         >
-          <iframe
-            width='100%'
-            height='100%'
-            src={`${section.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1440`}
-            title={section.title || 'Video'}
-            frameBorder='0'
-            allowFullScreen
-            style={{ position: 'absolute', top: 0, left: 0 }}
-          />
+          {/* NOTE using cover image/imageUrl renders video modal view */}
+          {section.imageUrl ? (
+            <>
+              <div
+                onClick={() => setModalOpen(true)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setModalOpen(true);
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+                tabIndex={0}
+                role='button'
+                aria-label={`Play video: ${section.title || 'Video'}`}
+              >
+                <Image
+                  src={section.imageUrl}
+                  alt={section.title || 'Video Thumbnail'}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                    pointerEvents: 'none',
+                  }}
+                />
+              </div>
+              <Button
+                onClick={() => setModalOpen(true)}
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  bgcolor: accentColor,
+                  color: '#fff',
+                  fontSize: 24,
+                  borderRadius: '50%',
+                  width: 64,
+                  height: 64,
+                  outline: 'none',
+                  '&:focus': { outline: 'none' },
+                  '&:focus-visible': { outline: 'none' },
+                }}
+                aria-label={`Play video: ${section.title || 'Video'}`}
+              >
+                <PlayArrow fontSize='large' />
+              </Button>
+              <VideoModal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                videoUrl={section.videoUrl}
+              />
+            </>
+          ) : (
+            <iframe
+              width='100%'
+              height='100%'
+              src={`${section.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
+              title={section.title || 'Video'}
+              frameBorder='0'
+              allowFullScreen
+              style={{ position: 'absolute', top: 0, left: 0 }}
+            />
+          )}
         </Box>
       </Box>
     );
@@ -308,132 +362,57 @@ const LandingPage = ({
               }}
             >
               {/* Main Title */}
-              {/* <Box mb={10}> */}
               <Box mb={4}>
-                {/* REVIEW original hero should be deprecated */}
-                {heroSection?.useOriginalHero ? (
-                  <>
-                    <Typography
-                      variant='h2'
-                      align='center'
-                      color='#fff'
-                      fontWeight={600}
-                      sx={{
-                        fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3.75rem' },
-                        pb: 3,
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {renderStackedTextArray(heroSection?.title)}
-                    </Typography>
-                    {/* <Typography
-                      variant='body1'
-                      align='center'
-                      color='#f5f5f5'
-                      fontWeight={600}
-                      sx={{
-                        fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' },
-                        px: 3,
-                        pb: 5,
-                      }}
-                    >
-                      {renderStackedTextArray(heroSection?.subtitle)}
-                    </Typography> */}
-                    <Box
-                      sx={{
-                        position: 'relative',
-                        width: '100%',
-                        maxWidth: { xs: '70vw', sm: '60vw', md: '50vw' },
-                        aspectRatio: '16/9',
-                        mx: 'auto',
-                        mb: 5,
-                      }}
-                    >
-                      <Image
-                        src={mainVideoSection?.thumbnail}
-                        alt='Main Video Thumb'
-                        fill
-                        style={{
-                          objectFit: 'cover',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => setModalOpen(true)}
-                      />
-                      <Button
-                        onClick={() => setModalOpen(true)}
-                        sx={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          bgcolor: accentColor,
-                          color: '#fff',
-                          fontSize: 24,
-                          borderRadius: '50%',
-                          width: 64,
-                          height: 64,
-                        }}
-                      >
-                        <PlayArrow fontSize='large' />
-                      </Button>
-                      <VideoModal
-                        open={modalOpen}
-                        onClose={() => setModalOpen(false)}
-                        videoUrl={mainVideoSection.videoUrl}
-                      />
-                    </Box>
-                  </>
-                ) : (
+                {/* 
                   // NOTE version w/o non-breaking cursor
-                  // <Typography
-                  //   variant='h5'
-                  //   align='center'
-                  //   color='#fff'
-                  //   fontWeight={300}
-                  //   className='typewriter cursor'
-                  //   sx={{
-                  //     pb: 3,
-                  //     textTransform: 'uppercase',
-                  //     fontFamily: 'monospace',
-                  //     whiteSpace: 'normal',
-                  //     overflow: 'hidden',
-                  //     '&::after': {
-                  //       content: '"|"',
-                  //       ml: '2px',
-                  //       animation: 'blink 1s step-end infinite',
-                  //     },
-                  //   }}
-                  // >
-                  <Typography
-                    variant='h5'
-                    align='center'
-                    color='#fff'
-                    fontWeight={300}
-                    sx={{
-                      pb: 3,
-                      textTransform: 'uppercase',
-                      fontFamily: 'monospace',
-                      whiteSpace: 'normal',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    {/* NOTE forcing non-break between cursor & last word */}
-                    {typedTitle.split(' ').map((word, i, arr) => (
-                      <span key={i}>
-                        {word}
-                        {i === arr.length - 1 && (
-                          <span
-                            style={{ animation: 'blink 1s step-end infinite' }}
-                          >
-                            |
-                          </span>
-                        )}
-                        {i < arr.length - 1 && ' '}
-                      </span>
-                    ))}
-                  </Typography>
-                )}
+                   <Typography
+                     variant='h5'
+                     align='center'
+                     color='#fff'
+                     fontWeight={300}
+                     className='typewriter cursor'
+                     sx={{
+                       pb: 3,
+                       textTransform: 'uppercase',
+                       fontFamily: 'monospace',
+                       whiteSpace: 'normal',
+                       overflow: 'hidden',
+                       '&::after': {
+                         content: '"|"',
+                         ml: '2px',
+                         animation: 'blink 1s step-end infinite',
+                       },
+                     }}
+                   >
+                */}
+                <Typography
+                  variant='h5'
+                  align='center'
+                  color='#fff'
+                  fontWeight={300}
+                  sx={{
+                    pb: 3,
+                    textTransform: 'uppercase',
+                    fontFamily: 'monospace',
+                    whiteSpace: 'normal',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* NOTE forcing non-break between cursor & last word */}
+                  {typedTitle.split(' ').map((word, i, arr) => (
+                    <span key={i}>
+                      {word}
+                      {i === arr.length - 1 && (
+                        <span
+                          style={{ animation: 'blink 1s step-end infinite' }}
+                        >
+                          |
+                        </span>
+                      )}
+                      {i < arr.length - 1 && ' '}
+                    </span>
+                  ))}
+                </Typography>
               </Box>
               <Box>
                 <CallBooking
@@ -637,7 +616,7 @@ const LandingPage = ({
 
       {/* LONG FORM WORK SECTION */}
       <Box pt={4} backgroundColor={colors.primaryBg}>
-      {renderVideoSection(secondaryVideoSection, colors.primaryBg)}
+        {renderVideoSection(secondaryVideoSection, colors.primaryBg)}
       </Box>
 
       {/* FAQ SECTION */}
