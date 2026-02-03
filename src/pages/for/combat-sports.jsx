@@ -13,7 +13,7 @@ import {
 } from '@mui/icons-material';
 import LandingPage from '@/components/landing/LandingPage';
 
-const gym02 = () => (
+const CombatSports = () => (
   <LandingPage
     isDarkBackground={true}
     isLightText={true}
@@ -75,7 +75,7 @@ const gym02 = () => (
           description:
             'background image test test test test test test test test test test test test test test test test test test test test test test test. not sure if I like this...',
           icon: SportsKabaddi,
-          backgroundImage: '/images/landing-gym01/cover.jpg',
+          backgroundImage: '/images/landing/cover.jpg',
         },
       ],
     }}
@@ -156,18 +156,18 @@ const gym02 = () => (
     secondaryVideoSection={{
       title: 'Long Form Work',
       subtitle: 'Truly elevate your brand with festival worthy branded & sponsored documentaries',
-      imageUrl: '/images/landing-gym01/TBAC.jpeg',
+      imageUrl: '/images/landing/TBAC.jpeg',
       videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA'
     }}
     clientBrandsSection={{
       title: 'Trusted by Leading Brands',
       // subtitle: 'We\'ve worked with industry leaders to create compelling content',
-      backgroundImagePath: '/images/landing-gym01/cover.jpg',
+      backgroundImagePath: '/images/landing/cover.jpg',
       clientBrands: [
-        '/images/landing-gym01/brand-logos/logo-hbo.png',
-        '/images/landing-gym01/brand-logos/logo-zara.png',
-        '/images/landing-gym01/brand-logos/logo-warby-parker.png',
-        '/images/landing-gym01/brand-logos/logo-adtec.png',
+        '/images/landing/brand-logos/logo-hbo.png',
+        '/images/landing/brand-logos/logo-zara.png',
+        '/images/landing/brand-logos/logo-warby-parker.png',
+        '/images/landing/brand-logos/logo-adtec.png',
       ],
     }}
     faqSection={[
@@ -296,4 +296,4 @@ export const getStaticProps = async () => ({
   },
 });
 
-export default gym02;
+export default CombatSports;

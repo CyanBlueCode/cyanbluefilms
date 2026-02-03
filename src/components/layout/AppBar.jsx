@@ -67,7 +67,7 @@ const CustomAppBar = () => {
     setProjectsMenuAnchor(null);
   };
 
-  const hideNavigation = !!pathname.includes('/landing/');
+  const hideNavigation = !!pathname.includes('/for/');
   const dynamicTextColor =
     ['/', '/film'].includes(pathname) || hideNavigation ? 'white' : 'black';
 

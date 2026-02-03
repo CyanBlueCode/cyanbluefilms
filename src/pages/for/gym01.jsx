@@ -107,12 +107,12 @@ const gym01 = () => (
     clientBrandsSection={{
       title: 'Trusted by Leading Brands',
       subtitle: 'We\'ve worked with industry leaders to create compelling content',
-      backgroundImagePath: '/images/landing-gym01/cover2.jpg',
+      backgroundImagePath: '/images/landing/cover2.jpg',
       clientBrands: [
-        '/images/landing-gym01/brand-logos/logo-hbo.png',
-        '/images/landing-gym01/brand-logos/logo-warby-parker.png',
-        '/images/landing-gym01/brand-logos/logo-hbo.png',
-        '/images/landing-gym01/brand-logos/logo-warby-parker.png',
+        '/images/landing/brand-logos/logo-hbo.png',
+        '/images/landing/brand-logos/logo-warby-parker.png',
+        '/images/landing/brand-logos/logo-hbo.png',
+        '/images/landing/brand-logos/logo-warby-parker.png',
       ],
     }}
     faqSection={
@@ -266,7 +266,7 @@ const gym01 = () => (
       //   },
       // ]
     }
-    // contactSection={{ backgroundImage: '/images/landing-gym01/cover2.jpg' }}
+    // contactSection={{ backgroundImage: '/images/landing/cover2.jpg' }}
   />
 );
 
