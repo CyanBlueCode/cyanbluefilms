@@ -13,6 +13,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import {
   KeyboardArrowDown,
   PlayArrow,
@@ -40,8 +41,6 @@ import {
 // import TikTok from '../../public/images/tiktok-logo.svg';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
-
-const accentColor = 'cyanBlue.main';
 
 // Color theme variables
 const getColors = (isDarkBackground, isLightText) => ({
@@ -88,7 +87,7 @@ const VideoModal = ({ videoUrl, open, onClose }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: { xs: '100dvw', sm: '80dvw' },
+          width: '100dvw',
           aspectRatio: '16/9',
           bgcolor: 'black',
         }}
@@ -219,7 +218,7 @@ const LandingPage = ({
             backgroundColor: 'rgb(0, 0, 0, 1)',
             border: 'none',
             aspectRatio: '16/9',
-            width: { xs: '100vw', sm: '80vw' },
+            width: { xs: '100vw', sm: '70vw' },
             position: 'relative',
             mt: 4,
             outline: 'none',
@@ -268,12 +267,13 @@ const LandingPage = ({
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  bgcolor: accentColor,
+                  bgcolor: (theme) => alpha(theme.palette.cyanBlue.main, 0.75),
                   color: '#fff',
-                  fontSize: 24,
+                  fontSize: {xs: 18, sm: 20},
                   borderRadius: '50%',
-                  width: 64,
-                  height: 64,
+                  minWidth: { xs: 50, sm: 64 },
+                  width: { xs: 50, sm: 64 },
+                  height: { xs: 50, sm: 64 },
                   outline: 'none',
                   '&:focus': { outline: 'none' },
                   '&:focus-visible': { outline: 'none' },
@@ -505,11 +505,56 @@ const LandingPage = ({
               subtitle={packageHighlightsSection?.subtitle}
               colors={colors}
             />
+            {/* SOCIAL VIDEO CARDS */}
+            <Box my={4}>
+              {/* <SectionHeader
+              title={packageHighlightsSection?.title2}
+              subtitle={packageHighlightsSection?.subtitle2}
+              colors={colors}
+            /> */}
+              <AnimatedCardCarousel
+                items={packageHighlightsSection?.videos || []}
+                colors={colors}
+                cardHeight={400}
+                autoScrollInterval={0}
+                customCardRenderer={(video) => (
+                  <Box
+                    sx={{
+                      width: { xs: 300, sm: 350, md: 400 },
+                      height: { xs: 375, sm: 438, md: 500 },
+                      backgroundColor: colors?.secondaryBg || '#222',
+                      borderRadius: 2,
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <iframe
+                      width='100%'
+                      height='100%'
+                      src={
+                        video.videoUrl.includes('vimeo')
+                          ? `${video.videoUrl}?title=0&amp;byline=0&amp;portrait=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479`
+                          : `${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`
+                      }
+                      title={video.title}
+                      frameBorder='0'
+                      allowFullScreen
+                    />
+                  </Box>
+                )}
+              />
+            </Box>
+            {/* CIRCULAR INFOGRAPHIC */}
+            <SectionHeader
+              title={null}
+              subtitle='Imagine here is some artfully crafted copy describing this circle thing below wow'
+              colors={colors}
+            />
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                mb: 4,
+                my: 2,
                 maxWidth: 1200,
                 mx: 'auto',
               }}
@@ -559,45 +604,6 @@ const LandingPage = ({
                     msg: 'Includes multiple cuts perfect for paid ads on all platforms + A/B testing',
                   },
                 ]}
-              />
-            </Box>
-            {/* SOCIAL VIDEO CARDS */}
-            <Box mt={4}>
-              {/* <SectionHeader
-              title={packageHighlightsSection?.title2}
-              subtitle={packageHighlightsSection?.subtitle2}
-              colors={colors}
-            /> */}
-              <AnimatedCardCarousel
-                items={packageHighlightsSection?.videos || []}
-                colors={colors}
-                cardHeight={400}
-                autoScrollInterval={0}
-                customCardRenderer={(video) => (
-                  <Box
-                    sx={{
-                      width: { xs: 300, sm: 350, md: 400 },
-                      height: { xs: 375, sm: 438, md: 500 },
-                      backgroundColor: colors?.secondaryBg || '#222',
-                      borderRadius: 2,
-                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <iframe
-                      width='100%'
-                      height='100%'
-                      src={
-                        video.videoUrl.includes('vimeo')
-                          ? `${video.videoUrl}?title=0&amp;byline=0&amp;portrait=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479`
-                          : `${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`
-                      }
-                      title={video.title}
-                      frameBorder='0'
-                      allowFullScreen
-                    />
-                  </Box>
-                )}
               />
             </Box>
           </Container>

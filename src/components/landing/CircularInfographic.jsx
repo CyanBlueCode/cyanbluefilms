@@ -29,7 +29,7 @@ export default function CircularInfographicMinimal({
   const circleColor = '#000';
   const iconColor = '#00B7EB';
   const centerIconColor = '#00B7EB';
-  const tooltipBgColor = colors?.ternaryBg;
+  const tooltipBgColor = colors?.primaryBg;
 
   const rOuter = 40; // distance from center for outer circles (percent)
 
@@ -147,9 +147,14 @@ export default function CircularInfographicMinimal({
                   color: 'white',
                   textAlign: 'center',
                   borderRadius: '8px',
-                  boxShadow: '0 0 8px rgba(0, 0, 0, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 0 0 1px rgba(0, 188, 235, 0.3), 0 4px 20px rgba(0, 0, 0, 0.8)',
                   '& .MuiTooltip-arrow': {
                     color: tooltipBgColor,
+                    '&::before': {
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      boxShadow: '0 0 0 1px rgba(0, 188, 235, 0.3)',
+                    },
                   },
                 },
               },
@@ -185,6 +190,11 @@ export default function CircularInfographicMinimal({
                 justifyContent: 'center',
                 cursor: 'pointer',
                 touchAction: 'manipulation',
+                outline: 'none !important',
+                '&:focus': { outline: 'none !important' },
+                '&:focus-visible': { outline: 'none !important' },
+                '&:active': { outline: 'none !important' },
+                '-webkit-tap-highlight-color': 'transparent',
               }}
             >
               {/* solid grey back circle */}
@@ -212,8 +222,15 @@ export default function CircularInfographicMinimal({
                   overflow: 'hidden',
                   zIndex: 2,
                   transition: 'transform 0.2s ease',
+                  // NOTE breathing animation
+                  animation: `breathe-${idx} 5s ease-in-out infinite`,
+                  animationDelay: `${idx * 0.6}s`,
                   '&:hover': {
-                    transform: 'scale(1.1)',
+                    transform: 'scale(1.3)',
+                  },
+                  [`@keyframes breathe-${idx}`]: {
+                    '0%, 100%': { transform: 'scale(0.9)' },
+                    '50%': { transform: 'scale(1.3)' },
                   },
                 }}
               >
