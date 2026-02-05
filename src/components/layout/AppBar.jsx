@@ -47,14 +47,15 @@ const CustomAppBar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    {
-      name: 'Projects',
-      href: '/projects',
-      subItems: [
-        { name: 'Film', href: '/film' },
-        { name: 'Photo', href: '/photo' },
-      ],
-    },
+    // {
+    //   name: 'Projects',
+    //   href: '/projects',
+    //   subItems: [
+    //     { name: 'Film', href: '/film' },
+    //     { name: 'Photo', href: '/photo' },
+    //   ],
+    // },
+    { name: 'Work', href: '/work' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -157,7 +158,7 @@ const CustomAppBar = () => {
                   >
                     {item.name}
                   </Button>
-                )
+                ),
               )}
             </Box>
           )}

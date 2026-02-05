@@ -68,7 +68,7 @@ const CategoryGallery = ({ categoryName }) => {
         <GalleryPlaceholder />
       ) : photos.length > 0 ? (
         <>
-          <Gallery photos={photos} />
+          <Gallery photos={photos} key={photos.length} />
         </>
       ) : (
         <Typography variant='h5' textAlign='center'>
