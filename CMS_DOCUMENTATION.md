@@ -40,7 +40,7 @@ benefitsSection.cards[0].title            → Array of objects
 ```jsx
 import { enableTestVersionsByPage, combatSportsDefaultData } from '@/components/landing/landingPagesDefaultData';
 import { useLandingPageCMSData } from '@/utils/useLandingPageCMSData';
-import { transformCMSData } from '@/utils/cmsTransform';
+import { transformCMSData } from '@/utils/cmsTransformAndManualConfigs';
 
 const MyPage = () => {
   const shouldUseCMS = enableTestVersionsByPage.combatSports;
@@ -50,7 +50,7 @@ const MyPage = () => {
   const loading = cmsResult?.loading ?? false;
   const error = cmsResult?.error ?? null;
     
-  const pageData = transformCMSData(data);
+  const pageData = transformCMSData(data, 'combat-sports');
   
   if (loading) return <div>Loading...</div>;
   
@@ -75,7 +75,7 @@ const MyPage = () => {
 - `/src/components/landing/landingPagesDefaultData.js` - Default data and config
 - `/src/utils/googleSheets.js` - Fetches and transforms sheet data
 - `/src/utils/useLandingPageCMSData.js` - React hook for CMS data
-- `/src/utils/cmsTransform.js` - Adds React elements (icons, JSX)
+- `/src/utils/cmsTransformAndManualConfigs.js` - Transforms data and adds manual icon configs
 - `/src/pages/api/cms.js` - API endpoint
 
 ## Testing

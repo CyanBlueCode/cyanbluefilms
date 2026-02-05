@@ -22,7 +22,7 @@ export const fetchSheetData = async (sheetName) => {
     throw new Error('Missing Google Sheets configuration');
   }
 
-  const range = `${sheetName}!A:B`; // Columns A and B (key and value)
+  const range = `${sheetName}!A:B`; // Only columns A and B (key and value)
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${apiKey}`;
 
   try {
