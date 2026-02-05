@@ -74,7 +74,7 @@ const VideoModal = ({ videoUrl, open, onClose }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: {xs: '100vw', sm: '80dvw'},
+          width: { xs: '100vw', sm: '80dvw' },
           aspectRatio: '16/9',
           bgcolor: 'black',
         }}
@@ -158,12 +158,7 @@ const LandingPage = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const colors = getColors(isDarkBackground, isLightText);
-  const typedTitle = useTypewriter(
-    Array.isArray(heroSection?.title)
-      ? heroSection.title.join(' ')
-      : heroSection?.title || '',
-    60,
-  );
+  const typedTitle = useTypewriter(heroSection?.title || '', 60);
 
   // Generate background video URL if provided
   const backgroundVideoUrl = heroSection?.backgroundVideo

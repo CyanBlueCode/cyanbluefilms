@@ -2,13 +2,13 @@ import React from 'react';
 import LandingPage from '@/components/landing/LandingPage';
 import { useLandingPageCMSData } from '@/utils/useLandingPageCMSData';
 import { transformCMSData } from '@/utils/cmsTransform';
-import { enableTestVersionsByPage, combatSportsDefaultData } from '@/components/landing/landingPagesDefaultData';
+import { enableTestVersionsByPage, fightSportsDefaultData } from '@/components/landing/landingPagesDefaultData';
 
-const CombatSports = () => {
-  const shouldUseCMS = enableTestVersionsByPage.combatSports;
+const FightSports = () => {
+  const shouldUseCMS = enableTestVersionsByPage.fightSports;
   
-  const cmsResult = useLandingPageCMSData(shouldUseCMS ? 'combat-sports' : null);
-  const data = cmsResult?.data ?? combatSportsDefaultData;
+  const cmsResult = useLandingPageCMSData(shouldUseCMS ? 'fight-sports' : null);
+  const data = cmsResult?.data ?? fightSportsDefaultData;
   const loading = cmsResult?.loading ?? false;
   const error = cmsResult?.error ?? null;
   
@@ -47,4 +47,4 @@ export const getStaticProps = async () => ({
   },
 });
 
-export default CombatSports;
+export default FightSports;
