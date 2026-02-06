@@ -416,6 +416,7 @@ const LandingPage = ({
                 <CallBooking
                   theme='dark'
                   buttonConfig={{
+                    // TODO make this text dynamic
                     text: 'Book a call',
                     color: 'cyanBlue.main',
                   }}

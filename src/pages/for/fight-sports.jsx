@@ -2,16 +2,19 @@ import React from 'react';
 import LandingPage from '@/components/landing/LandingPage';
 import { useLandingPageCMSData } from '@/utils/useLandingPageCMSData';
 import { transformCMSData } from '@/utils/cmsTransformAndManualConfigs';
-import { enableTestVersionsByPage, fightSportsDefaultData } from '@/components/landing/landingPagesDefaultData';
+import {
+  enableTestVersionsByPage,
+  fightSportsDefaultData,
+} from '@/components/landing/landingPagesDefaultData';
 
 const FightSports = () => {
   const shouldUseCMS = enableTestVersionsByPage.fightSports;
-  
+
   const cmsResult = useLandingPageCMSData(shouldUseCMS ? 'fight-sports' : null);
   const data = cmsResult?.data ?? fightSportsDefaultData;
   const loading = cmsResult?.loading ?? false;
   const error = cmsResult?.error ?? null;
-  
+
   const pageData = transformCMSData(data, 'fight-sports');
 
   if (loading) {
@@ -21,14 +24,11 @@ const FightSports = () => {
           width: '100vw',
           height: '100vh',
           backgroundColor: '#000',
-          color: '#fff',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundImage: 'url(/images/landing/leo_poster-frame.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      >
-        Loading...
-      </div>
+      />
     );
   }
 

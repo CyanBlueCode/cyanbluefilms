@@ -21,14 +21,11 @@ const CombatSports = () => {
           width: '100vw',
           height: '100vh',
           backgroundColor: '#000',
-          color: '#fff',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundImage: 'url(/images/landing/leo_poster-frame.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      >
-        Loading...
-      </div>
+      />
     );
   }
 
