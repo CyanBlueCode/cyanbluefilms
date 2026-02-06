@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const data = await fetchSheetData(page);
     
     // Cache for 5 minutes in development, 1 hour in production
-    const cacheTime = process.env.NODE_ENV === 'development' ? 300 : 3600;
+    const cacheTime = process.env.NODE_ENV === 'development' ? 300 : 300;
     res.setHeader('Cache-Control', `s-maxage=${cacheTime}, stale-while-revalidate`);
     
     res.status(200).json(data);
