@@ -1,27 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const useTypewriter = (text, speed = 100) => {
-  const [displayText, setDisplayText] = useState(text);
-  const [index, setIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const indexRef = useRef(0);
 
-  // REVIEW LandingPage has hydration runtime error likely caused by typewriter desync;
-  // this initializes the state so it doesn't start blank. unsure if fixed
   useEffect(() => {
     setDisplayText('');
-    setIndex(0);
-  }, []);
+    indexRef.current = 0;
 
-  useEffect(() => {
-    const handle = () => {
-      if (index < text.length) {
-        setDisplayText((prev) => prev + text[index]);
-        setIndex(index + 1);
+    const interval = setInterval(() => {
+      if (indexRef.current < text.length) {
+        setDisplayText(text.slice(0, indexRef.current + 1));
+        indexRef.current += 1;
       }
-    };
+    }, speed);
 
-    const interval = setInterval(handle, speed);
     return () => clearInterval(interval);
-  }, [index, text, speed]);
+  }, [text, speed]);
 
   return displayText;
 }
