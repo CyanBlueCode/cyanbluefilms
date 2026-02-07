@@ -26,6 +26,7 @@ import CircularInfographic from '@/components/landing/CircularInfographic';
 import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
 import ScrollingLogos from '@/components/ui/ScrollingLogos';
 import ProcessSection from '@/components/ui/ProcessSection';
+import VideoSection from '@/components/ui/VideoSection';
 // import TikTok from '../../public/images/tiktok-logo.svg';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
@@ -475,7 +476,7 @@ const LandingPage = ({
       )}
 
       {/* MAIN VIDEO DEMO SECTION */}
-      {renderVideoSection(mainVideoSection)}
+      <VideoSection section={mainVideoSection} colors={colors} backgroundColor={colors.tertiaryBg} />
 
       {/* PACKAGE HIGHLIGHTS SECTION */}
       {packageHighlightsSection && (
@@ -586,7 +587,7 @@ const LandingPage = ({
 
       {/* LONG FORM WORK SECTION */}
       <Box pt={4} backgroundColor={colors.primaryBg}>
-        {renderVideoSection(secondaryVideoSection, colors.primaryBg)}
+        <VideoSection section={secondaryVideoSection} colors={colors} backgroundColor={colors.primaryBg} />
       </Box>
 
       {/* PROCESS SECTION */}
