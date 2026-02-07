@@ -590,7 +590,10 @@ const LandingPage = ({
       </Box>
 
       {/* PROCESS SECTION */}
-      {processSection && (
+      {processSection && !(
+        processSection.hideSection === true ||
+        (typeof processSection.hideSection === 'string' && processSection.hideSection.toLowerCase() === 'true')
+      ) && (
         <ProcessSection
           title={processSection.title}
           subtitle={processSection.subtitle}

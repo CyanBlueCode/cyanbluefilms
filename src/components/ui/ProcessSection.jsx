@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { Star } from '@mui/icons-material';
 import Image from 'next/image';
 
 const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
   const [visibleItems, setVisibleItems] = useState(new Set());
+  const [lineHeight, setLineHeight] = useState(0);
   const itemRefs = useRef([]);
+  const containerRef = useRef(null);
+  const lineRef = useRef(null);
 
   useEffect(() => {
     const observers = itemRefs.current.map((ref, index) => {
@@ -25,6 +29,52 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
 
     return () => {
       observers.forEach((observer) => observer?.disconnect());
+    };
+  }, [data.length]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current || itemRefs.current.length === 0) return;
+
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const lastItemRef = itemRefs.current[itemRefs.current.length - 1];
+
+      let totalHeight = 0;
+      let maxHeight = 0;
+
+      if (lastItemRef) {
+        const lastRect = lastItemRef.getBoundingClientRect();
+        maxHeight = lastRect.top - containerRect.top;
+      }
+
+      itemRefs.current.forEach((ref) => {
+        if (!ref) return;
+
+        const rect = ref.getBoundingClientRect();
+        const itemTop = rect.top - containerRect.top;
+        const itemBottom = itemTop + rect.height;
+
+        if (rect.top < viewportCenter) {
+          if (rect.bottom > viewportCenter) {
+            const progress = (viewportCenter - rect.top) / rect.height;
+            totalHeight = itemTop + rect.height * progress + 60;
+          } else {
+            totalHeight = itemBottom;
+          }
+        }
+      });
+
+      setLineHeight(Math.min(totalHeight, maxHeight));
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, [data.length]);
 
@@ -64,16 +114,36 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
 
       {/* Process Items */}
       <Box
+        ref={containerRef}
         sx={{
           width: { xs: '95vw', md: '70vw' },
           display: 'flex',
           flexDirection: 'column',
           gap: { xs: 6, md: 8 },
+          position: 'relative',
+          pl: { xs: 6, md: 10 },
+          pr: { xs: 2, md: 0 },
         }}
       >
+        {/* Animated Progress Line */}
+        <Box
+          ref={lineRef}
+          sx={{
+            position: 'absolute',
+            left: { xs: '18px', md: '33px' },
+            top: 10,
+            width: { xs: '6px', md: '8px' },
+            height: `${lineHeight}px`,
+            bgcolor: '#eaeaea',
+            transition: 'height 0.1s linear',
+            zIndex: 0,
+            borderRadius: '0 0 3px 3px',
+          }}
+        />
         {data.map((item, index) => {
           const isEven = index % 2 === 0;
           const isVisible = visibleItems.has(index);
+          const isLastItem = index === data.length - 1;
 
           return (
             <Box
@@ -90,8 +160,51 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
                 transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                position: 'relative',
               }}
             >
+              {/* Number Badge */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: { xs: '-45px', md: '-66px' },
+                  top: 0,
+                  width: { xs: 36, md: 44 },
+                  height: { xs: 36, md: 44 },
+                  borderRadius: '50%',
+                  bgcolor: '#eaeaea',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 2,
+                }}
+              >
+                {isLastItem ? (
+                  <Star
+                    sx={{
+                      color: '#000',
+                      fontSize: { xs: '1.5rem', md: '1.8rem' },
+                      animation: 'spinStar 2.6s ease-in-out infinite',
+                      '@keyframes spinStar': {
+                        '0%': { transform: 'rotateY(0deg)' },
+                        '23.08%': { transform: 'rotateY(360deg)' },
+                        '100%': { transform: 'rotateY(360deg)' },
+                      },
+                    }}
+                  />
+                ) : (
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      color: '#000',
+                      fontWeight: 700,
+                      fontSize: { xs: '0.875rem', md: '1rem' },
+                    }}
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </Typography>
+                )}
+              </Box>
               {/* Image Card */}
               <Box
                 sx={{
@@ -161,7 +274,10 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
                       },
                     }}
                   >
-                    <Typography variant='h6' sx={{ color: '#eaeaea', fontWeight: 600 }}>
+                    <Typography
+                      variant='h6'
+                      sx={{ color: '#eaeaea', fontWeight: 600 }}
+                    >
                       {item.buttonText}
                     </Typography>
                   </Button>

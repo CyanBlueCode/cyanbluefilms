@@ -136,6 +136,7 @@ export const combatSportsDefaultData = {
     videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
   },
   processSection: {
+    hideSection: false,
     title: 'Our Process',
     subtitle: 'Quick overview of how our project execution process from beginning to end',
     data: [
@@ -459,6 +460,7 @@ const baseDefaultData = {
     videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
   },
   processSection: {
+    hideSection: false,
     title: 'Our Process',
     subtitle: 'Quick overview of our project execution process from beginning to end',
     data: [
