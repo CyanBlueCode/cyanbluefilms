@@ -25,6 +25,7 @@ import CallBooking from '@/components/landing/CallBooking';
 import CircularInfographic from '@/components/landing/CircularInfographic';
 import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
 import ScrollingLogos from '@/components/ui/ScrollingLogos';
+import ProcessSection from '@/components/ui/ProcessSection';
 // import TikTok from '../../public/images/tiktok-logo.svg';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
@@ -150,6 +151,7 @@ const LandingPage = ({
   mainVideoSection,
   secondaryVideoSection,
   packageHighlightsSection,
+  processSection,
   clientBrandsSection,
   faqSection,
   contactSection,
@@ -586,6 +588,16 @@ const LandingPage = ({
       <Box pt={4} backgroundColor={colors.primaryBg}>
         {renderVideoSection(secondaryVideoSection, colors.primaryBg)}
       </Box>
+
+      {/* PROCESS SECTION */}
+      {processSection && (
+        <ProcessSection
+          title={processSection.title}
+          subtitle={processSection.subtitle}
+          data={processSection.data}
+          colors={colors}
+        />
+      )}
 
       {/* FAQ SECTION */}
       {faqSection && (

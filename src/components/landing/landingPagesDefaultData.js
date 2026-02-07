@@ -1,7 +1,7 @@
 // Configuration to enable/disable CMS for specific landing pages
 export const enableTestVersionsByPage = {
   // NOTE false disconnects CMS for page & uses default data below only
-  combatSports: true,
+  combatSports: false,
   fightSports: true,
   actionSports: true,
   highOctane: true,
@@ -104,6 +104,7 @@ export const combatSportsDefaultData = {
       },
     ],
     infographic: {
+      title: 'Here\'s a fun wheel thingy',
       subtitle: 'Imagine here is some artfully crafted copy describing this circle thing below wow',
       centerText: 'This is our comprehensive video production package designed specifically for combat sports gyms. We understand the unique culture and energy of fight training because we\'re part of that world. Our approach combines cinematic storytelling with authentic fight culture to create content that resonates with both casual fitness seekers and serious fighters. Every shoot is strategically planned to maximize your content output - from a hero video for your website to social media clips that drive engagement and new member sign-ups.',
       items: [
@@ -133,6 +134,47 @@ export const combatSportsDefaultData = {
     subtitle: 'Truly elevate your brand with festival worthy branded & sponsored documentaries',
     imageUrl: '/images/landing/TBAC.jpeg',
     videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+  },
+  processSection: {
+    title: 'Our Process',
+    subtitle: 'Quick overview of how our project execution process from beginning to end',
+    data: [
+      {
+        title: 'Planning',
+        content: 'We start by understanding your goals, target audience, and brand identity to create a tailored production strategy.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: 'Test button',
+        buttonLink: 'google.com',
+      },
+      {
+        title: 'Pre-Production',
+        content: 'Our team handles all logistics, from location scouting to talent coordination, ensuring a smooth shoot day.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Principle Photography',
+        content: 'Using cinema-grade equipment, we capture stunning footage that showcases your brand in the best light.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Post-Production',
+        content: 'Our editors craft your story with professional color grading, sound design, and motion graphics.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Delivery',
+        content: 'Receive your final videos optimized for all platforms, ready to elevate your marketing and drive results.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+    ],
   },
   clientBrandsSection: {
     title: 'Trusted by Leading Brands',
@@ -415,6 +457,47 @@ const baseDefaultData = {
     subtitle: null,
     imageUrl: '/images/landing/TBAC.jpeg',
     videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+  },
+  processSection: {
+    title: 'Our Process',
+    subtitle: 'Quick overview of our project execution process from beginning to end',
+    data: [
+      {
+        title: 'Planning',
+        content: 'We start by understanding your goals, target audience, and brand identity to create a tailored production strategy.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Pre-Production',
+        content: 'Our team handles all logistics, from location scouting to talent coordination, ensuring a smooth shoot day.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Principle Photography',
+        content: 'Using cinema-grade equipment, we capture stunning footage that showcases your brand in the best light.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Post-Production',
+        content: 'Our editors craft your story with professional color grading, sound design, and motion graphics.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+      {
+        title: 'Delivery',
+        content: 'Receive your final videos optimized for all platforms, ready to elevate your marketing and drive results.',
+        imageUrl: '/images/landing/cover2.jpg',
+        buttonText: '',
+        buttonLink: '',
+      },
+    ],
   },
   clientBrandsSection: {
     title: null,
