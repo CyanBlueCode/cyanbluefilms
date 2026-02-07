@@ -41,14 +41,15 @@ const ScrollingLogos = ({
           alignItems: 'center',
           height: '100%',
           width: 'max-content',
+          willChange: 'transform',
           animation: {
             xs: `scroll ${responsiveDuration.xs} linear infinite`,
             sm: `scroll ${responsiveDuration.sm} linear infinite`,
             md: `scroll ${responsiveDuration.md} linear infinite`,
           },
           '@keyframes scroll': {
-            from: { transform: 'translateX(0)' },
-            to: { transform: 'translateX(-33.333%)' },
+            '0%': { transform: 'translateX(0)' },
+            '100%': { transform: 'translateX(-33.333%)' },
           },
         }}
       >
@@ -68,15 +69,15 @@ const ScrollingLogos = ({
               <Image
                 src={logoPath}
                 alt={`Client brand logo ${index + 1}`}
-                width={0}
-                height={0}
-                sizes='200px'
+                width={200}
+                height={typeof logoHeight === 'object' ? logoHeight.md : logoHeight}
                 style={{
                   width: 'auto',
                   height: '100%',
                   objectFit: 'contain',
                   filter: 'brightness(0) invert(1)',
                 }}
+                priority={index < clientBrands.length}
               />
             </Box>
           ),
