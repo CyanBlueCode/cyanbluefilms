@@ -5,6 +5,7 @@ import { transformCMSData } from '@/utils/cmsTransformAndManualConfigs';
 import {
   enableTestVersionsByPage,
   fightSportsDefaultData,
+  LoadingScreen,
 } from '@/components/landing/landingPagesDefaultData';
 
 const FightSports = () => {
@@ -17,20 +18,7 @@ const FightSports = () => {
 
   const pageData = transformCMSData(data, 'fight-sports');
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          width: '100vw',
-          height: '100vh',
-          backgroundColor: '#000',
-          backgroundImage: 'url(/images/landing/leo_poster-frame.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-    );
-  }
+  if (loading) return <LoadingScreen />;
 
   if (error) {
     console.warn('CMS Error, using fallback data:', error);

@@ -416,8 +416,7 @@ const LandingPage = ({
                 <CallBooking
                   theme='dark'
                   buttonConfig={{
-                    // TODO make this text dynamic
-                    text: 'Book a call',
+                    text: heroSection?.callButtonText || 'Book a call',
                     color: 'cyanBlue.main',
                   }}
                 />
@@ -593,12 +592,12 @@ const LandingPage = ({
         <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 4 }}>
           <Container>
             <SectionHeader
-              title='FAQs'
-              subtitle='Find answers to common questions about our services'
+              title={faqSection.title}
+              subtitle={faqSection.subtitle}
               colors={colors}
             />
             <Box px={{ xs: 0, sm: 7 }}>
-              {faqSection.map((faq, i) => (
+              {faqSection?.items?.map((faq, i) => (
                 <Accordion
                   key={i}
                   sx={{
@@ -634,6 +633,13 @@ const LandingPage = ({
 
       {/* CONTACT / BOOK A CALL SECTION */}
       <ContactSection
+        title={contactSection?.title}
+        titleVariant={contactSection?.titleVariant}
+        isUpperCase={contactSection?.isUpperCase}
+        contactTitle={contactSection?.contactTitle}
+        contactTitleVariant={contactSection?.contactTitleVariant}
+        callBookingTitle={contactSection?.callBookingTitle}
+        callBookingTitleVariant={contactSection?.callBookingTitleVariant}
         backgroundImage={contactSection?.backgroundImage}
         colors={colors}
       />

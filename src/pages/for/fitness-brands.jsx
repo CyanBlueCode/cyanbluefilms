@@ -2,17 +2,17 @@ import React from 'react';
 import LandingPage from '@/components/landing/LandingPage';
 import { useLandingPageCMSData } from '@/utils/useLandingPageCMSData';
 import { transformCMSData } from '@/utils/cmsTransformAndManualConfigs';
-import { enableTestVersionsByPage, combatSportsDefaultData, LoadingScreen } from '@/components/landing/landingPagesDefaultData';
+import { enableTestVersionsByPage, fitnessBrandsDefaultData, LoadingScreen } from '@/components/landing/landingPagesDefaultData';
 
-const CombatSports = () => {
-  const shouldUseCMS = enableTestVersionsByPage.combatSports;
+const FitnessBrands = () => {
+  const shouldUseCMS = enableTestVersionsByPage.fitnessBrands;
   
-  const cmsResult = useLandingPageCMSData(shouldUseCMS ? 'combat-sports' : null);
-  const data = cmsResult?.data ?? combatSportsDefaultData;
+  const cmsResult = useLandingPageCMSData(shouldUseCMS ? 'fitness-brands' : null);
+  const data = cmsResult?.data ?? fitnessBrandsDefaultData;
   const loading = cmsResult?.loading ?? false;
   const error = cmsResult?.error ?? null;
   
-  const pageData = transformCMSData(data, 'combat-sports');
+  const pageData = transformCMSData(data, 'fitness-brands');
 
   if (loading) return <LoadingScreen />;
 
@@ -31,4 +31,4 @@ export const getStaticProps = async () => ({
   },
 });
 
-export default CombatSports;
+export default FitnessBrands;

@@ -125,9 +125,9 @@ const AnimatedCardCarousel = ({
         color: colors?.titleText || '#fff',
         borderRadius: 2,
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-        border: item.backgroundImage
-          ? '1px solid rgba(255, 255, 255, 0.1)'
-          : 'none',
+        // border: item.backgroundImage
+        //   ? '1px solid rgba(255, 255, 255, 0.1)'
+        //   : 'none',
         backgroundImage: item.backgroundImage
           ? `url(${item.backgroundImage})`
           : 'none',

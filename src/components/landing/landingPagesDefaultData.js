@@ -1,11 +1,29 @@
 // Configuration to enable/disable CMS for specific landing pages
 export const enableTestVersionsByPage = {
-  combatSports: false,
+  // NOTE false disconnects CMS for page & uses default data below only
+  combatSports: true,
   fightSports: true,
-  // Add other landing pages here as they're created
-  // fitness: false,
-  // fitnessDocs: true,
+  actionSports: true,
+  highOctane: true,
+  fitness: true,
+  fitnessBrands: true,
+  agencyPartners: true,
+  brandedSponsoredDocs: true,
 };
+
+// Shared loading component
+export const LoadingScreen = () => (
+  <div
+    style={{
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: '#000',
+      backgroundImage: 'url(/images/landing/leo_poster-frame.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+  />
+);
 
 // Default data for combat sports landing page
 export const combatSportsDefaultData = {
@@ -15,6 +33,7 @@ export const combatSportsDefaultData = {
       'Created by filmmakers who train in combat sports; we know your world.',
       'Capture everything you need in one shoot day: a main promo film + ready-to-post clips to attract new members and keep your current ones engaged.',
     ],
+    callButtonText: 'Book a call',
     backgroundVideo: {
       filePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop.mov',
       posterFramePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop_PosterFrame.jpg',
@@ -125,44 +144,58 @@ export const combatSportsDefaultData = {
       '/images/landing/brand-logos/logo-adtec.png',
     ],
   },
-  faqSection: [
-    {
-      question: 'Will you run the marketing for us too?',
-      answer: 'Nope. We create the content, not the marketing. To actually get new members or exposure, you\'ll need to use what we create in your own campaigns, socials, ads, or website. We\'re your partner that delivers pro-level videos and photos that sell your gym for you, you just need to put it out there.',
-    },
-    {
-      question: 'How long does the process take?',
-      answer: 'The shoot itself usually takes <strong>one day</strong>. The full project — planning, filming, and editing — typically runs <strong>3-4 weeks</strong>. We spend time upfront with you to understand your goals so everything we create hits the mark. You\'ll be involved in planning, but we handle all the technical work.',
-    },
-    {
-      question: 'Will filming disrupt our classes?',
-      answer: 'Minimal disruption is our goal. Most shoots require <strong>only 2-3 crew members for a single day</strong>. We can get most of the content in one extended class of regular members, or we can schedule the shoot during off-hours. Your gym keeps running while we capture everything we need.',
-    },
-    {
-      question: 'What kind of gear do you use?',
-      answer: 'We use actual <strong>cinema cameras, cine lenses, and pro lighting rigs</strong> some of the same equipment found on Hollywood sets. It does mean we\'ll need to setup lights and gear around the gym, but trust us, you\'ll be glad we did once you see the results.',
-    },
-    {
-      question: 'Can I request changes to the edits?',
-      answer: 'Absolutely. Every project comes with <strong>one free round of revisions</strong>. Need extra cuts, social clips, or alternate edits? We can do those too at a simple hourly rate.',
-    },
-    {
-      question: 'Do you provide photography?',
-      answer: 'Every package includes <strong>10+ high-res 4K images</strong> pulled from the shoot footage. Larger sets of dedicated professional photos (30+ megapixels) are also available as an upgrade.',
-    },
-    {
-      question: 'What\'s included in the base package?',
-      answer: 'You get:<br /><strong>1 polished hero video</strong> (~1-3 minutes) for your website, YouTube, Yelp, Maps, in-gym display, etc<br /><strong>3 social-ready & ad-ready edited sequences</strong> (~10-30 seconds each)<br /><strong>10+ edited images from footage</strong><br />You can also re-trim these videos yourself any time for extra shorts, posts, or GIFs.',
-    },
-    {
-      question: 'How much does it cost?',
-      answer: 'Pricing starts at around <strong>$2,750</strong>, depending on your gym size, how ambitious the project is, and how much content you want. To put it in perspective, that\'s roughly equivalent to only <strong>one new member\'s annual membership</strong>, but it\'s a one-time investment that continues to pay off as potential new members see your gym.',
-    },
-    {
-      question: 'I need content regularly, can you help with that?',
-      answer: 'Absolutely. Many gyms find it valuable to schedule ongoing shoots or monthly content refreshes to keep their marketing fresh and maintain momentum. We offer discounted retainers and can tailor a plan that fits your goals, budget, and cadence without disrupting your regular operations.',
-    },
-  ],
+  faqSection: {
+    title: 'FAQs',
+    subtitle: 'Find answers to common questions about our services',
+    items: [
+      {
+        question: 'Will you run the marketing for us too?',
+        answer: 'Nope. We create the content, not the marketing. To actually get new members or exposure, you\'ll need to use what we create in your own campaigns, socials, ads, or website. We\'re your partner that delivers pro-level videos and photos that sell your gym for you, you just need to put it out there.',
+      },
+      {
+        question: 'How long does the process take?',
+        answer: 'The shoot itself usually takes <strong>one day</strong>. The full project — planning, filming, and editing — typically runs <strong>3-4 weeks</strong>. We spend time upfront with you to understand your goals so everything we create hits the mark. You\'ll be involved in planning, but we handle all the technical work.',
+      },
+      {
+        question: 'Will filming disrupt our classes?',
+        answer: 'Minimal disruption is our goal. Most shoots require <strong>only 2-3 crew members for a single day</strong>. We can get most of the content in one extended class of regular members, or we can schedule the shoot during off-hours. Your gym keeps running while we capture everything we need.',
+      },
+      {
+        question: 'What kind of gear do you use?',
+        answer: 'We use actual <strong>cinema cameras, cine lenses, and pro lighting rigs</strong> some of the same equipment found on Hollywood sets. It does mean we\'ll need to setup lights and gear around the gym, but trust us, you\'ll be glad we did once you see the results.',
+      },
+      {
+        question: 'Can I request changes to the edits?',
+        answer: 'Absolutely. Every project comes with <strong>one free round of revisions</strong>. Need extra cuts, social clips, or alternate edits? We can do those too at a simple hourly rate.',
+      },
+      {
+        question: 'Do you provide photography?',
+        answer: 'Every package includes <strong>10+ high-res 4K images</strong> pulled from the shoot footage. Larger sets of dedicated professional photos (30+ megapixels) are also available as an upgrade.',
+      },
+      {
+        question: 'What\'s included in the base package?',
+        answer: 'You get:<br /><strong>1 polished hero video</strong> (~1-3 minutes) for your website, YouTube, Yelp, Maps, in-gym display, etc<br /><strong>3 social-ready & ad-ready edited sequences</strong> (~10-30 seconds each)<br /><strong>10+ edited images from footage</strong><br />You can also re-trim these videos yourself any time for extra shorts, posts, or GIFs.',
+      },
+      {
+        question: 'How much does it cost?',
+        answer: 'Pricing starts at around <strong>$2,750</strong>, depending on your gym size, how ambitious the project is, and how much content you want. To put it in perspective, that\'s roughly equivalent to only <strong>one new member\'s annual membership</strong>, but it\'s a one-time investment that continues to pay off as potential new members see your gym.',
+      },
+      {
+        question: 'I need content regularly, can you help with that?',
+        answer: 'Absolutely. Many gyms find it valuable to schedule ongoing shoots or monthly content refreshes to keep their marketing fresh and maintain momentum. We offer discounted retainers and can tailor a plan that fits your goals, budget, and cadence without disrupting your regular operations.',
+      },
+    ],
+  },
+  contactSection: {
+    title: 'Upgrade Your Marketing Today',
+    titleVariant: 'h3',
+    isUpperCase: true,
+    contactTitle: undefined,
+    contactTitleVariant: 'h5',
+    callBookingTitle: 'Book a call',
+    callBookingTitleVariant: 'h4',
+    backgroundImage: undefined,
+  },
 };
 
 // Default data for combat sports landing page
@@ -322,3 +355,97 @@ export const fightSportsDefaultData = {
     },
   ],
 };
+
+const baseDefaultData = {
+  heroSection: {
+    title: null,
+    subtitle: null,
+    callButtonText: 'Book a call',
+    backgroundVideo: {
+      filePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop.mov',
+      posterFramePath: '/Banner_Heroes/INEVITABLE-BannerHeroLoopDesktop_PosterFrame.jpg',
+      vidWidth: 1920,
+      codec: 'h264',
+      audio: false,
+    },
+  },
+  mainVideoSection: {
+    title: null,
+    subtitle: null,
+    thumbnail: '/images/film.jpg',
+    videoUrl: 'https://www.youtube.com/embed/J0IItrdHQ2s',
+  },
+  benefitsSection: {
+    title: null,
+    subtitle: null,
+    cards: [
+      { title: null, description: null },
+      { title: null, description: null },
+      { title: null, description: null },
+    ],
+  },
+  packageHighlightsSection: {
+    title: null,
+    subtitle: null,
+    title2: null,
+    subtitle2: null,
+    packageGraphic: '/images/hero2.jpg',
+    videos: [
+      { title: '01', videoUrl: 'https://player.vimeo.com/video/1160684839' },
+      { title: '02', videoUrl: 'https://player.vimeo.com/video/1160684862' },
+      { title: '03', videoUrl: 'https://player.vimeo.com/video/1160684857' },
+      { title: '04 Jose', videoUrl: 'https://player.vimeo.com/video/1160684849' },
+      { title: 'intro', videoUrl: 'https://www.youtube.com/embed/j5XQj_Goq6I' },
+    ],
+    infographic: {
+      subtitle: null,
+      centerText: null,
+      items: [
+        { msg: null },
+        { msg: null },
+        { msg: null },
+        { msg: null },
+        { msg: null },
+        { msg: null },
+      ],
+    },
+  },
+  secondaryVideoSection: {
+    title: null,
+    subtitle: null,
+    imageUrl: '/images/landing/TBAC.jpeg',
+    videoUrl: 'https://www.youtube.com/embed/Qoa2dEyorcA',
+  },
+  clientBrandsSection: {
+    title: null,
+    backgroundImagePath: '/images/landing/cover.jpg',
+    clientBrands: [
+      '/images/landing/brand-logos/logo-hbo.png',
+      '/images/landing/brand-logos/logo-zara.png',
+      '/images/landing/brand-logos/logo-warby-parker.png',
+      '/images/landing/brand-logos/logo-adtec.png',
+    ],
+  },
+  faqSection: {
+    title: 'FAQs',
+    subtitle: 'Find answers to common questions about our services',
+    items: [],
+  },
+  contactSection: {
+    title: 'Upgrade Your Marketing Today',
+    titleVariant: 'h3',
+    isUpperCase: true,
+    contactTitle: undefined,
+    contactTitleVariant: 'h5',
+    callBookingTitle: 'Book a call',
+    callBookingTitleVariant: 'h4',
+    backgroundImage: undefined,
+  },
+};
+
+export const actionSportsDefaultData = baseDefaultData;
+export const highOctaneDefaultData = baseDefaultData;
+export const fitnessDefaultData = baseDefaultData;
+export const fitnessBrandsDefaultData = baseDefaultData;
+export const agencyPartnersDefaultData = baseDefaultData;
+export const brandedSponsoredDocsDefaultData = baseDefaultData;

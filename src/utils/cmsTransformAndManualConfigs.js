@@ -86,6 +86,7 @@ const transformTextFields = (data) => {
     secondaryVideoSection,
     clientBrandsSection,
     faqSection,
+    contactSection,
   } = data;
 
   // Hero section
@@ -96,6 +97,9 @@ const transformTextFields = (data) => {
     heroSection.subtitle = heroSection.subtitle.map((subtitle) =>
       parseJSXString(subtitle),
     );
+  }
+  if (heroSection?.callButtonText) {
+    heroSection.callButtonText = parseJSXString(heroSection.callButtonText);
   }
 
   // Main video section
@@ -191,11 +195,32 @@ const transformTextFields = (data) => {
 
   // FAQ section
   if (faqSection) {
-    data.faqSection = faqSection.map((faq) => ({
-      ...faq,
-      question: parseJSXString(faq.question),
-      answer: parseJSXString(faq.answer),
-    }));
+    if (faqSection.title) {
+      faqSection.title = parseJSXString(faqSection.title);
+    }
+    if (faqSection.subtitle) {
+      faqSection.subtitle = parseJSXString(faqSection.subtitle);
+    }
+    if (faqSection.items) {
+      faqSection.items = faqSection.items.map((faq) => ({
+        ...faq,
+        question: parseJSXString(faq.question),
+        answer: parseJSXString(faq.answer),
+      }));
+    }
+  }
+
+  // Contact section
+  if (contactSection) {
+    if (contactSection.title) {
+      contactSection.title = parseJSXString(contactSection.title);
+    }
+    if (contactSection.contactTitle) {
+      contactSection.contactTitle = parseJSXString(contactSection.contactTitle);
+    }
+    if (contactSection.callBookingTitle) {
+      contactSection.callBookingTitle = parseJSXString(contactSection.callBookingTitle);
+    }
   }
 };
 
