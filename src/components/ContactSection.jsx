@@ -1,4 +1,4 @@
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Box } from '@mui/material';
 import ContactCard from '@/components/ContactCard.jsx';
 import CallBooking from '@/components/landing/CallBooking';
 import { SectionHeader } from '@/utils/TextHelpers';
@@ -15,7 +15,10 @@ const ContactSection = ({
   showMap = false,
   containerMaxWidth = 'lg',
   containerSx = {},
-  colors,
+  colors = {
+    primaryBg: '#000000',
+    titleText: '#ffffff',
+  },
 }) => (
   <Box
     sx={{
@@ -35,9 +38,9 @@ const ContactSection = ({
         titleVariant={titleVariant}
         isUpperCase={isUpperCase}
         colors={colors}
-        pb={0}
+        pb={2}
       />
-      <Box pb={7}>
+      <Box pb={4}>
         <ContactCard
           title={{
             title: contactTitle,
@@ -54,16 +57,26 @@ const ContactSection = ({
       />
       <CallBooking theme={colors?.titleText === '#ffffff' ? 'dark' : 'light'} />
       {showMap && (
-        <Box sx={{ mt: 6, width: '100%' }}>
-          <Typography variant='h5' gutterBottom color={colors?.titleText}>
-            Our Studio
-          </Typography>
-          <Box sx={{ mt: 3 }}>
+        <Box
+          sx={{
+            width: '100%',
+            mt: { xs: '50px', sm: '-50px' },
+            backgroundColor: '#000',
+            zIndex: 1,
+          }}
+        >
+          <SectionHeader
+            title='Our studio'
+            titleVariant={callBookingTitleVariant}
+            isUpperCase={isUpperCase}
+            colors={colors}
+          />
+          <Box>
             <object
               data='https://www.openstreetmap.org/export/embed.html?bbox=-118.42781066894533%2C33.95019369509206%2C-118.0913543701172%2C34.1352505344048&amp;layer=mapnik&amp;marker=34.042772590641256%2C-118.25958251953125'
               width='100%'
               height='300'
-              style={{ border: '1px solid #ccc', borderRadius: 4 }}
+              style={{ border: 'none', borderRadius: 8, filter: 'invert(1) hue-rotate(180deg)' }}
             />
           </Box>
         </Box>

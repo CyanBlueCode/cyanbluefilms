@@ -21,7 +21,7 @@ export default function Document() {
         <meta property='og:title' content='Cyan Blue Films' />
         <meta
           property='og:description'
-          content='Cyan Blue Films LLC - Professional commercial video production company based in sunny Los Angeles, California.'
+          content='Cyan Blue Films LLC - Professional fitness commercial video production company based in sunny Los Angeles, California.'
         />
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://cyanbluefilms.com' />

@@ -26,8 +26,11 @@ const PROJECT_TYPES = [
 const ContactCard = ({
   title = { title: 'Say Hello', fontVariant: 'h2' },
   hideProjectType = false,
-  buttonColor = 'primary.main',
-  colors
+  colors = {
+    primaryBg: '#000000',
+    titleText: '#ffffff',
+    bodyText: '#ffffff',
+  },
 }) => {
   const fieldSx = {
     '& .MuiInputLabel-root': { color: colors?.bodyText },
@@ -108,15 +111,17 @@ const ContactCard = ({
         backgroundColor: colors?.primaryBg || 'white',
         borderRadius: '8px',
         p: 3,
+        pt: 1,
         boxShadow: 'none',
         '&:before': { display: 'none' },
       }}
     >
-      <Typography variant={title?.fontVariant} gutterBottom color={colors?.titleText}>
-        {title?.title}
-      </Typography>
+      { title?.title && <Typography variant={title?.fontVariant} gutterBottom color={colors?.titleText}>
+        {title.title}
+      </Typography>}
 
-      <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component='form' onSubmit={handleSubmit}>
+        {/* NOTE basic honeypot for bots */}
         <TextField
           name={process.env.NEXT_PUBLIC_HONEYPOT_FIELD || 'website_url'}
           value={
@@ -219,13 +224,13 @@ const ContactCard = ({
             mt: 3,
             backgroundColor: 'transparent',
             borderWidth: '2px',
-            borderColor: colors?.bodyText || '#e0e0e0',
+            borderColor: colors?.secondaryBg || '#999999',
             borderRadius: '8px',
-            color: colors?.bodyText,
+            color: colors?.titleText,
             fontSize: '1.2rem',
             '&:hover': {
               backgroundColor: 'transparent',
-              borderColor: colors?.bodyText,
+              borderColor: colors?.titleText,
             },
           }}
           fullWidth

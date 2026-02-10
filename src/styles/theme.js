@@ -2,17 +2,23 @@ import { createTheme } from '@mui/material/styles';
 
 export default createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#0d47a1', // Deep blue
+      main: '#0d47a1',
     },
     secondary: {
-      main: '#e65100', // Amber
+      main: '#e65100',
     },
     cyanBlue: {
       main: '#00B7EB',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#000000',
+      paper: '#000000',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: '#b0b0b0',
     },
   },
   typography: {

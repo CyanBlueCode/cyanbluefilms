@@ -69,8 +69,7 @@ const CustomAppBar = () => {
   };
 
   const hideNavigation = !!pathname.includes('/for/');
-  const dynamicTextColor =
-    ['/', '/film'].includes(pathname) || hideNavigation ? 'white' : 'black';
+  const dynamicTextColor = 'white';
 
   return (
     <HideOnScroll>

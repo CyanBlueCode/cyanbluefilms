@@ -20,8 +20,8 @@ const About = () => (
 
     <Typography variant='body1' sx={{ mb: 2 }}>
       Cyan Blue Films is a Los Angeles-based production company specializing in
-      cinematic storytelling through photography and artistic film. Founded in
-      2024 by award-winning filmmakers, we bring a unique artistic vision to
+      cinematic combat and action sports brand stories through artistic film. Founded in
+      2024 by award-winning filmmakers, we bring athletic background and unique artistic vision to
       every project.
     </Typography>
 
