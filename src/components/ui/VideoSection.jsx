@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, Tooltip } from '@mui/material';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { PlayArrow } from '@mui/icons-material';
 import Image from 'next/image';
+import { SectionHeader } from '@/utils/TextHelpers';
 
 const VideoModal = ({ videoUrl, open, onClose }) => {
   const [iframeSrc, setIframeSrc] = React.useState('');
@@ -76,9 +77,15 @@ const VideoSection = ({ section, colors, backgroundColor }) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        py: 4,
+        py: 8,
       }}
     >
+      <SectionHeader
+        title={section.title}
+        subtitle={section.subtitle}
+        colors={colors}
+      />
+
       <Box
         sx={{
           backgroundColor: 'rgb(0, 0, 0, 1)',

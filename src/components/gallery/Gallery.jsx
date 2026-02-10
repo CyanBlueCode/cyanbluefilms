@@ -99,7 +99,7 @@ const Gallery = ({ photos }) => {
           targetRowHeight={300}
           rowConstraints={{
             maxPhotos: isMobile ? 2 : 4,
-            minPhotos: 1,
+            minPhotos: isMobile ? 1 : 3,
             singleRowMaxHeight: isMobile ? 200 : 300,
           }}
           onClick={({ index }) => handleLightboxOpen(index)}
@@ -154,7 +154,7 @@ const Gallery = ({ photos }) => {
             </svg>
           ),
           // Add loading indicator for lightbox
-          iconLoading: () => <CircularProgress size={24} color='inherit' />,
+          // iconLoading: () => <CircularProgress size={24} color='inherit' />,
         }}
         styles={{
           container: {

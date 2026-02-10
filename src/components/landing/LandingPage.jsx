@@ -27,7 +27,7 @@ import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
 import ScrollingLogos from '@/components/ui/ScrollingLogos';
 import ProcessSection from '@/components/ui/ProcessSection';
 import VideoSection from '@/components/ui/VideoSection';
-// import TikTok from '../../public/images/tiktok-logo.svg';
+import { SectionHeader } from '@/utils/TextHelpers';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
 
@@ -112,39 +112,6 @@ const VideoModal = ({ videoUrl, open, onClose }) => {
     </Modal>
   );
 };
-
-export const SectionHeader = ({
-  title,
-  subtitle,
-  titleVariant = 'h3',
-  colors,
-  fontWeight = 600,
-  isUpperCase = true,
-}) => (
-  <>
-    <Typography
-      variant={titleVariant}
-      align='center'
-      color={colors?.titleText || '#191919'}
-      textTransform={isUpperCase ? 'uppercase' : 'none'}
-      fontWeight={fontWeight}
-      gutterBottom
-    >
-      {title}
-    </Typography>
-    <Typography
-      variant='h6'
-      align='center'
-      pb={5}
-      px={2}
-      fontWeight={400}
-      color={colors?.subtitleText || '#191919'}
-      sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' } }}
-    >
-      {subtitle}
-    </Typography>
-  </>
-);
 
 const LandingPage = ({
   heroSection,
@@ -586,9 +553,7 @@ const LandingPage = ({
       )}
 
       {/* LONG FORM WORK SECTION */}
-      <Box pt={4} backgroundColor={colors.primaryBg}>
-        <VideoSection section={secondaryVideoSection} colors={colors} backgroundColor={colors.primaryBg} />
-      </Box>
+      <VideoSection section={secondaryVideoSection} colors={colors} backgroundColor={colors.primaryBg} />
 
       {/* PROCESS SECTION */}
       {processSection && !(
