@@ -48,7 +48,7 @@ async function handleFolderImages(request, env) {
 	}
 	// Fetch from ImageKit API
 	try {
-		const response = await fetch(`https://api.imagekit.io/v1/files?path=${encodeURIComponent(folder)}`, {
+		const response = await fetch(`https://api.imagekit.io/v1/files?path=${encodeURIComponent(folder)}&includeFileVersions=false`, {
 			headers: {
 				Authorization: `Basic ${btoa(env.IMAGEKIT_PRIVATE_KEY + ':')}`,
 			},
@@ -62,23 +62,50 @@ async function handleFolderImages(request, env) {
 		const files = await response.json();
 
 		// Filter out cover images and sort by filename
-		const images = files
+		const filteredFiles = files
 			.filter((file) => file.fileType === 'image' && !file.name.toLowerCase().includes('cover'))
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.map((file) => ({
-				id: file.fileId,
-				name: file.name,
-				filePath: file.filePath,
-				width: file.width,
-				height: file.height,
-				createdAt: file.createdAt,
-			}));
+			.sort((a, b) => a.name.localeCompare(b.name));
 
-		return new Response(JSON.stringify(images), {
+		// Fetch details for each image to get dimensions
+		const imagesWithDimensions = await Promise.all(
+			filteredFiles.map(async (file) => {
+				try {
+					const detailsResponse = await fetch(
+						`https://api.imagekit.io/v1/files/${file.fileId}/details`,
+						{
+							headers: {
+								Authorization: `Basic ${btoa(env.IMAGEKIT_PRIVATE_KEY + ':')}`,
+							},
+						}
+					);
+					if (detailsResponse.ok) {
+						const details = await detailsResponse.json();
+						return {
+							id: file.fileId,
+							name: file.name,
+							filePath: file.filePath,
+							width: details.width,
+							height: details.height,
+							createdAt: file.createdAt,
+						};
+					}
+				} catch (e) {
+					// Silent fail
+				}
+				return {
+					id: file.fileId,
+					name: file.name,
+					filePath: file.filePath,
+					createdAt: file.createdAt,
+				};
+			})
+		);
+
+		return new Response(JSON.stringify(imagesWithDimensions), {
 			headers: {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': '*',
-				'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+				'Cache-Control': 'no-cache',
 			},
 		});
 	} catch (error) {
@@ -102,7 +129,7 @@ async function handleVideoUrl(request, env) {
 	try {
 		const baseUrl = 'https://ik.imagekit.io/cyanbluefilms';
 		let transformations = [`w-${vidWidth}`, `vc-${codec}`];
-		
+
 		if (audio) transformations.push(audio.replace(',', ''));
 		if (forceRatio) transformations.push(`ar-${forceRatio.replace(':', '-')}`);
 		if (custom) transformations.push(custom.replace(/^,/, ''));

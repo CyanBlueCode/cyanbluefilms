@@ -21,12 +21,8 @@ export const generateImageKitUrl = (filePath, options = {}) => {
 
   const trParam = transformations.join(',');
 
-  // Add cache buster for production
-  const cacheBuster =
-    process.env.NODE_ENV === 'production' ? `&v=${Date.now()}` : '';
-
   return `${baseUrl}${filePath}${
-    trParam ? `?tr=${trParam}${cacheBuster}` : ''
+    trParam ? `?tr=${trParam}` : ''
   }`;
 };
 

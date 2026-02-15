@@ -18,47 +18,28 @@ const Gallery = ({ photos }) => {
   const [lightboxLoading, setLightboxLoading] = useState(false);
   const loadedCountRef = useRef(0);
 
-  // Initialize photos with placeholder dimensions
+  // Initialize photos with dimensions from API
   useEffect(() => {
-    const newPhotos = photos.map((photo, index) => ({
-      ...photo,
-      width: photo.width || 3,
-      height: photo.height || 2,
-      loaded: !!photo.width && !!photo.height,
-      index,
-    }));
+    setDimensionedPhotos((prev) =>
+      photos.map((photo, index) => {
+        // Check if this photo already exists with loaded dimensions
+        const existing = prev.find((p) => p.id === photo.id);
+        if (existing) {
+          return { ...existing, index };
+        }
 
-    setDimensionedPhotos(newPhotos);
-    
-    const loadedCount = newPhotos.filter(p => p.loaded).length;
-    loadedCountRef.current = loadedCount;
-    setIsLoading(loadedCount < photos.length);
+        // New photo - use API dimensions
+        return {
+          ...photo,
+          width: photo.width || 3,
+          height: photo.height || 2,
+          loaded: !!photo.width && !!photo.height,
+          index,
+        };
+      }),
+    );
+    setIsLoading(false);
   }, [photos]);
-
-  const handleImageLoad = (index) => (e) => {
-    setDimensionedPhotos((prev) => {
-      if (prev[index]?.loaded) return prev;
-
-      const img = e.target;
-      const width = img.naturalWidth;
-      const height = img.naturalHeight;
-
-      const updated = [...prev];
-      updated[index] = {
-        ...updated[index],
-        width,
-        height,
-        loaded: true,
-      };
-      
-      loadedCountRef.current++;
-      if (loadedCountRef.current === photos.length) {
-        setIsLoading(false);
-      }
-      
-      return updated;
-    });
-  };
 
   const handleLightboxOpen = (index) => {
     setCurrentIndex(index);
@@ -110,30 +91,6 @@ const Gallery = ({ photos }) => {
           onClick={({ index }) => handleLightboxOpen(index)}
         />
       )}
-      {/* Hidden image preloader - only for photos without dimensions */}
-      <div style={{ display: 'none' }}>
-        {photos.map((photo, index) => {
-          if (photo.width && photo.height) return null;
-          
-          return (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={photo.id}
-              src={photo.thumbnailUrl}
-              alt='preloader'
-              onLoad={handleImageLoad(index)}
-              onError={() =>
-                handleImageLoad(index)({
-                  target: {
-                    naturalWidth: 3,
-                    naturalHeight: 2,
-                  },
-                })
-              }
-            />
-          );
-        })}
-      </div>
 
       <Lightbox
         open={lightboxOpen}
