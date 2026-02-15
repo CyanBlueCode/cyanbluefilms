@@ -1,45 +1,18 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import RowsPhotoAlbum from 'react-photo-album';
 import Lightbox from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'react-photo-album/rows.css';
 import { useTheme, useMediaQuery, CircularProgress } from '@mui/material';
-import GalleryPlaceholder from '@/components/gallery/Placeholder';
 
 const Gallery = ({ photos }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [dimensionedPhotos, setDimensionedPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [lightboxLoading, setLightboxLoading] = useState(false);
-  const loadedCountRef = useRef(0);
-
-  // Initialize photos with dimensions from API
-  useEffect(() => {
-    setDimensionedPhotos((prev) =>
-      photos.map((photo, index) => {
-        // Check if this photo already exists with loaded dimensions
-        const existing = prev.find((p) => p.id === photo.id);
-        if (existing) {
-          return { ...existing, index };
-        }
-
-        // New photo - use API dimensions
-        return {
-          ...photo,
-          width: photo.width || 3,
-          height: photo.height || 2,
-          loaded: !!photo.width && !!photo.height,
-          index,
-        };
-      }),
-    );
-    setIsLoading(false);
-  }, [photos]);
 
   const handleLightboxOpen = (index) => {
     setCurrentIndex(index);
@@ -54,7 +27,7 @@ const Gallery = ({ photos }) => {
   };
 
   // Format photos for react-photo-album
-  const formattedPhotos = dimensionedPhotos.map((photo) => ({
+  const formattedPhotos = photos.map((photo) => ({
     src: photo.thumbnailUrl,
     width: photo.width,
     height: photo.height,
@@ -75,10 +48,7 @@ const Gallery = ({ photos }) => {
 
   return (
     <div style={{ margin: '2rem 0' }}>
-      {isLoading ? (
-        <GalleryPlaceholder />
-      ) : (
-        <RowsPhotoAlbum
+      <RowsPhotoAlbum
           photos={formattedPhotos.filter((p) => p.width > 0 && p.height > 0)}
           layout='rows'
           spacing={8}
@@ -89,8 +59,7 @@ const Gallery = ({ photos }) => {
             singleRowMaxHeight: isMobile ? 200 : 300,
           }}
           onClick={({ index }) => handleLightboxOpen(index)}
-        />
-      )}
+      />
 
       <Lightbox
         open={lightboxOpen}

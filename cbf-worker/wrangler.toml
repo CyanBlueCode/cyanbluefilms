@@ -2,6 +2,7 @@ name = "cbf-worker"
 compatibility_date = "2025-07-04"
 main = "src/index.js"
 workers_dev = true
+account_id = "5c85f7e81f948532b900aeea0c9f1fdf"
 
 [vars]
 IMAGEKIT_URL_ENDPOINT = "https://ik.imagekit.io/cyanbluefilms"

@@ -13,7 +13,7 @@ const Layout = ({ children, hideConstructionBanner = false }) => { // REVIEW tem
   const [windowHeight, setWindowHeight] = useState('100vh');
 
   // ========== CONSTRUCTION BANNER - DELETE THIS ENTIRE SECTION WHEN SITE IS COMPLETE ==========
-  const SHOW_CONSTRUCTION_BANNER_DEV = true;
+  const SHOW_CONSTRUCTION_BANNER_DEV = false;
 
   const { showConstructionBanner, closeConstructionBanner } = useContext(
     showConstructionBannerContext
@@ -98,6 +98,8 @@ const Layout = ({ children, hideConstructionBanner = false }) => { // REVIEW tem
             flexDirection: 'column',
             position: 'relative',
             overflow: 'hidden',
+            // p: 1
+            px: {xs: '7px', md: '10px'}
           }}
         >
           {children}

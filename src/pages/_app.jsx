@@ -24,12 +24,12 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <GlobalContextProvider>
-      <ShowConstructionBannerContextProvider>
+      {/* <ShowConstructionBannerContextProvider> */}
         {/* REVIEW temp construction banner code */}
-        <Layout hideConstructionBanner={pageProps.hideConstructionBanner}>
+        <Layout hideConstructionBanner={pageProps?.hideConstructionBanner}>
           <Component {...pageProps} />
         </Layout>
-      </ShowConstructionBannerContextProvider>
+      {/* </ShowConstructionBannerContextProvider> */}
     </GlobalContextProvider>
   );
 };

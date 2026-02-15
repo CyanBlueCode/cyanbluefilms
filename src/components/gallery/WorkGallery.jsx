@@ -21,8 +21,8 @@ const WorkGallery = ({ shuffle = true }) => {
         setLoading(true);
 
         const [responseA, responseB] = await Promise.all([
-          fetch(`${WORKER_URL}/folder-images?folder=/portfolio/work/A&v=${Date.now()}`),
-          fetch(`${WORKER_URL}/folder-images?folder=/portfolio/work/B&v=${Date.now()}`),
+          fetch(`${WORKER_URL}/folder-images?folder=/portfolio/work/A`),
+          fetch(`${WORKER_URL}/folder-images?folder=/portfolio/work/B`),
         ]);
 
         if (!responseA.ok || !responseB.ok) {
@@ -92,6 +92,7 @@ const WorkGallery = ({ shuffle = true }) => {
           textAlign: 'center',
           mb: 4,
           textTransform: 'capitalize',
+          px: 1
         }}
       >
         Lens through which we see the world
