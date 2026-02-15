@@ -1,13 +1,6 @@
 'use client';
-import { useRouter } from 'next/router';
-import CategoryGallery from '@/components/gallery/CategoryGallery';
+import WorkGallery from '@/components/gallery/WorkGallery';
 
-const Work = () => {
-  const router = useRouter();
-  const { pathname } = router;
-  const category = pathname.split('/')[1];
-
-  return <CategoryGallery categoryName={category} />;
-};
+const Work = () => <WorkGallery shuffle={true} />;
 
 export default Work;

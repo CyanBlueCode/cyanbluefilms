@@ -69,7 +69,9 @@ async function handleFolderImages(request, env) {
 				id: file.fileId,
 				name: file.name,
 				filePath: file.filePath,
-				createdAt: file.createdAt, // Keep for reference
+				width: file.width,
+				height: file.height,
+				createdAt: file.createdAt,
 			}));
 
 		return new Response(JSON.stringify(images), {
