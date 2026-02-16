@@ -6,19 +6,23 @@ import GalleryPlaceholder from './Placeholder';
 import { getThumbnailUrl, getOptimizedImageUrl } from '@/utils/imagekit';
 import { combineImageArrays } from '@/utils/shuffleImages';
 
-const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL;
+const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL || 'https://cbf-worker.cyanblue.workers.dev';
 
 const WorkGallery = ({ shuffle = true }) => {
   const [loading, setLoading] = useState(true);
   const [allPhotos, setAllPhotos] = useState([]);
   const [displayedPhotos, setDisplayedPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [error, setError] = useState(null);
   const sentinelRef = useRef(null);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         setLoading(true);
+        setError(null);
+
+        console.log('Fetching from worker:', WORKER_URL);
 
         const [responseA, responseB] = await Promise.all([
           fetch(`${WORKER_URL}/folder-images?folder=/portfolio/work/A`),
@@ -26,7 +30,9 @@ const WorkGallery = ({ shuffle = true }) => {
         ]);
 
         if (!responseA.ok || !responseB.ok) {
-          throw new Error('Failed to fetch images');
+          const errorA = !responseA.ok ? await responseA.text() : '';
+          const errorB = !responseB.ok ? await responseB.text() : '';
+          throw new Error(`Failed to fetch images: ${errorA} ${errorB}`);
         }
 
         const [imagesA, imagesB] = await Promise.all([
@@ -51,6 +57,7 @@ const WorkGallery = ({ shuffle = true }) => {
         setCurrentIndex(20);
       } catch (error) {
         console.error('Error fetching gallery images:', error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -100,6 +107,10 @@ const WorkGallery = ({ shuffle = true }) => {
 
       {loading ? (
         <GalleryPlaceholder />
+      ) : error ? (
+        <Typography variant='h5' textAlign='center' color='error'>
+          {error}
+        </Typography>
       ) : displayedPhotos.length > 0 ? (
         <>
           <Gallery photos={displayedPhotos} />
