@@ -27,7 +27,7 @@ import AnimatedCardCarousel from '@/components/ui/AnimatedCardCarousel';
 import ScrollingLogos from '@/components/ui/ScrollingLogos';
 import ProcessSection from '@/components/ui/ProcessSection';
 import VideoSection from '@/components/ui/VideoSection';
-import { SectionHeader } from '@/utils/TextHelpers';
+import { TitleSection } from '@/utils/TextHelpers';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
 
@@ -140,119 +140,6 @@ const LandingPage = ({
     ? `https://ik.imagekit.io/cyanbluefilms${heroSection.backgroundVideo.posterFramePath}`
     : null;
 
-  // Render video section function
-  const renderVideoSection = (section, backgroundColor = colors.tertiaryBg) => {
-    if (!section) return null;
-
-    return (
-      <Box
-        sx={{
-          width: '100vw',
-          backgroundColor,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          py: 4,
-        }}
-      >
-        <SectionHeader
-          title={section?.title}
-          subtitle={section?.subtitle}
-          colors={colors}
-        />
-
-        <Box
-          sx={{
-            backgroundColor: 'rgb(0, 0, 0, 1)',
-            border: 'none',
-            aspectRatio: '16/9',
-            width: { xs: '100vw', sm: '70vw' },
-            position: 'relative',
-            mt: 4,
-            outline: 'none',
-            '&:focus': { outline: 'none' },
-            '&:focus-visible': { outline: 'none' },
-          }}
-        >
-          {/* NOTE using cover image/imageUrl renders video modal view */}
-          {section.imageUrl ? (
-            <>
-              <div
-                onClick={() => setModalOpen(true)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setModalOpen(true);
-                  }
-                }}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  cursor: 'pointer',
-                  outline: 'none',
-                }}
-                tabIndex={0}
-                role='button'
-                aria-label={`Play video: ${section.title || 'Video'}`}
-              >
-                <Image
-                  src={section.imageUrl}
-                  alt={section.title || 'Video Thumbnail'}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                    pointerEvents: 'none',
-                  }}
-                />
-              </div>
-              <Button
-                onClick={() => setModalOpen(true)}
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  bgcolor: (theme) => alpha(theme.palette.cyanBlue.main, 0.75),
-                  color: '#fff',
-                  fontSize: { xs: 18, sm: 20 },
-                  borderRadius: '50%',
-                  minWidth: { xs: 50, sm: 64 },
-                  width: { xs: 50, sm: 64 },
-                  height: { xs: 50, sm: 64 },
-                  outline: 'none',
-                  '&:focus': { outline: 'none' },
-                  '&:focus-visible': { outline: 'none' },
-                }}
-                aria-label={`Play video: ${section.title || 'Video'}`}
-              >
-                <PlayArrow fontSize='large' />
-              </Button>
-              <VideoModal
-                open={modalOpen}
-                onClose={() => setModalOpen(false)}
-                videoUrl={section.videoUrl}
-              />
-            </>
-          ) : (
-            <iframe
-              width='100%'
-              height='100%'
-              src={`${section.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`}
-              title={section.title || 'Video'}
-              frameBorder='0'
-              allowFullScreen
-              style={{ position: 'absolute', top: 0, left: 0 }}
-            />
-          )}
-        </Box>
-      </Box>
-    );
-  };
-
   return (
     <Box sx={{ width: '100vw', overflowX: 'hidden' }}>
       {/* HERO SECTION */}
@@ -267,7 +154,7 @@ const LandingPage = ({
               : 'none',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            pt: 10,
+            pt: 15,
             pb: 20,
             display: 'flex',
             alignItems: 'center',
@@ -331,28 +218,6 @@ const LandingPage = ({
             >
               {/* Main Title */}
               <Box mb={4}>
-                {/* 
-                  // NOTE version w/o non-breaking cursor
-                   <Typography
-                     variant='h5'
-                     align='center'
-                     color='#fff'
-                     fontWeight={300}
-                     className='typewriter cursor'
-                     sx={{
-                       pb: 3,
-                       textTransform: 'uppercase',
-                       fontFamily: 'monospace',
-                       whiteSpace: 'normal',
-                       overflow: 'hidden',
-                       '&::after': {
-                         content: '"|"',
-                         ml: '2px',
-                         animation: 'blink 1s step-end infinite',
-                       },
-                     }}
-                   >
-                */}
                 <Typography
                   variant='h5'
                   align='center'
@@ -426,9 +291,9 @@ const LandingPage = ({
 
       {/* BENEFITS SECTION */}
       {benefitsSection && (
-        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, py: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 8 }}>
           <Container>
-            <SectionHeader
+            <TitleSection
               title={benefitsSection?.title}
               subtitle={benefitsSection?.subtitle}
               colors={colors}
@@ -443,20 +308,25 @@ const LandingPage = ({
       )}
 
       {/* MAIN VIDEO DEMO SECTION */}
-      <VideoSection section={mainVideoSection} colors={colors} backgroundColor={colors.tertiaryBg} />
+      <VideoSection
+        section={mainVideoSection}
+        colors={colors}
+        backgroundColor={colors.tertiaryBg}
+      />
 
       {/* PACKAGE HIGHLIGHTS SECTION */}
       {packageHighlightsSection && (
-        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, py: 8 }}>
+        <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pb: 8 }}>
           <Container>
-            <SectionHeader
+            <TitleSection
               title={packageHighlightsSection?.title}
               subtitle={packageHighlightsSection?.subtitle}
               colors={colors}
+              py={4}
             />
             {/* SOCIAL VIDEO CARDS */}
             <Box my={4}>
-              {/* <SectionHeader
+              {/* <TitleSection
               title={packageHighlightsSection?.title2}
               subtitle={packageHighlightsSection?.subtitle2}
               colors={colors}
@@ -496,10 +366,11 @@ const LandingPage = ({
             {/* CIRCULAR INFOGRAPHIC */}
             {packageHighlightsSection?.infographic && (
               <>
-                <SectionHeader
+                <TitleSection
                   title={packageHighlightsSection.infographic.title}
                   subtitle={packageHighlightsSection.infographic.subtitle}
                   colors={colors}
+                  pt={4}
                 />
                 <Box
                   sx={{
@@ -538,7 +409,7 @@ const LandingPage = ({
           }}
         >
           <Container>
-            <SectionHeader
+            <TitleSection
               title={clientBrandsSection?.title}
               subtitle={clientBrandsSection?.subtitle}
               colors={colors}
@@ -553,26 +424,32 @@ const LandingPage = ({
       )}
 
       {/* LONG FORM WORK SECTION */}
-      <VideoSection section={secondaryVideoSection} colors={colors} backgroundColor={colors.primaryBg} />
+      <VideoSection
+        section={secondaryVideoSection}
+        colors={colors}
+        backgroundColor={colors.primaryBg}
+      />
 
       {/* PROCESS SECTION */}
-      {processSection && !(
-        processSection.hideSection === true ||
-        (typeof processSection.hideSection === 'string' && processSection.hideSection.toLowerCase() === 'true')
-      ) && (
-        <ProcessSection
-          title={processSection.title}
-          subtitle={processSection.subtitle}
-          data={processSection.data}
-          colors={colors}
-        />
-      )}
+      {processSection &&
+        !(
+          processSection.hideSection === true ||
+          (typeof processSection.hideSection === 'string' &&
+            processSection.hideSection.toLowerCase() === 'true')
+        ) && (
+          <ProcessSection
+            title={processSection.title}
+            subtitle={processSection.subtitle}
+            data={processSection.data}
+            colors={colors}
+          />
+        )}
 
       {/* FAQ SECTION */}
       {faqSection && (
         <Box sx={{ width: '100vw', backgroundColor: colors.primaryBg, pt: 4 }}>
           <Container>
-            <SectionHeader
+            <TitleSection
               title={faqSection.title}
               subtitle={faqSection.subtitle}
               colors={colors}
@@ -623,6 +500,16 @@ const LandingPage = ({
         callBookingTitleVariant={contactSection?.callBookingTitleVariant}
         backgroundImage={contactSection?.backgroundImage}
         colors={colors}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          backgroundColor: '#000',
+          height: '40px',
+          width: '100%',
+          mt: '-50px',
+          zIndex: 1,
+        }}
       />
     </Box>
   );

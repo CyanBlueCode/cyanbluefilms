@@ -238,6 +238,7 @@ export const combatSportsDefaultData = {
       '/images/landing/brand-logos/logo-zara.png',
       '/images/landing/brand-logos/logo-warby-parker.png',
       '/images/landing/brand-logos/logo-adtec.png',
+      '/images/landing/brand-logos/logo-forj.png',
     ],
   },
   faqSection: {
@@ -466,6 +467,7 @@ export const fightSportsDefaultData = {
       '/images/landing/brand-logos/logo-zara.png',
       '/images/landing/brand-logos/logo-warby-parker.png',
       '/images/landing/brand-logos/logo-adtec.png',
+      '/images/landing/brand-logos/logo-forj.png',
     ],
   },
   faqSection: [
@@ -672,6 +674,7 @@ const baseDefaultData = {
       '/images/landing/brand-logos/logo-zara.png',
       '/images/landing/brand-logos/logo-warby-parker.png',
       '/images/landing/brand-logos/logo-adtec.png',
+      '/images/landing/brand-logos/logo-forj.png',
     ],
   },
   faqSection: {

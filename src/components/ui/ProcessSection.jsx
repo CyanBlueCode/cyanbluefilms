@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { Star } from '@mui/icons-material';
 import Image from 'next/image';
+import { TitleSection } from '@/utils/TextHelpers';
 
 const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
   const [visibleItems, setVisibleItems] = useState(new Set());
@@ -85,32 +86,18 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
       sx={{
         width: '100vw',
         backgroundColor: colors?.primaryBg || '#000',
-        py: 8,
+        pb: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
     >
       {/* Header */}
-      <Box sx={{ textAlign: 'center', mb: 6, px: 2 }}>
-        <Typography
-          variant='h3'
-          color={colors?.titleText || '#191919'}
-          textTransform='uppercase'
-          fontWeight={600}
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant='h6'
-          color={colors?.subtitleText || '#191919'}
-          fontWeight={400}
-          sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' }, mx: 'auto' }}
-        >
-          {subtitle}
-        </Typography>
-      </Box>
+      <TitleSection
+        title={title}
+        subtitle={subtitle}
+        colors={colors}
+      />
 
       {/* Process Items */}
       <Box

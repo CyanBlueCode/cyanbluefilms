@@ -5,11 +5,11 @@ import Lightbox from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'react-photo-album/rows.css';
-import { useTheme, useMediaQuery, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { useIsMobile } from '@/utils/useIsMobile';
 
 const Gallery = ({ photos }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useIsMobile();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lightboxLoading, setLightboxLoading] = useState(false);

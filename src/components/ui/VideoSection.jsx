@@ -3,7 +3,7 @@ import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { PlayArrow } from '@mui/icons-material';
 import Image from 'next/image';
-import { SectionHeader } from '@/utils/TextHelpers';
+import { TitleSection } from '@/utils/TextHelpers';
 
 const VideoModal = ({ videoUrl, open, onClose }) => {
   const [iframeSrc, setIframeSrc] = React.useState('');
@@ -80,7 +80,7 @@ const VideoSection = ({ section, colors, backgroundColor }) => {
         py: 8,
       }}
     >
-      <SectionHeader
+      <TitleSection
         title={section.title}
         subtitle={section.subtitle}
         colors={colors}

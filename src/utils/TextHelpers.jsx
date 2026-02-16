@@ -1,40 +1,88 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-export const SectionHeader = ({
+export const TitleSection = ({
   title,
   subtitle,
   titleVariant = 'h3',
-  color = '#191919',
+  color = '#eaeaea',
   fontWeight = 600,
   isUpperCase = true,
+  isPageTitle = false,
   colors,
-  pb = 5
-}) => (
-  <>
-    <Typography
-      variant={titleVariant}
-      align='center'
-      color={colors?.titleText || color}
-      textTransform={isUpperCase ? 'uppercase' : 'none'}
-      fontWeight={fontWeight}
-      gutterBottom
+  px,
+  pt = 2,
+  pb = 6,
+}) =>
+  isPageTitle ? (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto',
+        px: px,
+        pt: pt,
+        pb: pb,
+        maxWidth: '90vw',
+      }}
     >
-      {title}
-    </Typography>
-    <Typography
-      variant='h6'
-      align='center'
-      pb={pb}
-      px={2}
-      fontWeight={400}
-      color={colors?.subtitleText || color}
-      sx={{ maxWidth: { xs: '90vw', sm: '70vw', md: '50vw' } }}
+      <Typography
+        variant={titleVariant}
+        align='center'
+        color={colors?.titleText || color}
+        textTransform={isUpperCase ? 'uppercase' : 'capitalize'}
+        fontWeight={fontWeight}
+        sx={{ mb: subtitle ? 2 : 0, px: 1 }}
+      >
+        {title}
+      </Typography>
+      {subtitle && (
+        <Typography
+          variant='h6'
+          align='center'
+          px={2}
+          fontWeight={400}
+          color={colors?.subtitleText || color}
+        >
+          {subtitle}
+        </Typography>
+      )}
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto',
+        px: px,
+        pt: pt,
+        pb: pb,
+        maxWidth: '90vw',
+      }}
     >
-      {subtitle}
-    </Typography>
-  </>
-);
+      <Typography
+        variant={titleVariant}
+        align='center'
+        color={colors?.titleText || color}
+        textTransform={isUpperCase ? 'uppercase' : 'none'}
+        fontWeight={fontWeight}
+        gutterBottom
+      >
+        {title}
+      </Typography>
+      {subtitle && (
+        <Typography
+          variant='h6'
+          align='center'
+          px={2}
+          fontWeight={400}
+          color={colors?.subtitleText || color}
+        >
+          {subtitle}
+        </Typography>
+      )}
+    </Box>
+  );
 
 export const renderStackedTextArray = (text) =>
   Array.isArray(text)

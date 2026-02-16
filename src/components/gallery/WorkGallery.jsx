@@ -1,12 +1,16 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Typography, Box } from '@mui/material';
+import { TitleSection } from '@/utils/TextHelpers';
+import { useIsMobile } from '@/utils/useIsMobile';
 import Gallery from './Gallery';
 import GalleryPlaceholder from './Placeholder';
 import { getThumbnailUrl, getOptimizedImageUrl } from '@/utils/imagekit';
 import { combineImageArrays } from '@/utils/shuffleImages';
 
-const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL || 'https://cbf-worker.cyanblue.workers.dev';
+const WORKER_URL =
+  process.env.NEXT_PUBLIC_WORKER_URL ||
+  'https://cbf-worker.cyanblue.workers.dev';
 
 const WorkGallery = ({ shuffle = true }) => {
   const [loading, setLoading] = useState(true);
@@ -14,6 +18,7 @@ const WorkGallery = ({ shuffle = true }) => {
   const [displayedPhotos, setDisplayedPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const sentinelRef = useRef(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -61,14 +66,15 @@ const WorkGallery = ({ shuffle = true }) => {
 
   const loadMore = useCallback(() => {
     if (currentIndex >= allPhotos.length) return;
-    
+
     const nextBatch = allPhotos.slice(currentIndex, currentIndex + 20);
-    setDisplayedPhotos(prev => [...prev, ...nextBatch]);
-    setCurrentIndex(prev => prev + 20);
+    setDisplayedPhotos((prev) => [...prev, ...nextBatch]);
+    setCurrentIndex((prev) => prev + 20);
   }, [currentIndex, allPhotos]);
 
   useEffect(() => {
-    if (loading || !sentinelRef.current || currentIndex >= allPhotos.length) return;
+    if (loading || !sentinelRef.current || currentIndex >= allPhotos.length)
+      return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -76,7 +82,7 @@ const WorkGallery = ({ shuffle = true }) => {
           loadMore();
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '200px' },
     );
 
     observer.observe(sentinelRef.current);
@@ -86,17 +92,13 @@ const WorkGallery = ({ shuffle = true }) => {
 
   return (
     <Box sx={{ pt: 10, pb: 4 }}>
-      <Typography
-        variant='h2'
-        sx={{
-          textAlign: 'center',
-          mb: 4,
-          textTransform: 'capitalize',
-          px: 1
-        }}
-      >
-        Lens through which we see the world
-      </Typography>
+      <TitleSection
+        title='Lens through which we see the world'
+        titleVariant={isMobile ? 'h4' : 'h2'}
+        subtitle='A shuffled collection of our work across projects and borders'
+        isPageTitle={true}
+        pb={2}
+      />
 
       {loading ? (
         <GalleryPlaceholder />
@@ -104,7 +106,10 @@ const WorkGallery = ({ shuffle = true }) => {
         <>
           <Gallery photos={displayedPhotos} />
           {currentIndex < allPhotos.length && (
-            <div ref={sentinelRef} style={{ height: '20px', margin: '20px 0' }} />
+            <div
+              ref={sentinelRef}
+              style={{ height: '20px', margin: '20px 0' }}
+            />
           )}
         </>
       ) : (

@@ -1,10 +1,15 @@
 import { Box, Typography, Container } from '@mui/material';
+import { TitleSection } from '@/utils/TextHelpers';
+import { useIsMobile } from '@/utils/useIsMobile';
 
 const About = () => (
   <Container maxWidth='md' sx={{ py: 10 }}>
-    <Typography variant='h2' gutterBottom>
-      Our Story
-    </Typography>
+    <TitleSection
+      title='Our Story'
+      titleVariant={useIsMobile() ? 'h4' : 'h2'}
+      isPageTitle={true}
+      pb={6}
+    />
 
     <Box
       sx={{
@@ -20,9 +25,9 @@ const About = () => (
 
     <Typography variant='body1' sx={{ mb: 2 }}>
       Cyan Blue Films is a Los Angeles-based production company specializing in
-      cinematic combat and action sports brand stories through artistic film. Founded in
-      2024 by award-winning filmmakers, we bring athletic background and unique artistic vision to
-      every project.
+      cinematic combat and action sports brand stories through artistic film.
+      Founded in 2024 by award-winning filmmakers, we bring athletic background
+      and unique artistic vision to every project.
     </Typography>
 
     <Typography variant='body1' sx={{ mb: 2 }}>
