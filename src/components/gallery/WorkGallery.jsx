@@ -7,6 +7,7 @@ import Gallery from './Gallery';
 import GalleryPlaceholder from './Placeholder';
 import { getThumbnailUrl, getOptimizedImageUrl } from '@/utils/imagekit';
 import { combineImageArrays } from '@/utils/shuffleImages';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
 const WORKER_URL =
   process.env.NEXT_PUBLIC_WORKER_URL ||
@@ -91,33 +92,36 @@ const WorkGallery = ({ shuffle = true }) => {
   }, [loading, currentIndex, allPhotos.length, loadMore]);
 
   return (
-    <Box sx={{ pt: 10, pb: 4 }}>
-      <TitleSection
-        title='Lens through which we see the world'
-        titleVariant={isMobile ? 'h4' : 'h2'}
-        subtitle='A shuffled collection of our work across projects and borders'
-        isPageTitle={true}
-        pb={2}
-      />
+    <>
+      <Box sx={{ pt: 10, pb: 4 }}>
+        <TitleSection
+          title='Lens through which we see the world'
+          titleVariant={isMobile ? 'h4' : 'h2'}
+          subtitle='A shuffled collection of our work across projects and borders'
+          isPageTitle={true}
+          pb={2}
+        />
 
-      {loading ? (
-        <GalleryPlaceholder />
-      ) : displayedPhotos.length > 0 ? (
-        <>
-          <Gallery photos={displayedPhotos} />
-          {currentIndex < allPhotos.length && (
-            <div
-              ref={sentinelRef}
-              style={{ height: '20px', margin: '20px 0' }}
-            />
-          )}
-        </>
-      ) : (
-        <Typography variant='h5' textAlign='center'>
-          No photos found for this gallery
-        </Typography>
-      )}
-    </Box>
+        {loading ? (
+          <GalleryPlaceholder />
+        ) : displayedPhotos.length > 0 ? (
+          <>
+            <Gallery photos={displayedPhotos} />
+            {currentIndex < allPhotos.length && (
+              <div
+                ref={sentinelRef}
+                style={{ height: '20px', margin: '20px 0' }}
+              />
+            )}
+          </>
+        ) : (
+          <Typography variant='h5' textAlign='center'>
+            No photos found for this gallery
+          </Typography>
+        )}
+      </Box>
+      <ScrollToTopButton route='/work' />
+    </>
   );
 };
 
