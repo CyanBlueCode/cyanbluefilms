@@ -84,7 +84,7 @@ async function handleFolderImages(request, env) {
 	}
 }
 
-async function handleVideoUrl(request, env) {
+async function handleVideoUrl(request) {
 	const url = new URL(request.url);
 	const filePath = url.searchParams.get('filePath');
 	const vidWidth = url.searchParams.get('vidWidth') || '1920';

@@ -11,17 +11,17 @@ export default function Document() {
         />
         <meta
           name='keywords'
-          content='photography, videography, portfolio, film production, commercials'
+          content='photography, videography, portfolio, film production, video production, commercials, combat sports, boxing, fitness'
         />
         <meta name='author' content='Cyan Blue Films' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/images/cyan-blue-icon.jpeg' />
         <link rel='canonical' href='https://cyanbluefilms.com' />
 
         {/* Open Graph tags */}
         <meta property='og:title' content='Cyan Blue Films' />
         <meta
           property='og:description'
-          content='Cyan Blue Films LLC - Professional fitness commercial video production company based in sunny Los Angeles, California.'
+          content='Cyan Blue Films LLC - Professional commercial video production company based in sunny Los Angeles, California.'
         />
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://cyanbluefilms.com' />

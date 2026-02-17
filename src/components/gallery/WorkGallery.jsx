@@ -46,8 +46,8 @@ const WorkGallery = ({ shuffle = true }) => {
           id: img.id,
           title: img.name,
           filePath: img.filePath,
-          thumbnailUrl: getThumbnailUrl(img.filePath),
-          imageUrl: getOptimizedImageUrl(img.filePath),
+          thumbnailUrl: getThumbnailUrl(img.filePath, isMobile),
+          imageUrl: getOptimizedImageUrl(img.filePath, isMobile),
           width: img.width,
           height: img.height,
         }));
@@ -63,7 +63,7 @@ const WorkGallery = ({ shuffle = true }) => {
     };
 
     fetchImages();
-  }, [shuffle]);
+  }, [shuffle, isMobile]);
 
   const loadMore = useCallback(() => {
     if (currentIndex >= allPhotos.length) return;
