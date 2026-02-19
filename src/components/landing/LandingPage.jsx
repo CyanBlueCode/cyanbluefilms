@@ -302,6 +302,7 @@ const LandingPage = ({
               items={benefitsSection?.cards || []}
               colors={colors}
               cardHeight={360}
+              shouldInfiniteAutoScroll={false}
             />
           </Container>
         </Box>
@@ -336,6 +337,7 @@ const LandingPage = ({
                 colors={colors}
                 cardHeight={400}
                 autoScrollInterval={0}
+                shouldInfiniteAutoScroll={false}
                 customCardRenderer={(video) => (
                   <Box
                     sx={{

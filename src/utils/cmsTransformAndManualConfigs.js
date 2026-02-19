@@ -10,6 +10,12 @@ import {
   Devices,
   Map,
   LocalAtm,
+  FitnessCenter,
+  Terrain,
+  MilitaryTech,
+  SelfImprovement,
+  Adjust,
+  Handshake
 } from '@mui/icons-material';
 
 // Icon configurations for landing pages
@@ -18,9 +24,9 @@ const combatSportsIcons = {
   benefitCardsIcons: [
     SportsMma,
     SportsKabaddi,
-    Videocam,
-    Videocam,
-    SportsKabaddi,
+    MilitaryTech,
+    Adjust,
+    Handshake,
   ],
   infographicIcons: [Instagram, ConnectedTv, YouTube, Devices, Map, LocalAtm],
   centerIcon: MovieFilter,

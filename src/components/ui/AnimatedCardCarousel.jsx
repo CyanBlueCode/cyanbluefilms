@@ -19,6 +19,7 @@ const AnimatedCardCarousel = ({
   colors = {},
   cardHeight = 360,
   customCardRenderer,
+  shouldInfiniteAutoScroll = true,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -37,14 +38,14 @@ const AnimatedCardCarousel = ({
   };
 
   useEffect(() => {
-    if (items.length > 1 && !autoScrollDisabled) {
+    if (items.length > 1 && !autoScrollDisabled && shouldInfiniteAutoScroll) {
       startAutoScroll();
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items.length, isPaused, autoScrollInterval]);
+  }, [items.length, isPaused, autoScrollInterval, shouldInfiniteAutoScroll]);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
@@ -111,6 +112,7 @@ const AnimatedCardCarousel = ({
     };
   };
 
+  // NOTE: Icons for benefit cards are defined in /utils/cmsTransformAndManualConfigs.js
   const defaultRenderCard = (item) => (
     <Box
       sx={{
@@ -151,11 +153,11 @@ const AnimatedCardCarousel = ({
     >
       <Box sx={{ position: 'relative', zIndex: 2 }}>
         {typeof item.icon === 'string' ? (
-          <Avatar src={item.icon} sx={{ width: 80, height: 80, mb: 2 }} />
+          <Avatar src={item.icon} sx={{ width: 80, height: 80 }} />
         ) : (
           <Box
             component={item.icon}
-            sx={{ fontSize: 48, color: 'cyanBlue.main', mb: 2 }}
+            sx={{ fontSize: 48, color: 'cyanBlue.main' }}
           />
         )}
         <CardContent>
@@ -242,7 +244,7 @@ const AnimatedCardCarousel = ({
           <ChevronLeft />
         </IconButton>
 
-        {!autoScrollDisabled && (
+        {!autoScrollDisabled && shouldInfiniteAutoScroll ? (
           <IconButton
             onClick={togglePause}
             sx={{
@@ -252,6 +254,8 @@ const AnimatedCardCarousel = ({
           >
             {isPaused ? <PlayArrow /> : <Pause />}
           </IconButton>
+        ) : (
+          <Box sx={{ width: 40 }} />
         )}
 
         <IconButton
