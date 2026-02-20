@@ -2,12 +2,10 @@ import React from 'react';
 import {
   SportsMma,
   SportsKabaddi,
-  Videocam,
   MovieFilter,
   Instagram,
   YouTube,
   ConnectedTv,
-  Devices,
   Map,
   LocalAtm,
   FitnessCenter,
@@ -15,7 +13,31 @@ import {
   MilitaryTech,
   SelfImprovement,
   Adjust,
-  Handshake
+  Handshake,
+
+  Rocket,
+  Theaters,
+  SportsMartialArts,
+  Loyalty,
+  DirectionsRun,
+  Campaign,
+
+  Devices,
+
+  InterpreterMode,
+  FormatShapes,
+  Diversity1,
+
+  Videocam,
+
+  AccountTree,
+  Checklist,
+  FactCheck,
+
+  Emergency,
+  Hive,
+  Hub,
+  Public,
 } from '@mui/icons-material';
 
 // Icon configurations for landing pages
@@ -28,7 +50,8 @@ const combatSportsIcons = {
     Adjust,
     Handshake,
   ],
-  infographicIcons: [Instagram, ConnectedTv, YouTube, Devices, Map, LocalAtm],
+  // infographicIcons: [Instagram, ConnectedTv, YouTube, Devices, Map, LocalAtm],
+  infographicIcons: [Campaign, Devices, Loyalty, Videocam, Checklist, Hive],
   centerIcon: MovieFilter,
 };
 
@@ -37,9 +60,9 @@ const fightSportsIcons = {
   benefitCardsIcons: [
     SportsMma,
     SportsKabaddi,
-    Videocam,
-    Videocam,
-    SportsKabaddi,
+    MilitaryTech,
+    Adjust,
+    Handshake,
   ],
   infographicIcons: [Instagram, ConnectedTv, YouTube, Devices, Map, LocalAtm],
   centerIcon: MovieFilter,
@@ -225,7 +248,9 @@ const transformTextFields = (data) => {
       contactSection.contactTitle = parseJSXString(contactSection.contactTitle);
     }
     if (contactSection.callBookingTitle) {
-      contactSection.callBookingTitle = parseJSXString(contactSection.callBookingTitle);
+      contactSection.callBookingTitle = parseJSXString(
+        contactSection.callBookingTitle,
+      );
     }
   }
 };

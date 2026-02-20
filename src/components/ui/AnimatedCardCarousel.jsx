@@ -23,9 +23,11 @@ const AnimatedCardCarousel = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const intervalRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const containerRef = useRef(null);
   const autoScrollDisabled = autoScrollInterval === 0;
 
   const startAutoScroll = () => {
@@ -46,6 +48,22 @@ const AnimatedCardCarousel = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, isPaused, autoScrollInterval, shouldInfiniteAutoScroll]);
+
+  // Initial animation on scroll into view for non-auto-scroll version
+  useEffect(() => {
+    if (!shouldInfiniteAutoScroll && !hasAnimated && containerRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            setHasAnimated(true);
+          }
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(containerRef.current);
+      return () => observer.disconnect();
+    }
+  }, [shouldInfiniteAutoScroll, hasAnimated]);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
@@ -99,11 +117,13 @@ const AnimatedCardCarousel = ({
       scale = Math.max(0.7, 1.1 - Math.abs(position) * 0.1);
       zIndex = totalCards - Math.abs(position);
     }
+// NOTE index * 0.15 controls delay between each card fade in
+    const initialDelay = !shouldInfiniteAutoScroll && !hasAnimated ? `${index * 0.03}s` : '0s';
 
     return {
       transform: `translateX(${translateX}%) scale(${scale})`,
       zIndex,
-      transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+      transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${initialDelay}`,
       position: 'absolute',
       left: '50%',
       marginLeft: customCardRenderer
@@ -175,7 +195,7 @@ const AnimatedCardCarousel = ({
   if (!items.length) return null;
 
   return (
-    <Box sx={{ position: 'relative', width: { xs: '100vw', sm: '100%' } }}>
+    <Box sx={{ position: 'relative', width: { xs: '100vw', sm: '100%' } }} ref={containerRef}>
       {/* Carousel Container */}
       <Box
         sx={{
@@ -201,6 +221,23 @@ const AnimatedCardCarousel = ({
               <Box
                 sx={{
                   position: 'relative',
+                  '&::before': !shouldInfiniteAutoScroll
+                    ? {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: colors?.primaryBg || '#000',
+                        borderRadius: 2,
+                        zIndex: 20,
+                        // NOTE fade in animation time adjustment
+                        transition: `opacity 1s ease-out ${index * 0.3}s`,
+                        opacity: hasAnimated ? 0 : 1,
+                        pointerEvents: 'none',
+                      }
+                    : {},
                   '&::after': !isCenter
                     ? {
                         content: '""',
