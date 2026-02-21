@@ -237,9 +237,8 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
                   variant='h6'
                   color={colors?.bodyText || '#333333'}
                   sx={{ lineHeight: 1.7 }}
-                >
-                  {item.content}
-                </Typography>
+                  dangerouslySetInnerHTML={{ __html: item.content }}
+                />
                 {item.buttonText && item.buttonLink && (
                   <Button
                     variant='outlined'

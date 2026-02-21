@@ -98,8 +98,8 @@ const Layout = ({ children, hideConstructionBanner = false }) => { // REVIEW tem
             flexDirection: 'column',
             position: 'relative',
             overflow: 'hidden',
-            // p: 1
-            px: {xs: '7px', md: '10px'}
+            // NOTE page border padding here
+            px: {xs: '5px', md: '8px'}
           }}
         >
           {children}

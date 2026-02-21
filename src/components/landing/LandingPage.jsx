@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import {
   Box,
   Container,
   Typography,
-  Grid,
-  CardContent,
   Button,
   Modal,
-  Avatar,
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import {
   KeyboardArrowDown,
-  PlayArrow,
   Close,
   ExpandMore,
 } from '@mui/icons-material';
@@ -44,75 +38,6 @@ const getColors = (isDarkBackground, isLightText) => ({
   bodyText: isLightText ? '#e0e0e0' : '#333333',
 });
 
-// REVIEW video modal implementation from original hero banner
-const VideoModal = ({ videoUrl, open, onClose }) => {
-  const [iframeSrc, setIframeSrc] = useState('');
-
-  useEffect(() => {
-    if (open && videoUrl) {
-      // NOTE small delay to ensure modal is fully rendered before setting autoplay
-      const timer = setTimeout(() => {
-        setIframeSrc(`${videoUrl}?autoplay=1`);
-      }, 100);
-      return () => clearTimeout(timer);
-    } else {
-      setIframeSrc('');
-    }
-  }, [open, videoUrl]);
-
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      slotProps={{
-        backdrop: {
-          sx: { backgroundColor: 'rgba(0, 0, 0, 0.9)' },
-        },
-      }}
-    >
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: { xs: '100vw', sm: '80dvw' },
-          aspectRatio: '16/9',
-          bgcolor: 'black',
-        }}
-      >
-        <Button
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            top: -50,
-            right: 8,
-            minWidth: 'auto',
-            width: 32,
-            height: 32,
-            color: 'white',
-            zIndex: 1,
-            '&:hover': { bgcolor: 'black' },
-          }}
-        >
-          <Close fontSize='small' />
-        </Button>
-        {iframeSrc && (
-          <iframe
-            width='100%'
-            height='100%'
-            src={iframeSrc}
-            title='Video'
-            frameBorder='0'
-            allowFullScreen
-            allow='autoplay'
-          />
-        )}
-      </Box>
-    </Modal>
-  );
-};
-
 const LandingPage = ({
   heroSection,
   benefitsSection,
@@ -126,7 +51,6 @@ const LandingPage = ({
   isDarkBackground = false,
   isLightText = false,
 }) => {
-  const [modalOpen, setModalOpen] = useState(false);
   const colors = getColors(isDarkBackground, isLightText);
   const typedTitle = useTypewriter(heroSection?.title || '', 60);
 
