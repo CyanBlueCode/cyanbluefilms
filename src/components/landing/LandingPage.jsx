@@ -200,7 +200,7 @@ const LandingPage = ({
             <KeyboardArrowDown
               sx={{
                 color: '#fff',
-                fontSize: 50,
+                fontSize: 40,
                 opacity: 0.9,
                 animation: 'bounce 1s infinite',
                 '@keyframes bounce': {

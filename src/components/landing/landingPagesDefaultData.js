@@ -2,11 +2,11 @@
 export const enableTestVersionsByPage = {
   // NOTE false disconnects CMS for page & uses default data below only
   combatSports: true,
+  performanceBrands: true,
   fightSports: true,
   actionSports: true,
   highOctane: true,
   fitness: true,
-  fitnessBrands: true,
   agencyPartners: true,
   brandedSponsoredDocs: true,
 };
