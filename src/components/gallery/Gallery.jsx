@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import RowsPhotoAlbum from 'react-photo-album';
 import Lightbox from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
@@ -13,11 +13,14 @@ const Gallery = ({ photos }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lightboxLoading, setLightboxLoading] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const hideTimeoutRef = useRef(null);
 
   const handleLightboxOpen = (index) => {
     setCurrentIndex(index);
     setLightboxOpen(true);
     setLightboxLoading(true);
+    resetHideTimer();
   };
 
   const handleLightboxSlideLoaded = (index) => {
@@ -44,21 +47,30 @@ const Gallery = ({ photos }) => {
   const handleClose = () => {
     setLightboxOpen(false);
     setLightboxLoading(false);
+    setShowControls(true);
+    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+  };
+
+  const resetHideTimer = () => {
+    if (!isMobile) return;
+    setShowControls(true);
+    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+    hideTimeoutRef.current = setTimeout(() => setShowControls(false), 2000);
   };
 
   return (
-    <div style={{ margin: '2rem 0' }}>
+    <div style={{ margin: '2rem 0' }} onClick={resetHideTimer}>
       <RowsPhotoAlbum
-          photos={formattedPhotos.filter((p) => p.width > 0 && p.height > 0)}
-          layout='rows'
-          spacing={8}
-          targetRowHeight={300}
-          rowConstraints={{
-            maxPhotos: isMobile ? 2 : 4,
-            minPhotos: isMobile ? 1 : 3,
-            singleRowMaxHeight: isMobile ? 200 : 300,
-          }}
-          onClick={({ index }) => handleLightboxOpen(index)}
+        photos={formattedPhotos.filter((p) => p.width > 0 && p.height > 0)}
+        layout='rows'
+        spacing={8}
+        targetRowHeight={300}
+        rowConstraints={{
+          maxPhotos: isMobile ? 2 : 4,
+          minPhotos: isMobile ? 1 : 3,
+          singleRowMaxHeight: isMobile ? 200 : 300,
+        }}
+        onClick={({ index }) => handleLightboxOpen(index)}
       />
 
       <Lightbox
@@ -71,17 +83,27 @@ const Gallery = ({ photos }) => {
         controller={{
           closeOnPullDown: true,
           closeOnBackdropClick: true,
+          ...(isMobile && { touchAction: 'pan-y' }),
         }}
+        toolbar={{
+          buttons: ['close'],
+        }}
+        carousel={{
+          ...(isMobile && { finite: false }),
+        }}
+        // NOTE Auto-hide navigation arrows on mobile after 2 seconds of inactivity.
+        // Arrows reappear on tap/slide change and stay visible on desktop.
         on={{
           view: () => {
             const img = document.querySelector('.yarl__slide_current img');
             if (img) img.oncontextmenu = (e) => e.preventDefault();
+            resetHideTimer();
           },
           slideLoading: ({ index }) => handleLightboxSlideLoaded(index),
         }}
         render={{
-          buttonPrev: lightboxOpen ? undefined : null,
-          buttonNext: lightboxOpen ? undefined : null,
+          buttonPrev: isMobile && !showControls ? () => null : undefined,
+          buttonNext: isMobile && !showControls ? () => null : undefined,
           iconClose: () => (
             <svg width='32' height='32' viewBox='0 0 24 24'>
               <path
@@ -90,8 +112,6 @@ const Gallery = ({ photos }) => {
               />
             </svg>
           ),
-          // Add loading indicator for lightbox
-          // iconLoading: () => <CircularProgress size={24} color='inherit' />,
         }}
         styles={{
           container: {
