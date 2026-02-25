@@ -93,7 +93,7 @@ const WorkGallery = ({ shuffle = true }) => {
 
   return (
     <>
-      <Box sx={{ pt: 10, pb: 4 }}>
+      <Box sx={{ pt: 10, pb: 4 }} onContextMenu={(e) => e.preventDefault()}>
         <TitleSection
           title='Lens through which we see the world'
           titleVariant={isMobile ? 'h4' : 'h2'}

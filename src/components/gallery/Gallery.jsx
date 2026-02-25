@@ -73,6 +73,10 @@ const Gallery = ({ photos }) => {
           closeOnBackdropClick: true,
         }}
         on={{
+          view: () => {
+            const img = document.querySelector('.yarl__slide_current img');
+            if (img) img.oncontextmenu = (e) => e.preventDefault();
+          },
           slideLoading: ({ index }) => handleLightboxSlideLoaded(index),
         }}
         render={{
