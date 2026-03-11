@@ -25,7 +25,7 @@ const About = () => (
 
     <Typography variant='h5' sx={{ my: 2 }}>
       We are a Los Angeles-based international production company specializing in
-      cinematic commercial film for premium brands.
+      cinematic commercial film for premium performance brands.
     </Typography>
 
     <Typography variant='h5' sx={{ mb: 2 }}>

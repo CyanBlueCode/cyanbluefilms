@@ -4,16 +4,16 @@ import Layout from '../components/layout/Layout';
 import '../styles/global.css';
 import {
   GlobalContextProvider,
-  ShowConstructionBannerContextProvider,
+  // ShowConstructionBannerContextProvider,
 } from '../context/GlobalContext';
 import { getPageTitle } from '../components/ui/pageTitles';
-// NOTE MS Clarity - Remove when PostHog is implemented
+// NOTE MS Clarity
 import { initClarity } from '../utils/clarityAnalytics';
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
 
-  // NOTE MS Clarity - Remove when PostHog is implemented
+  // NOTE MS Clarity
   useEffect(() => {
     initClarity();
   }, []);
