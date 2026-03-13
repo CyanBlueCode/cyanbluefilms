@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, ReactElement } from 'react';
 import {
   Box,
   IconButton,
@@ -13,10 +13,26 @@ import {
   PlayArrow,
 } from '@mui/icons-material';
 
-const AnimatedCardCarousel = ({
+import { ColorTheme } from '@/types';
+
+interface AnimatedCardCarouselProps {
+  items: Array<{
+    title: string | ReactElement;
+    videoUrl?: string;
+    description?: string | ReactElement;
+    icon?: any;
+  }>;
+  autoScrollInterval?: number;
+  colors?: ColorTheme;
+  cardHeight?: number;
+  customCardRenderer?: (video) => ReactElement;
+  shouldInfiniteAutoScroll?: boolean;
+}
+
+const AnimatedCardCarousel: FC<AnimatedCardCarouselProps> = ({
   items = [],
   autoScrollInterval = 6000,
-  colors = {},
+  colors,
   cardHeight = 360,
   customCardRenderer,
   shouldInfiniteAutoScroll = true,
@@ -58,7 +74,7 @@ const AnimatedCardCarousel = ({
             setHasAnimated(true);
           }
         },
-        { threshold: 0.3 }
+        { threshold: 0.3 },
       );
       observer.observe(containerRef.current);
       return () => observer.disconnect();
@@ -117,8 +133,9 @@ const AnimatedCardCarousel = ({
       scale = Math.max(0.7, 1.1 - Math.abs(position) * 0.1);
       zIndex = totalCards - Math.abs(position);
     }
-// NOTE index * 0.15 controls delay between each card fade in
-    const initialDelay = !shouldInfiniteAutoScroll && !hasAnimated ? `${index * 0.03}s` : '0s';
+    // NOTE index * 0.15 controls delay between each card fade in
+    const initialDelay =
+      !shouldInfiniteAutoScroll && !hasAnimated ? `${index * 0.03}s` : '0s';
 
     return {
       transform: `translateX(${translateX}%) scale(${scale})`,
@@ -195,12 +212,15 @@ const AnimatedCardCarousel = ({
   if (!items.length) return null;
 
   return (
-    <Box sx={{ position: 'relative', width: { xs: '100vw', sm: '100%' } }} ref={containerRef}>
+    <Box
+      sx={{ position: 'relative', width: { xs: '100vw', sm: '100%' } }}
+      ref={containerRef}
+    >
       {/* Carousel Container */}
       <Box
         sx={{
           position: 'relative',
-          height: customCardRenderer 
+          height: customCardRenderer
             ? { xs: 475, sm: 538, md: 600 }
             : Math.max(cardHeight * 1.2, cardHeight + 100),
           overflow: { xs: 'hidden', sm: 'visible' },
@@ -213,7 +233,7 @@ const AnimatedCardCarousel = ({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {items.map((item, index) => {
+        {items.map((item: any, index: number) => {
           const diff = (index - currentIndex + items.length) % items.length;
           const isCenter = diff === 0;
           return (
@@ -254,8 +274,8 @@ const AnimatedCardCarousel = ({
                 }}
               >
                 {customCardRenderer
-                  ? customCardRenderer(item, index)
-                  : defaultRenderCard(item, index)}
+                  ? customCardRenderer(item)
+                  : defaultRenderCard(item)}
               </Box>
             </Box>
           );

@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Box, Typography } from '@mui/material';
+import { TypographyVariant } from '@/types';
 
-export const TitleSection = ({
+interface TitleSectionProps {
+  title: string | ReactElement;
+  subtitle?: string | ReactElement;
+  titleVariant?: TypographyVariant;
+  color?: string;
+  fontWeight?: number;
+  isUpperCase?: boolean;
+  isPageTitle?: boolean;
+  colors?: { titleText?: string; subtitleText?: string };
+  px?: number | string;
+  py?: number | string;
+  pt?: number | string;
+  pb?: number | string;
+}
+
+export const TitleSection: FC<TitleSectionProps> = ({
   title,
   subtitle,
   titleVariant = 'h3',

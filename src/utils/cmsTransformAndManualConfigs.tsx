@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import {
   SportsMma,
   SportsKabaddi,
@@ -8,37 +8,44 @@ import {
   ConnectedTv,
   Map,
   LocalAtm,
-  FitnessCenter,
-  Terrain,
   MilitaryTech,
-  SelfImprovement,
   Adjust,
   Handshake,
-
+  Loyalty,
+  Campaign,
+  Devices,
+  Videocam,
+  Checklist,
+  Hive,
+  FitnessCenter,
+  Terrain,
+  SelfImprovement,
   Rocket,
   Theaters,
   SportsMartialArts,
-  Loyalty,
   DirectionsRun,
-  Campaign,
-
-  Devices,
-
   InterpreterMode,
   FormatShapes,
   Diversity1,
-
-  Videocam,
-
   AccountTree,
-  Checklist,
   FactCheck,
-
   Emergency,
-  Hive,
   Hub,
   Public,
 } from '@mui/icons-material';
+
+import { SvgIconProps } from '@mui/material';
+
+import { LandingPageProps } from '@/types';
+
+type IconConfigType = {
+  color?: string;
+  benefitCardsIcons?: Array<ComponentType<SvgIconProps>>;
+  infographicIcons?: Array<ComponentType<SvgIconProps>>;
+  centerIcon: ComponentType<SvgIconProps>;
+};
+
+type IconConfigsType = Record<PropertyKey, IconConfigType>;
 
 // Icon configurations for landing pages
 const combatSportsIcons = {
@@ -69,7 +76,7 @@ const fightSportsIcons = {
 };
 
 // Page icon mapping
-const pageIconConfigs = {
+const pageIconConfigs: IconConfigsType = {
   'combat-sports': combatSportsIcons,
   'fight-sports': fightSportsIcons,
 };
@@ -80,7 +87,11 @@ const pageIconConfigs = {
  * @param {string} pageName - Page name for icon config above
  * @returns {Object} Transformed data with React elements
  */
-export const transformCMSData = (cmsData, pageName) => {
+
+export const transformCMSData = (
+  cmsData: Record<string, any>,
+  pageName: string,
+): LandingPageProps => {
   const transformed = { ...cmsData };
   const iconConfig = pageIconConfigs[pageName] || combatSportsIcons;
 
@@ -106,7 +117,7 @@ export const transformCMSData = (cmsData, pageName) => {
   return transformed;
 };
 
-const transformTextFields = (data) => {
+const transformTextFields = (data: LandingPageProps) => {
   const {
     heroSection,
     mainVideoSection,
@@ -255,19 +266,22 @@ const transformTextFields = (data) => {
   }
 };
 
-const addIcons = (data, iconConfig) => {
+const addIcons = (data: LandingPageProps, iconConfig: IconConfigType): undefined => {
   // Benefit cards icons
-  if (data.benefitsSection?.cards) {
+  if (data.benefitsSection?.cards && iconConfig.benefitCardsIcons) {
     data.benefitsSection.cards = data.benefitsSection.cards.map(
       (card, index) => ({
         ...card,
-        icon: iconConfig.benefitCardsIcons[index] || Videocam,
+        icon: iconConfig.benefitCardsIcons![index] || Videocam,
       }),
     );
   }
 
   // Infographic icons
-  if (data.packageHighlightsSection?.infographic) {
+  if (
+    data.packageHighlightsSection?.infographic &&
+    iconConfig.infographicIcons
+  ) {
     const infographic = data.packageHighlightsSection.infographic;
 
     // Center icon
@@ -284,7 +298,7 @@ const addIcons = (data, iconConfig) => {
     // Item icons
     if (infographic.items) {
       infographic.items = infographic.items.map((item, index) => {
-        const IconComponent = iconConfig.infographicIcons[index] || Devices;
+        const IconComponent = iconConfig.infographicIcons![index] || Devices;
         return {
           ...item,
           icon: (
@@ -306,7 +320,10 @@ const addIcons = (data, iconConfig) => {
  * @param {string} str - String to parse
  * @returns {React.ReactElement|string} JSX element or string
  */
-const parseJSXString = (str) => {
+
+// REVIEW useless placeholder return type w/o inference; typing ReactElement | string prompts updates to LandingPageProps,
+// which gets complicated. so this is basically an opaque any/unknown type to satisfy TS w/o safety benefits; likely not worth anymore effort
+const parseJSXString = (str: string): ReturnType<typeof parseJSXString> => { 
   if (!str || typeof str !== 'string') return str;
 
   // Handle &nbsp; specifically
@@ -333,7 +350,7 @@ const parseJSXString = (str) => {
  * @param {string} str - HTML string
  * @returns {React.ReactElement|string} JSX element or string
  */
-const parseHTMLString = (str) => {
+const parseHTMLString = (str: string): React.ReactElement | string => {
   if (!str || typeof str !== 'string') return str;
 
   // Simple HTML parsing for common tags

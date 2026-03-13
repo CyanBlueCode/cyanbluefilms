@@ -3,6 +3,8 @@
  * Fetches data from Google Sheets and transforms it into usable format
  */
 
+import { LandingPageProps } from '@/types';
+
 const getApiKey = () => {
   const isDev = process.env.NODE_ENV === 'development';
   return isDev ? process.env.GOOGLE_SHEETS_API_KEY_DEV : process.env.GOOGLE_SHEETS_API_KEY_PROD;
@@ -13,9 +15,9 @@ const SPREADSHEET_ID = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
 /**
  * Fetches data from a specific sheet tab
  * @param {string} sheetName - Name of the sheet tab (e.g., 'combat-sports')
- * @returns {Promise<Object>} Transformed data object
+ * @returns {Promise<Object>} Transformed data object; we get what we get
  */
-export const fetchSheetData = async (sheetName) => {
+export const fetchSheetData = async (sheetName: string): Promise<object> => {
   const apiKey = getApiKey();
   
   if (!apiKey || !SPREADSHEET_ID) {
@@ -40,6 +42,7 @@ export const fetchSheetData = async (sheetName) => {
 
     // Skip header row and transform data
     const rows = data.values.slice(1);
+
     return transformSheetData(rows);
   } catch (error) {
     console.error('Error fetching sheet data:', error);
@@ -53,7 +56,7 @@ export const fetchSheetData = async (sheetName) => {
  * @param {Array} rows - Array of [key, value] pairs
  * @returns {Object} Nested object structure
  */
-const transformSheetData = (rows) => {
+const transformSheetData = (rows: Array<Array<string>>): Partial<LandingPageProps> => {
   const result = {};
 
   rows.forEach(([key, value]) => {
@@ -74,7 +77,7 @@ const transformSheetData = (rows) => {
  * @param {string} path - Path like 'heroSection.title' or 'cards[0].title'
  * @param {*} value - Value to set
  */
-const setNestedValue = (obj, path, value) => {
+const setNestedValue = (obj: object, path: string, value: any) => {
   const keys = path.split(/\.|\[|\]/).filter(key => key !== '');
   let current = obj;
 
@@ -99,9 +102,9 @@ const setNestedValue = (obj, path, value) => {
 /**
  * Parses string values to appropriate types
  * @param {string} value - String value from sheet
- * @returns {*} Parsed value
+ * @returns {string | number | boolean } Parsed value
  */
-const parseValue = (value) => {
+const parseValue = (value: string): string | number | boolean => {
   if (typeof value !== 'string') return value;
   
   const trimmed = value.trim();
@@ -111,8 +114,8 @@ const parseValue = (value) => {
   if (trimmed.toLowerCase() === 'false') return false;
   
   // Numeric values
-  if (!isNaN(trimmed) && trimmed !== '') {
-    return parseInt(trimmed) == trimmed ? parseInt(trimmed) : parseFloat(trimmed);
+  if (!isNaN(Number(trimmed)) && trimmed !== '') {
+    return Number(trimmed);
   }
   
   // HTML entities and special formatting

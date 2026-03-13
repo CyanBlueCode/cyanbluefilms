@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Container,
   Typography,
-  Button,
-  Modal,
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
-import {
-  KeyboardArrowDown,
-  Close,
-  ExpandMore,
-} from '@mui/icons-material';
+import { KeyboardArrowDown, Close, ExpandMore } from '@mui/icons-material';
 import ContactSection from '@/components/ContactSection';
 import CallBooking from '@/components/landing/CallBooking';
 import CircularInfographic from '@/components/landing/CircularInfographic';
@@ -25,8 +19,13 @@ import { TitleSection } from '@/utils/TextHelpers';
 import { generateVideoUrl } from '@/utils/imagekit';
 import useTypewriter from '@/utils/useTypewriter';
 
+import { LandingPageProps, ColorTheme } from '@/types';
+
 // Color theme variables
-const getColors = (isDarkBackground, isLightText) => ({
+const getColors = (
+  isDarkBackground: boolean,
+  isLightText: boolean,
+): ColorTheme => ({
   // Background colors
   primaryBg: isDarkBackground ? '#000' : '#ffffff',
   secondaryBg: isDarkBackground ? '#222222' : '#f5f5f5',
@@ -50,7 +49,7 @@ const LandingPage = ({
   contactSection,
   isDarkBackground = false,
   isLightText = false,
-}) => {
+}: LandingPageProps) => {
   const colors = getColors(isDarkBackground, isLightText);
   const typedTitle = useTypewriter(heroSection?.title || '', 60);
 
@@ -137,7 +136,7 @@ const LandingPage = ({
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                mt: { xs: '100%', sm: '100%', md: '70%', lg: '50%' },
+                mt: { xs: '100%', sm: '50%' },
               }}
             >
               {/* Main Title */}
@@ -282,7 +281,7 @@ const LandingPage = ({
                           : `${video.videoUrl}?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&vq=hd1080`
                       }
                       title={video.title}
-                      frameBorder='0'
+                      frameBorder='0' // NOTE still works
                       allowFullScreen
                     />
                   </Box>
@@ -423,7 +422,6 @@ const LandingPage = ({
         contactTitle={contactSection?.contactTitle}
         contactTitleVariant={contactSection?.contactTitleVariant}
         callBookingTitle={contactSection?.callBookingTitle}
-        callBookingTitleVariant={contactSection?.callBookingTitleVariant}
         backgroundImage={contactSection?.backgroundImage}
         colors={colors}
       />

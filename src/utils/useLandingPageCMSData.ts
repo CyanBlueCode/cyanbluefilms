@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 
+import { ApiResponse } from '@/types';
+
 /**
  * Custom hook to fetch landing page data from CMS
  * @param {string|null} pageName - Name of the page/sheet to fetch, null to skip
  * @returns {Object|null} { data, loading, error } or null if pageName is null
  */
-export const useLandingPageCMSData = (pageName) => {
+
+export const useLandingPageCMSData = (pageName: string | null): ApiResponse<typeof useLandingPageCMSData> | null => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(!!pageName);
   const [error, setError] = useState(null);
