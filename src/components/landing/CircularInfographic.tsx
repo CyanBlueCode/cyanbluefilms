@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import {
   Box,
   useTheme,
@@ -11,18 +11,36 @@ import {
 import { Close } from '@mui/icons-material';
 import Image from 'next/image';
 
+import { ColorTheme, LandingPageProps } from '@/types';
+
+type InfographicItem = NonNullable<NonNullable<LandingPageProps['packageHighlightsSection']>['infographic']['items']>[number];
+// extracting from LandingPageProps for actual items type
+// ['packageHighlightsSection'] - access the property
+// NonNullable<...> - remove undefined
+// ['infographic']['items'] - drill down
+// [number] - get array element type
+// Then wrap in Partial<InfographicItem> for the items prop
+
+interface CircularInfographicProps {
+  centerIcon: ReactElement;
+  items: Array<Partial<InfographicItem>>;
+  centerSrc?: string | ReactElement;
+  centerText?: string;
+  colors?: ColorTheme;
+}
+
 /**
  * - centerIcon: JSX element (icon/image) OR centerSrc: string (http url) to render an iframe
  * - centerText: string for modal content when center icon is clicked
  * - items: array of objects with { icon?, imageSrc?, msg }
  */
-export default function CircularInfographicMinimal({
+export default function CircularInfographic({
   centerIcon,
   centerSrc,
   centerText,
   items = [],
   colors,
-}) {
+}: CircularInfographicProps) {
   const count = Math.max(0, items.length);
   const [openTooltips, setOpenTooltips] = useState({});
   const [textModalOpen, setTextModalOpen] = useState(false);
@@ -115,7 +133,7 @@ export default function CircularInfographicMinimal({
           cursor: centerText ? 'pointer' : 'default',
         }}
       >
-        {centerSrc ? (
+        {centerSrc && typeof centerSrc === 'string' ? (
           <iframe
             title='center-iframe'
             src={centerSrc}
@@ -123,10 +141,10 @@ export default function CircularInfographicMinimal({
             sandbox='allow-scripts allow-same-origin'
           />
         ) : (
-          React.cloneElement(centerIcon, { 
+          React.cloneElement(centerIcon, {
             sx: { color: centerIconColor, width: '60%', height: '60%' },
-            onClick: centerText ? () => setTextModalOpen(true) : undefined
-          })
+            onClick: centerText ? () => setTextModalOpen(true) : undefined,
+          } as any) // TS can't infer cloned element accepts sx prop; standard solution due to MUI guaranteed safety
         )}
       </Box>
 
@@ -224,7 +242,8 @@ export default function CircularInfographicMinimal({
                   textAlign: 'center',
                   borderRadius: '8px',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
-                  boxShadow: '0 0 0 1px rgba(0, 188, 235, 0.3), 0 4px 20px rgba(0, 0, 0, 0.8)',
+                  boxShadow:
+                    '0 0 0 1px rgba(0, 188, 235, 0.3), 0 4px 20px rgba(0, 0, 0, 0.8)',
                   '& .MuiTooltip-arrow': {
                     color: tooltipBgColor,
                     '&::before': {
@@ -321,7 +340,9 @@ export default function CircularInfographicMinimal({
                     }}
                   />
                 ) : (
-                  React.cloneElement(item?.icon, { sx: { color: iconColor, width: '60%', height: '60%' } })
+                  React.cloneElement(item?.icon, {
+                    sx: { color: iconColor, width: '60%', height: '60%' },
+                  } as any) // TS can't infer cloned element accepts sx prop
                 )}
               </Box>
             </Box>

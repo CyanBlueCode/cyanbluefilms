@@ -1,3 +1,5 @@
+// TODO next LandingPage flow TS conversion
+
 import React from 'react';
 import { Box } from '@mui/material';
 import Image from 'next/image';

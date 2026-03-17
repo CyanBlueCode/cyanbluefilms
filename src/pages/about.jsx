@@ -24,16 +24,22 @@ const About = () => (
     />
 
     <Typography variant='h5' sx={{ my: 2 }}>
-      We are a Los Angeles-based international production company specializing in
-      cinematic commercial film for premium performance brands.
+      We are a Los Angeles-based production company focused on elevating the
+      visual identity of modern combat sports and performance culture.
     </Typography>
 
     <Typography variant='h5' sx={{ mb: 2 }}>
-      We deliver visual engineering and stories that capture audiences. From commercial campaigns
-      to branded and sponsored documentaries, we approach every project with organized structure, meticulous
-      attention to detail, and technical proficiency.
+      Our team comes from both sides of the lens: filmmakers by trade, boxers by
+      discipline. We understand the culture, the environments, and the athletes
+      that define this world.
     </Typography>
-{/* 
+    <Typography variant='h5' sx={{ mb: 2 }}>
+      From commercial campaigns to branded and sponsored documentaries, we build
+      efficient production frameworks designed for modern athletic brands. The
+      result is cinematic films that feel authentic to the culture and showcase
+      the products, athletes, and brands shaping combat and performance sports.
+    </Typography>
+    {/* 
     <Typography variant='h4' gutterBottom sx={{ mt: 4 }}>
       Our Philosophy
     </Typography>

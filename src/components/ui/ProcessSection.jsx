@@ -1,3 +1,5 @@
+// TODO next LandingPage flow TS conversion
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { Star } from '@mui/icons-material';
@@ -234,7 +236,7 @@ const ProcessSection = ({ title, subtitle, data = [], colors = {} }) => {
                   {item.title}
                 </Typography>
                 <Typography
-                  variant='h6'
+                  variant='body1'
                   color={colors?.bodyText || '#333333'}
                   sx={{ lineHeight: 1.7 }}
                   dangerouslySetInnerHTML={{ __html: item.content }}
