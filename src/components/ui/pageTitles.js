@@ -1,6 +1,6 @@
 const PAGE_TITLES = {
   '/': 'Cyan Blue Films',
-  '/work': 'Work - Cyan Blue Films',
+  '/stills': 'Stills - Cyan Blue Films',
   '/about': 'About - Cyan Blue Films',
   '/contact': 'Contact - Cyan Blue Films',
   '/film': 'Film - Cyan Blue Films',

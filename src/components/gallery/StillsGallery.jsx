@@ -13,7 +13,7 @@ const WORKER_URL =
   process.env.NEXT_PUBLIC_WORKER_URL ||
   'https://cbf-worker.cyanblue.workers.dev';
 
-const WorkGallery = ({ shuffle = true }) => {
+const StillsGallery = ({ shuffle = true }) => {
   const [loading, setLoading] = useState(true);
   const [allPhotos, setAllPhotos] = useState([]);
   const [displayedPhotos, setDisplayedPhotos] = useState([]);
@@ -95,9 +95,9 @@ const WorkGallery = ({ shuffle = true }) => {
     <>
       <Box sx={{ pt: 10, pb: 4 }} onContextMenu={(e) => e.preventDefault()}>
         <TitleSection
-          title='Lens through which we see the world'
+          title='Stills'
           titleVariant={isMobile ? 'h4' : 'h2'}
-          subtitle='A shuffled collection of our work across projects and borders'
+          subtitle='A shuffled collection of stills from our work across projects and borders'
           isPageTitle={true}
           pb={2}
         />
@@ -120,9 +120,9 @@ const WorkGallery = ({ shuffle = true }) => {
           </Typography>
         )}
       </Box>
-      <ScrollToTopButton route='/work' />
+      <ScrollToTopButton route='/stills' />
     </>
   );
 };
 
-export default WorkGallery;
+export default StillsGallery;

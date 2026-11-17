@@ -195,7 +195,7 @@ export const transformCMSData = (cmsData, pageName) => {
 
 ---
 
-## Flow 2: Gallery/Work Pages (Week 4-5)
+## Flow 2: Gallery/Stills Pages (Week 4-5)
 
 **Goal**: Type the gallery data flow.
 
@@ -216,11 +216,11 @@ export interface GalleryProps {
 
 ### Step 2: Convert gallery components
 - `src/components/gallery/Gallery.jsx` → `Gallery.tsx`
-- `src/components/gallery/WorkGallery.jsx` → `WorkGallery.tsx`
+- `src/components/gallery/StillsGallery.jsx` → `StillsGallery.tsx`
 - `src/components/gallery/CategoryGallery.jsx` → `CategoryGallery.tsx`
 
 ### Step 3: Convert gallery pages
-- `src/pages/work.jsx` → `work.tsx`
+- `src/pages/stills.jsx` → `stills.tsx`
 - `src/pages/photo/index.jsx` → `index.tsx`
 - Other photo pages as needed
 
