@@ -56,7 +56,6 @@ const CustomAppBar = () => {
     //   ],
     // },
     { name: 'Stills', href: '/stills' },
-    { name: 'Stills', href: '/work' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
